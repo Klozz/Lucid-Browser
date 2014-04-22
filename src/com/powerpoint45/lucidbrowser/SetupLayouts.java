@@ -27,6 +27,9 @@ public class SetupLayouts extends MainActivity{
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(Properties.ActionbarSize, Properties.ActionbarSize);
 		params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+		bar.setClickable(true);
+		bar.setFocusable(true); 
+		bar.setFocusableInTouchMode(true);
 		bar.setBackgroundColor(Properties.appProp.actionBarColor);
 		bar.getBackground().setAlpha(Properties.appProp.actionBarTransparency);
 		setUpActionBar();
