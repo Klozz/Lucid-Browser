@@ -363,7 +363,7 @@ public class MainActivity extends Activity {
         public void handleMessage(android.os.Message msg) {
             if (msg.what == 3) {//bookmark dialog
             	dialog = new Dialog(activity);
-				dialog.setTitle("Bookmarks");
+				dialog.setTitle(getResources().getString(R.string.bookmarks));
 				ListView lv = new ListView(activity);
 				lv.setAdapter(new BookmarksListAdapter());
 				dialog.setContentView(lv);
