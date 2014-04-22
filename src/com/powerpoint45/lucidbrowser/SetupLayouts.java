@@ -32,15 +32,7 @@ public class SetupLayouts extends MainActivity{
 		setUpActionBar();
 		actionBar.setCustomView(bar);
 		actionBar.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-		MainActivity.browserListView.setAdapter(MainActivity.browserListViewAdapter);
 		
-		if (Properties.sidebarProp.theme.compareTo("b")==0){
-			browserListView.setBackgroundColor(Color.argb(254,17, 17, 17));
-		}
-		else{
-			browserListView.setBackgroundColor(Color.argb(254,255, 255, 255));
-		}
-
 		LinearLayout LL = (LinearLayout) inflater.inflate(R.layout.web_sidebar_footer, null);
 		if (Properties.sidebarProp.theme.compareTo("w")==0){
 			((TextView) LL.findViewById(R.id.browser_open_bookmarks)).setTextColor(Color.BLACK);
@@ -50,6 +42,16 @@ public class SetupLayouts extends MainActivity{
 			((TextView) LL.findViewById(R.id.browser_settings)).setTextColor(Color.BLACK);
 		}
 		browserListView.addFooterView(LL);
+		MainActivity.browserListView.setAdapter(MainActivity.browserListViewAdapter);
+		
+		if (Properties.sidebarProp.theme.compareTo("b")==0){
+			browserListView.setBackgroundColor(Color.argb(254,17, 17, 17));
+		}
+		else{
+			browserListView.setBackgroundColor(Color.argb(254,255, 255, 255));
+		}
+
+		
 		browserListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
