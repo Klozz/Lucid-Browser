@@ -1,5 +1,7 @@
 package com.powerpoint45.lucidbrowser;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Vector;
 
@@ -19,6 +21,8 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +39,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BrowserHandler {
 	public static Activity           activity;
 	public static Context            ctxt;
 	public static SharedPreferences  mPrefs;
@@ -339,6 +344,63 @@ public class MainActivity extends Activity {
 	}
 	
 	
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+ 	    // Confirm the view is a webview
+ 	    if (v instanceof WebView) {
+ 	        WebView.HitTestResult result = ((WebView) v).getHitTestResult();
+
+ 	        if (result != null) {
+ 	            int type = result.getType();
+ 	            
+ 	           if (type == WebView.HitTestResult.SRC_ANCHOR_TYPE) {
+	                LinearLayout inflateView = ((LinearLayout) MainActivity.inflater.inflate(R.layout.web_menu_popup, null));
+	                
+	           if (type == WebView.HitTestResult.IMAGE_TYPE || type == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE){}
+	                else
+	                	inflateView.findViewById(R.id.saveimage).setVisibility(View.GONE);
+	                inflateView.setTag(result.getExtra());
+	                MainActivity.dialog = new Dialog(MainActivity.activity);
+					MainActivity.dialog.setTitle(R.string.wallpaper_instructions);
+					MainActivity.dialog.setContentView(inflateView);
+					MainActivity.dialog.show();
+	            }
+ 	           else if (type == WebView.HitTestResult.IMAGE_TYPE || type == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE) {
+ 	                LinearLayout inflateView = ((LinearLayout) MainActivity.inflater.inflate(R.layout.web_menu_popup, null));
+ 	                inflateView.setTag(result.getExtra());
+ 	                MainActivity.dialog = new Dialog(MainActivity.activity);
+					MainActivity.dialog.setTitle(R.string.wallpaper_instructions);
+					MainActivity.dialog.setContentView(inflateView);
+					MainActivity.dialog.show();
+ 	            }
+ 	           
+ 	        }
+ 	    }
+ 	}
+	
+	
+	//used in thew web dialog popup /res/layout/web_menu_popup.xml
+	public void webviewActionClicked(View v){
+		switch(v.getId()){
+		case R.id.saveimage:
+			dismissDialog();
+			try {
+				dlImage(new URL(((LinearLayout) v.getParent()).getTag().toString()));//meathod in handler
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+			break;
+		case R.id.openinnewtab:
+			dismissDialog();
+			webWindows.add(new CustomWebView(MainActivity.this,null));
+			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
+			webWindows.get(webWindows.size()-1).loadUrl(((LinearLayout) v.getParent()).getTag().toString());
+			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(webWindows.size()-1));
+			((EditText) bar.findViewById(R.id.browser_searchbar)).setText("...");
+			browserListViewAdapter.notifyDataSetChanged();
+			break;
+		}
+	}
+	
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		if (event.getKeyCode() == KeyEvent.KEYCODE_MENU) {
 			if (!mainView.isDrawerOpen(browserListView))
@@ -361,9 +423,13 @@ public class MainActivity extends Activity {
     
 	protected static Handler messageHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
+        	if (msg.what == 1) {//toast
+                String message = (String)msg.obj;
+                Toast.makeText(activity, message , Toast.LENGTH_LONG).show();
+            }
             if (msg.what == 3) {//bookmark dialog
             	dialog = new Dialog(activity);
-				dialog.setTitle("Bookmarks");
+				dialog.setTitle(R.string.bookmarks);
 				ListView lv = new ListView(activity);
 				lv.setAdapter(new BookmarksListAdapter());
 				dialog.setContentView(lv);
