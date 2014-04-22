@@ -6,15 +6,18 @@ import java.util.Vector;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -40,6 +43,7 @@ public class MainActivity extends Activity {
 	public static SharedPreferences  mGlobalPrefs;
 	static LayoutInflater            inflater;
 	public static InputMethodManager imm;
+	NotificationManager              mNotificationManager;
 	
 	public static RelativeLayout       bar;
 	public static ActionBar            actionBar;
@@ -78,8 +82,25 @@ public class MainActivity extends Activity {
 		
 		Properties.update_preferences();
 		SetupLayouts.setuplayouts();
+		
+		
 		if (Properties.appProp.fullscreen)
 			getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		
+		
+		if (Properties.appProp.systemPersistent){
+			NotificationCompat.Builder mBuilder =
+			        new NotificationCompat.Builder(this)
+					.setSmallIcon(R.drawable.ic_launcher)
+					.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher))
+					.setOngoing(true)
+					.setPriority(2)
+			        .setContentTitle(getResources().getString(R.string.app_name));
+			mNotificationManager =
+			    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+			mNotificationManager.notify(1, mBuilder.build());
+		}
+		
 		
 		contentView.addView(webLayout);
 		setContentView(mainView);
@@ -280,6 +301,31 @@ public class MainActivity extends Activity {
 			v.setVisibility(View.GONE);
 			break;
 		}
+	}
+	
+	@Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if ((intent.getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) !=
+                Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) {
+        	mainView.closeDrawers();
+        }
+        
+        if (intent.getAction()==Intent.ACTION_WEB_SEARCH ||intent.getAction()==Intent.ACTION_VIEW){
+        	if (intent.getAction()==Intent.ACTION_WEB_SEARCH ||intent.getAction()==Intent.ACTION_VIEW){
+            	if (!Properties.webpageProp.disable){
+    	        	if (webWindows.size()==0){
+    	    			webWindows.add(new CustomWebView(MainActivity.this,null));
+    	    			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
+    	    			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(0));
+    	    			((EditText) bar.findViewById(R.id.browser_searchbar)).setText("...");
+    	    		}
+    	    		CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
+    	    		WV.stopLoading();
+    	    		WV.loadUrl(intent.getDataString());
+            	}
+            }
+        }
 	}
 	
 	

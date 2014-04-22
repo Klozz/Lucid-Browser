@@ -27,14 +27,12 @@ public class Properties extends MainActivity {
 		static boolean disable;
 	}
 	public static class webpageProp{
-		static boolean dim;
 		public static boolean disable;
 		static boolean showBackdrop;
 	}
 
 	
 	public static void update_preferences(){
-		webpageProp.dim=MainActivity.mGlobalPrefs.getBoolean("dimwebpage"     ,true);
 		webpageProp.disable=MainActivity.mGlobalPrefs.getBoolean("hidebrowser",false);
 		webpageProp.showBackdrop=MainActivity.mGlobalPrefs.getBoolean("showbrowserbackdrop",false);
 	
@@ -47,14 +45,14 @@ public class Properties extends MainActivity {
 		
 		ActionbarSize= actionBarHeight;
 
-		appProp.actionBarTransparency=MainActivity.mGlobalPrefs.getInt("actionbartransparency",60);
+		appProp.actionBarTransparency=MainActivity.mGlobalPrefs.getInt("actionbartransparency",90);
 		appProp.actionBarTransparency = (255*appProp.actionBarTransparency)/100;
 		appProp.fullscreen=MainActivity.mGlobalPrefs.getBoolean       ("fullscreen"           ,false);
 		appProp.transparentNav=MainActivity.mGlobalPrefs.getBoolean   ("transparentnav"       ,true);
 		appProp.TransparentStatus=MainActivity.mGlobalPrefs.getBoolean("transparentstatus"    ,true);
 		appProp.systemPersistent=MainActivity.mGlobalPrefs.getBoolean ("systempersistent"      ,false);
-		appProp.primaryIntColor=MainActivity.mGlobalPrefs.getInt      ("textcolor",Color.WHITE);
-		appProp.actionBarColor=MainActivity.mGlobalPrefs.getInt       ("actionbarcolor",Color.BLACK);
+		appProp.primaryIntColor=MainActivity.mGlobalPrefs.getInt      ("textcolor",Color.BLACK);
+		appProp.actionBarColor=MainActivity.mGlobalPrefs.getInt       ("actionbarcolor",Color.WHITE);
 		
 		sidebarProp.SidebarIconSize=numtodp(MainActivity.mGlobalPrefs.getInt    ("sidebariconsize"  ,80));
 		sidebarProp.SidebarIconPadding=numtodp(MainActivity.mGlobalPrefs.getInt ("sidebariconpadding",10));

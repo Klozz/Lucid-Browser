@@ -30,20 +30,20 @@
             android:title="@string/actionbarcolortitle"
             android:key="actionbarcolor"
             android:summary="@string/actionbarcolorsummary"
-            android:defaultValue="@android:color/black" />
+            android:defaultValue="@android:color/white" />
             
         <preferences.ColorPickerPreference
             android:title="@string/textcolortitle"
             android:key="textcolor"
             android:summary="@string/textcolorsummary"
-            android:defaultValue="@android:color/white" />
+            android:defaultValue="@android:color/black" />
         
         <preferences.SeekBarPreference
             android:max="100"
             android:title="@string/actionbartransparencytitle"
             android:key="actionbartransparency"
             android:summary="@string/actionbartransparencysummary"
-            android:defaultValue="60"
+            android:defaultValue="90"
             custom:min="0" />
     </PreferenceCategory>
     
