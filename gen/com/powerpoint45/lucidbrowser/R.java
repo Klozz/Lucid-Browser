@@ -1225,12 +1225,13 @@ containing a value of this type.
         public static final int ic_settings_applications=0x7f020076;
         public static final int ic_settings_home=0x7f020077;
         public static final int ic_settings_notifications=0x7f020078;
-        public static final int no_network=0x7f020079;
-        public static final int pro=0x7f02007a;
-        public static final int round_edges_less=0x7f02007b;
-        public static final int web_logo=0x7f02007c;
-        public static final int web_progress=0x7f02007d;
-        public static final int widgethandle=0x7f02007e;
+        public static final int ic_stat_location_web_site=0x7f020079;
+        public static final int no_network=0x7f02007a;
+        public static final int pro=0x7f02007b;
+        public static final int round_edges_less=0x7f02007c;
+        public static final int web_logo=0x7f02007d;
+        public static final int web_progress=0x7f02007e;
+        public static final int widgethandle=0x7f02007f;
     }
     public static final class id {
         public static final int APPWIDGET_HOST_ID=0x7f06001f;

@@ -9,6 +9,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -52,7 +53,6 @@ public class MainActivity extends BrowserHandler {
 	
 	public static RelativeLayout       bar;
 	public static ActionBar            actionBar;
-	public static SystemBarTintManager tintManager;
 	static FrameLayout                 contentView;
 	public static DrawerLayout         mainView; 
 	
@@ -94,11 +94,15 @@ public class MainActivity extends BrowserHandler {
 		
 		
 		if (Properties.appProp.systemPersistent){
+			Intent notificationIntent = new Intent(this, MainActivity.class);  
+			PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,   
+			            PendingIntent.FLAG_UPDATE_CURRENT);
 			NotificationCompat.Builder mBuilder =
 			        new NotificationCompat.Builder(this)
-					.setSmallIcon(R.drawable.ic_launcher)
+					.setSmallIcon(R.drawable.ic_stat_location_web_site)
 					.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher))
 					.setOngoing(true)
+					.setContentIntent(contentIntent)
 					.setPriority(2)
 			        .setContentTitle(getResources().getString(R.string.app_name));
 			mNotificationManager =
@@ -246,6 +250,8 @@ public class MainActivity extends BrowserHandler {
 	    	 break;
 	    	 
 		case R.id.browser_settings:
+			if (mNotificationManager!=null)
+				mNotificationManager.cancel(1);
 			startActivity(new Intent(ctxt,SettingsV2.class));
 			android.os.Process.killProcess(android.os.Process.myPid());
 			break;

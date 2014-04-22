@@ -48,10 +48,10 @@ public class SetupLayouts extends MainActivity{
 		MainActivity.browserListView.setAdapter(MainActivity.browserListViewAdapter);
 		
 		if (Properties.sidebarProp.theme.compareTo("b")==0){
-			browserListView.setBackgroundColor(Color.argb(254,17, 17, 17));
+			browserListView.setBackgroundColor(Color.argb(Properties.sidebarProp.transparency,17, 17, 17));
 		}
 		else{
-			browserListView.setBackgroundColor(Color.argb(254,255, 255, 255));
+			browserListView.setBackgroundColor(Color.argb(Properties.sidebarProp.transparency,255, 255, 255));
 		}
 
 		
