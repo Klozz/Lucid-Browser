@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources> 
+    <string name="search">Rechercher</string>
+
+    <string name="trans_zoomout">Dézoom</string>
+    <string name="trans_pagestack">Pile</string>
+    <string name="trans_flipin">Flip In</string>
+    <string name="trans_doorclose">Fermeture de porte</string>
+    <string name="trans_tiltin">Tilt in</string>
+    <string name="trans_spinin">Spin In</string>
+    <string name="trans_stackin">Stack In</string>
+    <string name="trans_coverflow">Coverflow</string>
+    <string name="trans_flyin">Fly in</string>
+    <string name="trans_cubezoom">Cube Zoom</string>
+    <string name="trans_none">Aucun</string>
+
+    <string name="orientation_auto">Rotation auto</string>
+    <string name="orientation_portrait">Portrait</string>
+    <string name="orientation_landscape">Paysage</string>
+
+    <string name="sidebar_dark">Sombre</string>
+    <string name="sidebar_light">Clair</string>
+
+    <string name="menu_settings">"Paramètres"</string>
+    <string name="wallpaper_instructions">"Sélectionner l'action"</string>
+
+    <string name="system_settings">"Paramètres système"</string>
+    <string name="settings">"Paramètres"</string>
+    <string name="wallpaper">"Fond d'écran"</string>
+    <string name="lock_page">Verrouiller la page</string>
+    <string name="unlock_page">Déverrouiller cette page</string>
+    
+    <string name="appInfo">"Infos de l'app"</string>
+    <string name="uninstall">"Désinstaller"</string>
+    <string name="addToHome">Ajouter au Home</string>
+    <string name="addToFavorites">"Ajouter aux favoris"</string>
+    <string name="removeFromFavorites">Retirer des favoris</string>
+    <string name="close">"Fermer"</string>
+    
+    <string name="home_widgets">"Widgets"</string>
+    <string name="home_wallpaper">"Fonds d'écran"</string>
+    <string name="home_settings">"Paramètres de Lucid Launcher"</string>
+    
+    <string name="saveimage">"Enregistrer l'image"</string>
+    
+    <string name="mainsettingstitle">"Paramètres principaux"</string>
+    <string name="sidebarsettingstitle">"Paramètres barre latérale"</string>
+    <string name="drawersettingstitle">Paramètres du drawer</string>
+    <string name="homesettingstitle">Paramètres de la page d\'accueil</string>
+    <string name="websettingstitle">Paramètres du navigateur</string>
+    <string name="advancedsettingstitle">"Avancé"</string>
+    
+    <string name="pagetransformationtitle">"Transition des pages"</string>
+    <string name="pagetransformationsummary">"Régler l'animation de transition des pages"</string>
+
+    <string name="textcolortitle">"Couleur du texte de la barre d'action"</string>
+    <string name="textcolorsummary">"Définit la couleur du texte pour la barre en haut de l'écran"</string>
+    
+    <string name="actionbarcolortitle">"ActionBar Couleur"</string>
+    <string name="actionbarcolorsummary">"Définir la couleur pour la barre en haut de l'écran"</string>
+    
+    <string name="actionbartransparencytitle">"Transparence de la barre d'action"</string>
+    <string name="actionbartransparencysummary">"Définit la transparence de la barre en haut de l'écran"</string>
+    
+    <string name="pagetransparencytitle">"Transparence de la page"</string>
+    <string name="pagetransparencysummary">"Définit la transparence de toutes les pages"</string>
+    
+    <string name="fullscreentitle">"Activer / Désactiver le plein écran"</string>
+    <string name="fullscreensummary">"Affiche ou cache la barre d'état"</string>
+    
+    <string name="transparentnavtitle">"Activer / Désactiver Transparent barre de navigation"</string>
+    <string name="transparentnavsummary">"Cela met la barre de navigation transparente"</string>
+    
+    <string name="transparentstatustitle">"Activer / Désactiver Transparent Barre d'état"</string>
+    <string name="transparentstatussummary">"Cela met la barre d'état transparent"</string>
+    
+    <string name="sidebariconsizetitle">"Taille des Icônes de la barre latérale"</string>
+    <string name="sidebariconsizesummary">"Définit la taille des l'icônes dans la barre latérale"</string>
+    <string name="sidebariconsizemessage">"Sélectionner la taille des icônes :"</string>
+    
+    <string name="sidebariconpaddingtitle">"Espacement de la barre latérale"</string>
+    <string name="sidebariconpaddingsummary">"Définit le remplissage autour des icônes"</string>
+    <string name="sidebariconpaddingmessage">"Sélectionner l'espacement des icônes:"</string>
+    
+    <string name="numcolumnstitle">"Nombre de colonnes"</string>
+    <string name="numcolumnssummary">"Définit le nombre de colonnes du tiroir d'applications"</string>
+    <string name="numcolumnsmessage">"Sélectionner le nombre de colonnes:"</string>
+    
+    <string name="showlabelstitle">"Afficher / Masquer le nom des applications"</string>
+    <string name="showlabelssummary">"Affiche / Masque le texte sous chacune des icônes"</string>
+    
+    <string name="drawerlabelcolortitle">"Sélectionner la couleur"</string>
+    <string name="drawerlabelcolorsummary">"Définit la couleur du texte pour sous les icônes d'applications"</string>
+    
+    <string name="iconsizetitle">"Taille des icônes"</string>
+    <string name="iconsizesummary">"Définit la taille des l'icônes dans le tiroir d'applications"</string>
+    <string name="iconsizemessage">"Sélectionner la taille des icônes :"</string>
+    
+    <string name="iconpaddingtitle">"Espacement des icônes"</string>
+    <string name="iconpaddingsummary">"Définit le remplissage autour des icônes"</string>
+    <string name="iconpaddingmessage">"Sélectionner l'spacement:"</string>
+    
+    <string name="verticalspacingtitle">"Espacement vertical"</string>
+    <string name="verticalspacingsummary">"Définit l'espacement vertical dans le tiroir d'applications"</string>
+    <string name="verticalspacingmessage">"Sélectionner l'espacement vertical:"</string>
+    
+    
+    <string name="gridsnaptitle">"Placement des Apps sur la grille"</string>
+    <string name="gridsnapsummary">"Active / Désactive le placement libre des icônes"</string>
+    
+    <string name="widgetgridsnaptitle">"Placement des Widgets sur la grille"</string>
+    <string name="widgetgridsnapsummary">"Active / Désactive le placement libre des icônes"</string>
+    
+    <string name="homelandcolstitle">"Nombre de colonnes (Paysage)"</string>
+    <string name="homelandcolssummary">"Définit le nombre de colonnes en mode paysage"</string>
+    <string name="homelandcolsmessage">"Sélectionner le nombre de colonnes:"</string>
+    
+    <string name="homelandrowstitle">"Nombre de lignes (Paysage)"</string>
+    <string name="homelandrowssummary">"Définit le nombre de lignes en mode paysage"</string>
+    <string name="homelandrowsmessage">"Sélectionner le nombre de lignes:"</string>
+    
+    <string name="homeportcolstitle">"Nombre de colonnes (Portrait)"</string>
+    <string name="homeportcolssummary">"Définit le nombre de colonnes en mode portrait"</string>
+    <string name="homeportcolsmessage">"Sélectionner le nombre de colonnes:"</string>
+    
+    <string name="homeportrowstitle">"Nombre de lignes (Portrait)"</string>
+    <string name="homeportrowssummary">"Définit le nombre de lignes en mode portrait"</string>
+    <string name="homeportrowsmessage">"Sélectionner l'espacement vertical:"</string>
+    
+    <string name="homeiconsizetitle">"Taille des icônes"</string>
+    <string name="homeiconsizesummary">"Définit la taille des icônes sur l'écran d'accueil"</string>
+    <string name="homeiconsizemessage">"Sélectionner la taille:"</string>
+    
+    
+    <string name="resettitle">"Restaurer les paramètres par défaut"</string>
+    <string name="resetsummary">"Réinitialiser tous les réglages à leur valeur par défaut"</string>
+        
+
+<string name="orientationtitle">Sens du Lanceur d\'application</string>
+
+<string name="orientationsummary">Définir le sens du lanceur d\'applications</string>
+
+<string name="bookmarks">Marque-pages</string>
+
+<string name="refresh">Rafraichir</string>
+
+<string name="stop">Stop</string>
+
+<string name="home">Home</string>
+
+<string name="set_home">Définir comme page d\'accueil</string>
+
+<string name="dimwebpagetitle">Ombre Navigateur</string>
+
+<string name="dimwebpagesummary">Ombre barre de recherche du navigateur </string>
+
+<string name="lock_desktop">Verrouiller le bureau</string>
+
+<string name="unlock_desktop">Déverrouiller le bureau</string>
+
+<string name="searchtexttitle">Personnaliser le texte de recherche</string>
+
+<string name="searchtextsummary">Définir le message dans la barre de recherche</string>
+
+<string name="searchtextmessage">Message personnalisé:</string>
+
+
+<string name="sidebarthemetitle">Theme de la Barre Latérale</string>
+
+<string name="sidebarthemesummary">Définir le theme de la barre latérale</string>
+
+<string name="sidebarthememessage">Choisir un theme:</string>
+
+<string name="homenumpagestitle">Nombre de Pages d\'accueil</string>
+
+<string name="homenumpagessummary">Définir le nombre de pages d\'accueil</string>
+
+<string name="homenumpagesmessage">Choisir le nombre de pages d\'accueil:</string>
+
+<string name="openinnewtab">Ouvrir dans un nouvel onglet</string>
+    
+<string name="homeindicatortitle">Indicateurs de page</string>
+<string name="homeindicatorsummary">Activer /Désactiver les indicateurs de page</string>
+    
+<string name="backuptitle">"Sauvegarde"</string>
+<string name="backupsummary">"Sauvegarde tous vos réglages et configuration"</string>
+    
+<string name="restoretitle">"Restaurer"</string>
+<string name="restoresummary">"Restaurer votre sauvegarde"</string>
+
+<string name="sidebarhidelabeltitle">Noms des Applis</string>
+<string name="sidebarhidelabelsummary">Afficher ou cacher les noms des applis sous les icônes</string>
+
+<string name="sidebartransparencytitle">Transparence de la Sidebar</string>
+<string name="sidebartransparencysummary">régler la transparence de la sidebar</string>
+
+<string name="share">Partager</string>
+<string name="icon_theme">Thème des icônes</string>
+<string name="gadget_error_text">Problème lors du chgt du widget</string>
+
+<string name="zoompercenttitle">Pourcentage de Zoom Out</string>
+<string name="zoompercentsummary">Régler le pourcentage de zoom du fonds</string>
+    
+<string name="disablebrowsertitle">Désactiver</string>
+<string name="disablebrowsersummary">Selectionner pour désactiver le browser</string>
+    
+<string name="hidesearchbartitle">Cacher barre de recherche</string>
+<string name="hidesearchbarsummary">Cacher barre sur écran principal</string>
+
+    <string name="hide_apps">Applis  cachées</string>
+    <string name="hide_appssummary">Cacher apps du drawer</string>
+
+    <string name="enablefloatoptiontitle">Autoriser Apps Flottantes</string>
+    <string name="enablefloatoptionsummary">Avec une ROM qui le supporte vous pouvez avoir une app flottante(Appui long sur app pour option)</string>
+    <string name="floatapp">App Flottante</string>
+ <string name="showbackgroundonurlbartitle">Ajouter fonds sur barre URL</string>
+    <string name="showbackgroundonurlbarsummary">Ajouter un fonds blanc sur la barre URL</string>
+
+<string name="browsercompactmodetitle">Activer Mode Compact</string>
+<string name="browsercompactmodesummary">Layout pour petits écrans</string>
+
+ <string name="defaulthomepagetitle">Page Home par défaut</string>
+ <string name="defaulthomepagesummary">définir la page par défaut</string>
+
+<string name="bottompaddingporttitle">Enlever le remplissage du bas (Portrait)</string>
+<string name="bottompaddingportsummary">Si besoin , cela supprimera le remplissage</string>
+
+<string name="bottompaddinglandtitle">Enlever le remplissage du bas (Paysage)</string>
+<string name="bottompaddinglandsummary">Si besoin , cela supprimera le remplissage du bas</string>
+
+ <string name="clearhistorytitle">Effacer l\'Historique</string>
+<string name="clearcachetitle">Effacer le Cache</string>
+<string name="clearcookiestitle">Effacer les Cookies</string>
+
+
+
+<string name="shortcutlabelstitle">Titre des Raccourcis</string>
+<string name="shortcutlabelssummary">Montrer ou cacher les titres des Raccourcis</string>
+
+<string name="addshortcut">Ajouter Raccourci</string>
+<string name="chooseshortcut">Choisir Raccourci</string>
+
+<string name="upgrade">Mettez à jour vers Lucid Launcher Pro pour plus de fonctions</string>
+
+<string name="persistenttitle">Garder en memoire</string>
+<string name="persistentsummary">Garder le launcher en mémoire. S\'affiche en notification</string>
+
+<string name="confirmunlock">Êtes vous sûr de déverrouiller?</string>
+
+<string name="yes">Oui</string>
+<string name="no">Non</string>
+
+<string name="horizontalscrolltitle">Défilement Horizontal du fonds d\'écran</string>
+<string name="horizontalscrollsummary">Activer ou désactiver défilement horizontal</string>
+
+<string name="verticalscrolltitle">Defilement Vertical du fonds d\'écran</string>
+<string name="verticalscrollsummary">Activer/Désactiver défilement vertical</string>
+
+<string name="searchpackagestitle">Recherche nom des packages</string>
+<string name="searchpackagessummary">Activer/Désactiver recherche</string>
+
+<string name="complete">action terminée</string>
+<string name="failed">action échouée</string>
+<string name="nobackup">pas de sauvegarde trouvée</string>
+
+<string name="widgetsetupfail">erreur à l\'ouverture du paramétrage du widget</string>
+<string name="savedimage">image sauvegardée sur</string>
+<string name="wallpaper_settings">Gestion du fond d\'écran</string>
+
+<string name="adjustwallpapertitle">Ajustement du fond d\'écran</string>
+<string name="adjustwallpapersummary">Adjustement à la taille de l\'écran</string>
+
+    <string name="cat_title_appearance">Apparence</string>
+    <string name="cat_title_actionbar">Barre d\'action</string>
+    <string name="cat_title_tools">Outils</string>
+    <string name="cat_title_icons">Icônes</string>
+    <string name="cat_title_other">Autres</string>
+    <string name="cat_title_layout">Layout</string>
+    <string name="cat_title_setup">Paramètres</string>
+
+<string name="disablesidebarsummary">Désactiver la barre des favoris</string>
+
+    <string name="cat_title_gestures">Gestes</string>
+
+<string name="gesturedowntitle">Glisser vers le Bas</string>
+<string name="gesturedownsummary">Sélectionner une action</string>
+
+<string name="gestureuptitle">Glisser Haut</string>
+<string name="gestureupsummary">Sélectionner une action </string>
+
+<string name="gesturelefttitle">Glisser vers la Gauche</string>
+<string name="gestureleftsummary">Sélectionner une action pour glisser gauche (le browser doit être désactivé)</string>
+
+<string name="action_togglestatusbar">Activer/Désactiver la barre de  Notification</string>
+<string name="action_openapp">Lancer l\' Appli</string>
+
+<string name="action_openapp_animationnormal">Animation au lancement normal d\'une appli</string>
+<string name="action_openapp_animationslide">Animation sur lancement par slide</string>
+
+
+    <string name="alert_leftswipegesture">Glisser gauche paramétré. Désactiver le browser pour l\'utiliser</string>
+
+<string name="gesturedoubletaptitle">Double Tap</string>
+<string name="gesturedoubletapsummary">Selectionner une action pour double tap sur le Home</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</resources>

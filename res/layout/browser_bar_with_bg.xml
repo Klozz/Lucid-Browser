@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:gravity="center" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:background="@drawable/round_edges_less"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/browser_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/button"
+                android:onClick="browserActionClicked"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:src="@drawable/back" />
+
+            <ImageButton
+                android:id="@+id/browser_forward"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/button"
+                android:onClick="browserActionClicked"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:src="@drawable/forward" />
+
+            <ImageButton
+                android:id="@+id/browser_refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/button"
+                android:onClick="browserActionClicked"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:src="@drawable/btn_toolbar_reload_normal" />
+
+			<RelativeLayout
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			     >
+
+            <EditText
+                android:id="@+id/browser_searchbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/browser_bookmark"
+                android:background="@android:color/transparent"
+                android:textCursorDrawable="@null"
+                android:ems="10"
+                android:layout_centerVertical="true"
+                android:fontFamily="sans-serif-light"
+                android:imeOptions="actionGo"
+                android:inputType="textNoSuggestions"
+                android:longClickable="true"
+                android:selectAllOnFocus="true"
+                android:singleLine="true"
+                android:textColor="@android:color/black" />
+
+            <ImageButton
+                android:id="@+id/browser_bookmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="browserActionClicked"
+                android:background="@drawable/button"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/btn_omnibox_bookmark_normal" />
+            
+            </RelativeLayout>
+        </LinearLayout>
+	</LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" xmlns:custom="http://schemas.android.com/apk/res-auto">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <PreferenceScreen
+        android:title="@string/mainsettingstitle"
+        android:key="mainsettings">
+        
+    <PreferenceCategory android:title="@string/cat_title_appearance">
+        <CheckBoxPreference
+            android:title="@string/fullscreentitle"
+            android:key="fullscreen"
+            android:summary="@string/fullscreensummary"
+            android:defaultValue="false" />
+            
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="@string/cat_title_actionbar">
+        <preferences.ColorPickerPreference
+            android:title="@string/actionbarcolortitle"
+            android:key="actionbarcolor"
+            android:summary="@string/actionbarcolorsummary"
+            android:defaultValue="@android:color/black" />
+            
+        <preferences.ColorPickerPreference
+            android:title="@string/textcolortitle"
+            android:key="textcolor"
+            android:summary="@string/textcolorsummary"
+            android:defaultValue="@android:color/white" />
+        
+        <preferences.SeekBarPreference
+            android:max="100"
+            android:title="@string/actionbartransparencytitle"
+            android:key="actionbartransparency"
+            android:summary="@string/actionbartransparencysummary"
+            android:defaultValue="60"
+            custom:min="0" />
+    </PreferenceCategory>
+    
+    </PreferenceScreen>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <PreferenceScreen android:title="@string/sidebarsettingstitle">
+    
+    <PreferenceCategory android:title="@string/cat_title_appearance">
+        
+        <ListPreference
+            android:entries="@array/sidebarthemes"
+            android:title="@string/sidebarthemetitle"
+            android:key="sidebartheme"
+            android:summary="@string/sidebarthemesummary"
+            android:defaultValue="b"
+            android:entryValues="@array/sidebartheme_values"
+           />
+            
+        <preferences.SeekBarPreference
+            android:max="100"
+            android:title="@string/sidebartransparencytitle"
+            android:key="sidebartransparency"
+            android:summary="@string/sidebartransparencysummary"
+            android:defaultValue="100"
+            custom:min="0" 
+           />
+
+    </PreferenceCategory>
+    
+        
+    </PreferenceScreen>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    <PreferenceScreen android:title="@string/websettingstitle">
+    
+    <PreferenceCategory android:title="@string/cat_title_appearance">
+        
+        
+        <CheckBoxPreference
+            android:title="@string/showbackgroundonurlbartitle"
+            android:key="showbrowserbackdrop"
+            android:summary="@string/showbackgroundonurlbarsummary"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="@string/cat_title_tools">
+        <Preference
+            android:title="@string/clearhistorytitle"
+            android:key="clearbrowserhistory" />
+        
+        <Preference
+            android:title="@string/clearcachetitle"
+            android:key="clearbrowsercache" />
+        
+        <Preference
+            android:title="@string/clearcookiestitle"
+            android:key="clearbrowsercookies" />
+    </PreferenceCategory>
+        
+    </PreferenceScreen>
+    
+    
+
+    
+    
+    <PreferenceScreen android:title="@string/advancedsettingstitle">
+    
+    <PreferenceCategory android:title="@string/cat_title_setup">
+        <Preference
+            android:title="@string/resettitle"
+            android:key="reset"
+            android:summary="@string/resetsummary" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="@string/cat_title_other">           
+        <CheckBoxPreference
+            android:title="@string/persistenttitle"
+            android:key="systempersistent"
+            android:summary="@string/persistentsummary"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+        
+    </PreferenceScreen>
+    
+    
+    
+    
+    <Preference 
+        android:title="@string/pro_name"
+        android:key="pro"
+        android:icon="@drawable/pro"
+	>
+        <intent
+		 android:action="android.intent.action.VIEW"
+		 android:data="http://play.google.com/store/apps/details?id=com.powerpoint45.launcherpro"
+		 />
+    </Preference>
+    
+    
+    
+    
+    
+</PreferenceScreen>

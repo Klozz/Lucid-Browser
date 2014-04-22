@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources> 
+    
+    <string name="trans_zoomout">Zoom-Out</string>
+    <string name="trans_pagestack">Página Stack</string>
+    <string name="trans_flipin">Voltear En</string>
+    <string name="trans_doorclose">Cierre la puerta</string>
+    <string name="trans_tiltin">Incline en</string>
+    <string name="trans_spinin">Giran en</string>
+    <string name="trans_stackin">Apilar En</string>
+    <string name="trans_coverflow">Coverflow</string>
+    <string name="trans_flyin">Volar a</string>
+    <string name="trans_cubezoom">Cubo</string>
+    <string name="trans_none">Ninguno</string>
+
+    <string name="orientation_auto">Autorrotación</string>
+    <string name="orientation_portrait">Vertical</string>
+    <string name="orientation_landscape">Horizontal</string>
+
+    <string name="sidebar_dark">Oscuro</string>
+    <string name="sidebar_light">Claro</string>
+
+    <string name="menu_settings">"Configuración"</string>
+    <string name="wallpaper_instructions">"Seleccione una acción"</string>
+    <string name="search">"Búsqueda"</string>
+    
+    <string name="system_settings">"Ajustes del Sistema"</string>
+    <string name="settings">"Ajustes"</string>
+    <string name="wallpaper">"Cambiar imagen de fondo"</string>
+    <string name="lock_desktop">"Bloquear escritorio"</string>
+    <string name="unlock_desktop">"Desbloquear Escritorio"</string>
+    <string name="lock_page">"Bloqueo de página en el lugar"</string>
+    <string name="unlock_page">"Desbloquea esta página"</string>
+   
+    <string name="bookmarks">"Marcadores"</string>
+    <string name="refresh">"Actualizar"</string>
+    <string name="stop">"Deténgase"</string>
+    <string name="home">"Página Principal"</string>
+    <string name="set_home">"Página de Inicio"</string>
+    
+    <string name="appInfo">"Info App"</string>
+    <string name="uninstall">"Desinstalar"</string>
+    <string name="addToHome">"Añadir a la inicio"</string>
+    <string name="addToFavorites">"Agregar a Favoritos"</string>
+    <string name="removeFromFavorites">"Eliminar de mis favoritos"</string>
+    <string name="close">"Cerrar"</string>
+    
+    <string name="home_widgets">"Añadir Widget"</string>
+    <string name="home_wallpaper">"Cambiar imagen de fondo"</string>
+    <string name="home_settings">"Configuración del Lanzador Lucid"</string>
+    
+    <string name="saveimage">"Guardar imagen "</string>
+    <string name="openinnewtab">"Abrir en una nueva pestaña"</string>
+    
+    <string name="mainsettingstitle">"Ajustes"</string>
+    <string name="sidebarsettingstitle">"Configuración de la barra lateral"</string>
+    <string name="drawersettingstitle">"Configuración de la aplicación de cajones"</string>
+    <string name="homesettingstitle">"Configuración de página Inicio"</string>
+    <string name="advancedsettingstitle">"Configuración avanzada"</string>
+    <string name="websettingstitle">"Configuración del navegador"</string>
+    
+    <string name="pagetransformationtitle">"Scroll Animación"</string>
+    <string name="pagetransformationsummary">"Establezca la animación página de desplazamiento"</string>
+
+    <string name="actionbarcolortitle">"Barra de acciones en color"</string>
+    <string name="actionbarcolorsummary">"Ajuste el color de la actionbar"</string>
+    
+    <string name="textcolortitle">"Barra de acciones Color de Texto"</string>
+    <string name="textcolorsummary">"Ajuste el color del texto en la Barra de acciones"</string>
+    
+    <string name="actionbartransparencytitle">"Barra de acciones Transparencia"</string>
+    <string name="actionbartransparencysummary">"Ajuste la transparencia de la Barra de acciones"</string>
+    
+    <string name="pagetransparencytitle">"Página de Transparencia"</string>
+    <string name="pagetransparencysummary">"Ajuste la transparencia de la App y la página del navegador"</string>
+    
+    <string name="orientationtitle">"Lanzador de Orientación"</string>
+    <string name="orientationsummary">"Ajuste la orientación del Lanzador"</string>
+    
+    <string name="fullscreentitle">"Pantalla completa"</string>
+    <string name="fullscreensummary">"Mostrar u ocultar la barra de estado"</string>
+    
+    <string name="transparentnavtitle">"Transparente barra de navegación"</string>
+    <string name="transparentnavsummary">"Activar o desactivar transparente Barra de Navegación"</string>
+    
+    <string name="transparentstatustitle">"Estado Transparente Bar"</string>
+    <string name="transparentstatussummary">"Activar o desactivar Estado transparente Bar"</string>
+    
+    <string name="searchtexttitle">"Custom Search Text"</string>
+    <string name="searchtextsummary">"Ajuste el texto de búsqueda en la Barra de acciones"</string>
+    <string name="searchtextmessage">"Introduzca un Custom Search Texto:"</string>
+    
+    <string name="sidebarthemetitle">"Tema Sidebar"</string>
+    <string name="sidebarthemesummary">"Ajuste el Tema Sidebar"</string>
+    <string name="sidebarthememessage">"Seleccione un tema:"</string>
+    
+    <string name="sidebariconsizetitle">"Sidebar Tamaño de icono"</string>
+    <string name="sidebariconsizesummary">"Ajuste el tamaño de los iconos en la barra lateral"</string>
+    <string name="sidebariconsizemessage">"Seleccione el tamaño de los iconos:"</string>
+    
+    <string name="sidebariconpaddingtitle">"Icono Relleno Sidebar"</string>
+    <string name="sidebariconpaddingsummary">"Establecer el relleno alrededor de Sidebar Icons"</string>
+    <string name="sidebariconpaddingmessage">"Seleccione el Relleno Sidebar icono:"</string>
+    
+    
+    
+    <string name="numcolumnstitle">"Número de columnas"</string>
+    <string name="numcolumnssummary">"Establecer el número de columnas en el cajón de aplicación"</string>
+    <string name="numcolumnsmessage">"Seleccione el Número de columnas:"</string>
+    
+    <string name="showlabelstitle">"Icon App etiquetas"</string>
+    <string name="showlabelssummary">"Mostrar u ocultar las etiquetas debajo de cada icono"</string>
+
+    <string name="drawerlabelcolortitle">"Etiqueta de color"</string>
+    <string name="drawerlabelcolorsummary">"Ajuste el color del texto para las etiquetas de icono"</string>
+    
+    <string name="iconsizetitle">"Tamaño del icono"</string>
+    <string name="iconsizesummary">"Ajuste el tamaño de los iconos en el cajón de aplicación"</string>
+    <string name="iconsizemessage">"Seleccione el tamaño de los iconos:"</string>
+    
+    <string name="iconpaddingtitle">"Icono Relleno"</string>
+    <string name="iconpaddingsummary">"Establecer el relleno alrededor de cada icono"</string>
+    <string name="iconpaddingmessage">"Seleccione el relleno del icono:"</string>
+    
+    <string name="verticalspacingtitle">"Separación Vertical"</string>
+    <string name="verticalspacingsummary">"Establece el espacio vertical en el cajón de aplicación"</string>
+    <string name="verticalspacingmessage">"Seleccione la Separación Vertical:"</string>
+
+    <string name="homenumpagestitle">"Número de Páginas de Inicio"</string>
+    <string name="homenumpagessummary">"Establecer el número de páginas de inicio"</string>
+    <string name="homenumpagesmessage">"Seleccione el Número de Páginas de inicio:"</string>
+    
+    <string name="gridsnaptitle">"Aplicación a Red"</string>
+    <string name="gridsnapsummary">"Activar o desactivar Ajustar a la cuadrícula"</string>
+    
+    <string name="widgetgridsnaptitle">"Widget de ajuste de cuadrícula"</string>
+    <string name="widgetgridsnapsummary">"Activar o desactivar Ajustar a la cuadrícula"</string>
+    
+    <string name="homelandcolstitle">"Número de columnas (Paisaje)"</string>
+    <string name="homelandcolssummary">"Establecer el número de columnas en modo horizontal"</string>
+    <string name="homelandcolsmessage">"Seleccionar el número de columnas en el modo horizontal:"</string>
+    
+    <string name="homelandrowstitle">"Número de filas (Paisaje)"</string>
+    <string name="homelandrowssummary">"Establecer el número de filas en modo horizontal"</string>
+    <string name="homelandrowsmessage">"Seleccione el número de filas en modo horizontal:"</string>
+    
+    <string name="homeportcolstitle">"Número de columnas (Retrato)"</string>
+    <string name="homeportcolssummary">"Establecer el número de columnas en el modo de retrato"</string>
+    <string name="homeportcolsmessage">"Seleccionar el número de columnas en el modo de retrato:"</string>
+    
+    <string name="homeportrowstitle">"Número de filas (Retrato)"</string>
+    <string name="homeportrowssummary">"Establecer el número de filas en modo vertical"</string>
+    <string name="homeportrowsmessage">"Seleccione el número de filas en el modo de retrato:"</string>
+    
+    <string name="homeiconsizetitle">"Tamaño del icono"</string>
+    <string name="homeiconsizesummary">"Ajuste el tamaño de los iconos en la página principal"</string>
+    <string name="homeiconsizemessage">"Seleccione el tamaño de los iconos:"</string>
+    
+    <string name="homeindicatortitle">"Indicadores Página"</string>
+    <string name="homeindicatorsummary">"Activar o desactivar los indicadores Página"</string>
+    
+    <string name="dimwebpagetitle">"Browser Dim Página"</string>
+    <string name="dimwebpagesummary">"Atenúa el fondo en la página del navegador"</string>
+    
+    <string name="resettitle">"Restaurar ajustes por defecto"</string>
+    <string name="resetsummary">"Restablecer todos los ajustes a sus valores por defecto"</string>
+    
+    <string name="backuptitle">"Reserva"</string>
+<string name="backupsummary">"Copia de seguridad de sus datos y configuración"</string>
+    
+<string name="restoretitle">"Restaurar"</string>
+<string name="restoresummary">"Restore your backup"</string>
+
+</resources>

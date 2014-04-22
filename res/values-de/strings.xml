@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="trans_zoomout">Herauszoomen</string>
+    <string name="trans_pagestack">Kartenstapel</string>
+    <string name="trans_flipin">Umblättern</string>
+    <string name="trans_doorclose">Schließende Tür</string>
+    <string name="trans_tiltin">Hereinkippen</string>
+    <string name="trans_spinin">Hereindrehen</string>
+    <string name="trans_stackin">Windmühle</string>
+    <string name="trans_coverflow">Coverflow</string>
+    <string name="trans_flyin">Hereinfliegen</string>
+    <string name="trans_cubezoom">Würfel</string>
+    <string name="trans_none">Nichts</string>
+
+    <string name="orientation_auto">Autom. Drehen</string>
+    <string name="orientation_portrait">Hochformat</string>
+    <string name="orientation_landscape">Querformat</string>
+
+    <string name="sidebar_dark">Dunkel</string>
+    <string name="sidebar_light">Hell</string>
+
+    <string name="menu_settings">Einstellungen</string>
+    <string name="wallpaper_instructions">Aktion auswählen</string>
+
+    <string name="search">Suchen</string>
+    <string name="gadget_error_text">Widget konnte nicht geladen werden</string>
+    
+    <string name="system_settings">Systemeinstellungen</string>
+    <string name="settings">Einstellungen</string>
+    <string name="wallpaper">Hintergrundbild ändern</string>
+    <string name="lock_desktop" >Desktop fixieren</string>
+    <string name="unlock_desktop" >Desktop lösen</string>
+    <string name="lock_page">Seite feststellen</string>
+    <string name="unlock_page" >Seite lösen</string>
+   
+    <string name="bookmarks">Lesezeichen</string>
+    <string name="refresh">Aktualisieren</string>
+    <string name="stop">Stopp</string>
+    <string name="home">Startseite</string>
+    <string name="set_home">Als Startseite festlegen</string>
+    <string name="share">Teilen</string>
+    
+    <string name="appInfo">App-Info</string>
+    <string name="uninstall">Deinstallieren</string>
+    <string name="addToHome">Auf Home-Bildschirm anzeigen</string>
+    <string name="addToFavorites">Zu Favoriten hinzufügen</string>
+    <string name="removeFromFavorites">Aus Favoriten entfernen</string>
+    <string name="close">Schließen</string>
+    
+    <string name="home_widgets">Widget hinzufügen</string>
+    <string name="home_wallpaper">Hintergrundbild ändern</string>
+    <string name="home_settings">Lucid Launcher Einstellungen</string>
+    <string name="home_store">Lucid Store</string>
+    
+    <string name="saveimage">Bild speichern</string>
+    <string name="openinnewtab" >In neuem Tab öffnen</string>
+    
+    <string name="mainsettingstitle">Grundeinstellungen</string>
+    <string name="sidebarsettingstitle">Einstellungen der Seitenleiste</string>
+    <string name="drawersettingstitle">Einstellungen des App Drawers</string>
+    <string name="homesettingstitle">Einstellungen des Home-Bildschirms</string>
+    <string name="advancedsettingstitle">Erweiterte Einstellungen</string>
+    <string name="websettingstitle" >Einstellungen des Browsers</string>
+    
+    <string name="pagetransformationtitle">Scroll-Animation</string>
+    <string name="pagetransformationsummary">Scroll-Animation wählen</string>
+
+    <string name="actionbarcolortitle">Farbe der Aktionsleiste</string>
+    <string name="actionbarcolorsummary"></string>
+    
+    <string name="textcolortitle">Textfarbe der Aktionsleiste</string>
+    <string name="textcolorsummary"></string>
+    
+    <string name="actionbartransparencytitle">Deckkraft der Aktionsleiste</string>
+    <string name="actionbartransparencysummary"></string>
+    
+    <string name="pagetransparencytitle">Seitendeckkraft</string>
+    <string name="pagetransparencysummary">Deckkraft des App Drawers und Browsers wählen</string>
+    
+    <string name="orientationtitle">Launcher-Rotierung</string>
+    <string name="orientationsummary">Ausrichtung des Launchers wählen</string>
+    
+    <string name="fullscreentitle">Vollbild</string>
+    <string name="fullscreensummary">Statusleiste wird im Vollbildmodus versteckt</string>
+    
+    <string name="transparentnavtitle">Transparente Navigationsleiste</string>
+    <string name="transparentnavsummary"></string>
+    
+    <string name="transparentstatustitle">Transparente Statusleiste</string>
+    <string name="transparentstatussummary"></string>
+    
+    <string name="searchtexttitle">Eigene Suchleistenbeschriftung</string>
+    <string name="searchtextsummary" >Ändert den Text der Suchleiste</string>
+    <string name="searchtextmessage" >Neue Suchleistenbeschriftung:</string>
+    
+    <string name="sidebarthemetitle" >Thema der Seitenleiste</string>
+    <string name="sidebarthemesummary" >Thema der Seitenleiste wählen</string>
+    <string name="sidebarthememessage" >Thema wählen:</string>
+    
+    <string name="sidebariconsizetitle">Symbolgröße</string>
+    <string name="sidebariconsizesummary">Symbolgröße der Seitenleiste wählen</string>
+    <string name="sidebariconsizemessage">Symbolgröße in der Seitenleiste:</string>
+    
+    <string name="sidebariconpaddingtitle">Symbolabstand</string>
+    <string name="sidebariconpaddingsummary">Abstand um Symbole der Seitenleiste wählen</string>
+    <string name="sidebariconpaddingmessage">Symbolabstand in der Seitenleiste:</string>
+    
+    <string name="sidebarhidelabeltitle">App-Bezeichner</string>
+    <string name="sidebarhidelabelsummary">Bezeichner neben Symbolen zeigen/verbergen</string>
+    
+    <string name="zoompercenttitle">Stärke des Zooms</string>
+    <string name="zoompercentsummary">Stärke des Hintergrund-Zooms wählen</string>
+
+    <string name="sidebartransparencytitle">Deckkraft der Seitenleiste</string>
+    <string name="sidebartransparencysummary"></string>
+    
+    <string name="numcolumnstitle">Spaltenzahl</string>
+    <string name="numcolumnssummary">Spaltenzahl des App Drawers wählen</string>
+    <string name="numcolumnsmessage">Spaltenzahl des App Drawers:</string>
+    
+    <string name="showlabelstitle">App-Bezeichner</string>
+    <string name="showlabelssummary">Bezeichner unter Symbolen zeigen/verbergen</string>
+
+    <string name="drawerlabelcolortitle">Textfarbe der Bezeichner</string>
+    <string name="drawerlabelcolorsummary"></string>
+    
+    <string name="iconsizetitle">Symbolgröße</string>
+    <string name="iconsizesummary">Symbolgröße des App Drawers wählen</string>
+    <string name="iconsizemessage">Symbolgröße im App Drawer:</string>
+    
+    <string name="iconpaddingtitle">Symbolabstand</string>
+    <string name="iconpaddingsummary">Horizontalen Abstand der Symbole wählen</string>
+    <string name="iconpaddingmessage">Horizontaler Abstand der Symbole:</string>
+    
+    <string name="verticalspacingtitle">Zeilenabstand</string>
+    <string name="verticalspacingsummary">Zeilenabstand in App Drawer wählen</string>
+    <string name="verticalspacingmessage">Vertikaler Abstand der Zeilen:</string>
+
+    <string name="homenumpagestitle"   >Home-Bildschirme</string>
+    <string name="homenumpagessummary" >Anzahl der Home-Bildschirme festlegen</string>
+    <string name="homenumpagesmessage" >Home-Bildschirme:</string>
+    
+    <string name="hidesearchbartitle">Suchleiste verbergen</string>
+    <string name="hidesearchbarsummary"></string>
+
+    <string name="gridsnaptitle">Apps an Raster ausrichten</string>
+    <string name="gridsnapsummary">Apps frei oder auf Gitter platzieren</string>
+    
+    <string name="widgetgridsnaptitle">Widgets an Raster ausrichten</string>
+    <string name="widgetgridsnapsummary">Widgets frei oder auf Gitter platzieren</string>
+    
+    <string name="homelandcolstitle">Spaltenzahl (Querformat)</string>
+    <string name="homelandcolssummary">Spaltenzahl im Querformat wählen</string>
+    <string name="homelandcolsmessage">Spaltenzahl im Querformat:</string>
+    
+    <string name="homelandrowstitle">Zeilenzahl (Querformat)</string>
+    <string name="homelandrowssummary">Zeilenzahl im Querformat wählen</string>
+    <string name="homelandrowsmessage">Zeilenzahl im Querformat:</string>
+    
+    <string name="homeportcolstitle">Spaltenzahl (Hochformat)</string>
+    <string name="homeportcolssummary">Spaltenzahl im Hochformat wählen</string>
+    <string name="homeportcolsmessage">Spaltenzahl im Hochformat:</string>
+    
+    <string name="homeportrowstitle">Zeilenzahl (Hochformat)</string>
+    <string name="homeportrowssummary">Zeilenzahl im Hochformat wählen</string>
+    <string name="homeportrowsmessage">Zeilenzahl im Hochformat:</string>
+    
+    <string name="homeiconsizetitle">Symbolgröße</string>
+    <string name="homeiconsizesummary">Symbolgröße des Home-Bildschirms wählen</string>
+    <string name="homeiconsizemessage">Symbolgröße auf dem Home-Bildschirm:</string>
+    
+    <string name="homeindicatortitle">Seitenindikatoren anzeigen</string>
+    <string name="homeindicatorsummary"></string>
+    
+    <string name="disablebrowsertitle">Deaktivieren</string>
+    <string name="disablebrowsersummary">Browser deaktivieren und Speicherbedarf des Launchers verringern</string>
+
+    <string name="dimwebpagetitle">Browser-Bildschirm abdunkeln</string>
+    <string name="dimwebpagesummary">Den Hintergrund des Browser-Bildschirms abdunkeln</string>
+    
+    <string name="icon_theme">Symbolthema</string>
+
+    <string name="hide_apps">Apps verbergen</string>
+    <string name="hide_appssummary">Apps im App Drawer verbergen</string>
+    
+    <string name="resettitle">Einstellungen zurücksetzen</string>
+    <string name="resetsummary">Alle Einstellungen nehmen ihre ursprünglichen Werte an</string>
+    
+    <string name="backuptitle">Sichern</string>
+    <string name="backupsummary">Alle Einstellungen sichern</string>
+    
+    <string name="restoretitle">Wiederherstellen</string>
+    <string name="restoresummary">Sicherung wiederherstellen</string>
+
+    <string name="floatapp">Neues Fenster</string>
+    <string name="enablefloatoptiontitle">Schwebende Apps aktivieren</string>
+    <string name="enablefloatoptionsummary">App lange drücken, um sie in eigenem Fenster starten zu können (experimentell, nur bei unterstützten ROMs)</string>
+
+    <string name="showbackgroundonurlbartitle">Weiße Adresszeile</string>
+    <string name="showbackgroundonurlbarsummary">Färbt den Hintergrund der Adresszeile weiß</string>
+
+    <string name="browsercompactmodetitle">Kompaktmodus aktivieren</string>
+    <string name="browsercompactmodesummary">Verbessert das Browserlayout für kleinere Geräte</string>
+
+    <string name="defaulthomepagetitle">Startseite wählen</string>
+    <string name="defaulthomepagesummary"></string>
+
+<string name="bottompaddingporttitle">Abstand entfernen (Hochformat)</string>
+<string name="bottompaddingportsummary">Entfernt jeglichen Abstand bei der Navigationsleiste</string>
+
+<string name="bottompaddinglandtitle">Abstand entfernen (Querformat)</string>
+<string name="bottompaddinglandsummary">Entfernt jeglichen Abstand bei der Navigationsleiste</string>
+
+ <string name="clearhistorytitle">Verlauf leeren</string>
+<string name="clearcachetitle">Cache leeren</string>
+<string name="clearcookiestitle">Cookies entfernen</string>
+
+<string name="shortcutlabelstitle">Verknüpfungsbezeichner</string>
+<string name="shortcutlabelssummary">Bezeichner unter Verknüpfungen anzeigen/verbergen</string>
+
+<string name="addshortcut">Verknüpfung hinzufügen</string>
+<string name="chooseshortcut">Verknüpfung auswählen</string>
+
+<string name="upgrade">Zur Pro-Version upgraden für noch mehr Funktionen</string>
+
+<string name="persistenttitle">Persistenter Modus</string>
+<string name="persistentsummary">Launcher durch dauerhafte Anzeige einer Benachrichtigung im Speicher behalten</string>
+
+<string name="confirmunlock">Soll der Desktop wirklich gelöst werden?</string>
+
+<string name="yes">Ja</string>
+<string name="no">Nein</string>
+
+<string name="horizontalscrolltitle">Hintergrund horizontal scrollen</string>
+<string name="horizontalscrollsummary"></string>
+
+<string name="verticalscrolltitle">Hintergrund vertikal scrollen</string>
+<string name="verticalscrollsummary"></string>
+
+<string name="searchpackagestitle">Paketnamen durchsuchen</string>
+<string name="searchpackagessummary">Wenn aktiviert bezieht die Anwendungssuche auch Paketnamen ein (z.B. com.google.calendar)</string>
+
+<string name="complete">Fertig</string>
+<string name="failed">Fehlgeschlagen</string>
+<string name="nobackup">Keine Sicherung gefunden</string>
+
+<string name="widgetsetupfail">Konnte Widget Setup nicht öffnen</string>
+<string name="savedimage">Bild gespeichert unter</string>
+
+<string name="wallpaper_settings">Hintergrundeinstellungen&#8230;</string>
+
+<string name="adjustwallpapertitle">Hintergrund anpassen</string>
+<string name="adjustwallpapersummary">Hintergrundbild an Bildschirmgröße anpassen</string>
+
+    <string name="cat_title_appearance">Erscheinungsbild</string>
+    <string name="cat_title_actionbar">Aktionsleiste</string>
+    <string name="cat_title_tools">Extras</string>
+    <string name="cat_title_icons">Symbole</string>
+    <string name="cat_title_other">Sonstige</string>
+    <string name="cat_title_layout">Layout</string>
+    <string name="cat_title_setup">Einstellungen</string>
+
+
+<string name="disablesidebarsummary">Auswählen um die Favoritenleiste zu deaktivieren</string>
+
+    <string name="cat_title_gestures">Gesten</string>
+
+<string name="gesturedowntitle">Wisch nach unten</string>
+<string name="gesturedownsummary">Aktion wählen für das nach unten Wischen auf dem obersten Home-Bildschirm</string>
+
+<string name="gestureuptitle">Wisch nach oben</string>
+<string name="gestureupsummary">Aktion wählen für das nach oben Wischen auf dem untersten Home-Bildschirm</string>
+
+<string name="gesturelefttitle">Wisch nach links</string>
+<string name="gestureleftsummary">Aktion wählen für das nach links Wischen auf dem Home-Bildschirm (Browser muss deaktiviert sein)</string>
+
+<string name="action_togglestatusbar">Statusleiste ein-/ausklappen</string>
+<string name="action_openapp">App starten</string>
+
+<string name="action_openapp_animationnormal">App-Start mit Standardanimation</string>
+<string name="action_openapp_animationslide">App-Start mit Schiebeanimation</string>
+
+    <string name="alert_leftswipegesture">Geste wurde definiert. Zum Benutzen bitte Browser deaktivieren</string>
+
+<string name="gesturedoubletaptitle">Doppelt Tippen</string>
+<string name="gesturedoubletapsummary">Aktion wählen für das doppelte Tippen auf den Home-Bildschirm</string>
+
+</resources>

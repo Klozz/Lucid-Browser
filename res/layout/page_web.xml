@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/web_holder" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/webviewholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+         >
+        
+        <com.powerpoint45.lucidbrowser.CustomWebView
+        android:id="@id/browser_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+        
+    </LinearLayout>
+    
+    <ProgressBar
+        android:id="@+id/webpgbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:padding="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:progressDrawable="@drawable/web_progress" />
+
+
+	</FrameLayout>
+</LinearLayout>
