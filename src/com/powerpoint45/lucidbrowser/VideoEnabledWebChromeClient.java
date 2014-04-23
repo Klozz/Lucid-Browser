@@ -55,10 +55,15 @@ public class VideoEnabledWebChromeClient extends WebChromeClient implements OnPr
     }
 
     public void onProgressChanged(WebView view, int progress) 
-    {	if (PB==null)
-			PB = (ProgressBar) MainActivity.webLayout.findViewById(R.id.webpgbar);
-	    if (PB!=null)
-	        PB.setProgress(progress);
+    {	
+    	CustomWebView WV = (CustomWebView) MainActivity.webLayout.findViewById(R.id.browser_page);
+        
+        if (WV==this.activityNonVideoView){//check if this webview is being currently shown/used
+	    	if (PB==null)
+				PB = (ProgressBar) MainActivity.webLayout.findViewById(R.id.webpgbar);
+		    if (PB!=null)
+		        PB.setProgress(progress);
+        }
     }
     
     

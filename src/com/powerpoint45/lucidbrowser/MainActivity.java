@@ -89,6 +89,29 @@ public class MainActivity extends BrowserHandler {
 		SetupLayouts.setuplayouts();
 		
 		
+		
+		//Restore InstanceState if Available 
+		if (savedInstanceState!=null){
+			System.out.println("RESTORING STATE");
+			String [] urls = savedInstanceState.getStringArray("URLs");
+			int tabNumber = savedInstanceState.getInt("tabNumber");
+			
+			for (int I=0;I<urls.length;I++){
+				webWindows.add(new CustomWebView(MainActivity.this,null,urls[I]));
+				browserListViewAdapter.notifyDataSetChanged();
+			}
+			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(tabNumber));
+		}
+		else{//If no InstanceState is found, just add a single page
+			webWindows.add(new CustomWebView(MainActivity.this,null,null));
+			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(0));
+			browserListViewAdapter.notifyDataSetChanged();
+		}
+		
+		
+		
+		
+		
 		if (Properties.appProp.fullscreen)
 			getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
@@ -133,7 +156,7 @@ public class MainActivity extends BrowserHandler {
 	
 	public static void browserSearch(){
 		if (webWindows.size()==0){
-			webWindows.add(new CustomWebView(MainActivity.activity,null));
+			webWindows.add(new CustomWebView(MainActivity.activity,null,null));
 			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
 			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(0));
 		}
@@ -168,7 +191,7 @@ public class MainActivity extends BrowserHandler {
  		handler.postDelayed(r, 500);	
 		
 		if (webWindows.size()==0){
-			webWindows.add(new CustomWebView(MainActivity.this,null));
+			webWindows.add(new CustomWebView(MainActivity.this,null,null));
 			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
 			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(0));
 		}
@@ -324,9 +347,8 @@ public class MainActivity extends BrowserHandler {
         
         if (intent.getAction()==Intent.ACTION_WEB_SEARCH ||intent.getAction()==Intent.ACTION_VIEW){
         	if (intent.getAction()==Intent.ACTION_WEB_SEARCH ||intent.getAction()==Intent.ACTION_VIEW){
-            	if (!Properties.webpageProp.disable){
     	        	if (webWindows.size()==0){
-    	    			webWindows.add(new CustomWebView(MainActivity.this,null));
+    	    			webWindows.add(new CustomWebView(MainActivity.this,null,null));
     	    			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
     	    			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(0));
     	    			((EditText) bar.findViewById(R.id.browser_searchbar)).setText("...");
@@ -334,7 +356,6 @@ public class MainActivity extends BrowserHandler {
     	    		CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
     	    		WV.stopLoading();
     	    		WV.loadUrl(intent.getDataString());
-            	}
             }
         }
 	}
@@ -397,7 +418,7 @@ public class MainActivity extends BrowserHandler {
 			break;
 		case R.id.openinnewtab:
 			dismissDialog();
-			webWindows.add(new CustomWebView(MainActivity.this,null));
+			webWindows.add(new CustomWebView(MainActivity.this,null,null));
 			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
 			webWindows.get(webWindows.size()-1).loadUrl(((LinearLayout) v.getParent()).getTag().toString());
 			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(webWindows.size()-1));
@@ -413,6 +434,23 @@ public class MainActivity extends BrowserHandler {
 				mainView.openDrawer(browserListView);
 			else
 				mainView.closeDrawer(browserListView);
+			return true;
+        }
+		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+			CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
+			if (WV!=null){
+				if(WV.canGoBack())
+	            {
+	            	if (!MainActivity.mainView.isDrawerOpen(MainActivity.browserListView))
+	            		WV.goBack();
+	                return true;
+	            }
+			}
+			if (WV!=null && WV.canGoBack()==false)
+				finish();
+			else if (webWindows.size()==0)
+				finish();
+			
 			return true;
         }
 	    return false;
@@ -443,6 +481,32 @@ public class MainActivity extends BrowserHandler {
             }
         }
  };
+ 
+ @Override
+ public void onSaveInstanceState(Bundle savedInstanceState) {
+   super.onSaveInstanceState(savedInstanceState);
+   // Save UI state changes to the savedInstanceState.
+   // This bundle will be passed to onCreate if the process is
+   // killed and restarted.
+   
+   
+   //save opened page URLs and tab number
+   CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
+   int tabNumber = 0;
+   String urls [] = new String[webWindows.size()];
+   
+   if (WV!=null)
+	   for (int I=0;I<webWindows.size();I++){
+		   if (webWindows.get(I)==WV)
+			  tabNumber=I;
+		   urls[I]=webWindows.get(I).getUrl();
+	   }
+		   
+   savedInstanceState.putStringArray("URLs", urls);
+   savedInstanceState.putInt("tabNumber", tabNumber);
+ }
+ 
+
  
  
 

@@ -27,13 +27,11 @@ public class Properties extends MainActivity {
 		static boolean disable;
 	}
 	public static class webpageProp{
-		public static boolean disable;
 		static boolean showBackdrop;
 	}
 
 	
 	public static void update_preferences(){
-		webpageProp.disable=MainActivity.mGlobalPrefs.getBoolean("hidebrowser",false);
 		webpageProp.showBackdrop=MainActivity.mGlobalPrefs.getBoolean("showbrowserbackdrop",false);
 	
 		int actionBarHeight = LayoutParams.MATCH_PARENT;//fallback size

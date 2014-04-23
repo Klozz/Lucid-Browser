@@ -16,11 +16,6 @@
         android:orientation="vertical"
          >
         
-        <com.powerpoint45.lucidbrowser.CustomWebView
-        android:id="@id/browser_page"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
         
     </LinearLayout>
     
