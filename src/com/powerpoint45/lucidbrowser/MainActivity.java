@@ -66,7 +66,7 @@ public class MainActivity extends BrowserHandler {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		System.out.println("ONCREATE"+getIntent().getAction());
 		activity     = this;
 		ctxt         = getApplicationContext();
 		mPrefs       = getSharedPreferences("pref",0);
@@ -89,8 +89,8 @@ public class MainActivity extends BrowserHandler {
 		SetupLayouts.setuplayouts();
 		
 		
+		Intent intent = getIntent();
 		
-		//Restore InstanceState if Available 
 		if (savedInstanceState!=null){
 			System.out.println("RESTORING STATE");
 			String [] urls = savedInstanceState.getStringArray("URLs");
@@ -103,11 +103,25 @@ public class MainActivity extends BrowserHandler {
 			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(tabNumber));
 		}
 		else{//If no InstanceState is found, just add a single page
-			webWindows.add(new CustomWebView(MainActivity.this,null,null));
-			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(0));
-			browserListViewAdapter.notifyDataSetChanged();
+			if (intent.getAction()!=Intent.ACTION_WEB_SEARCH &&intent.getAction()!=Intent.ACTION_VIEW){//if page was requested from a different app, do not load home page
+				webWindows.add(new CustomWebView(MainActivity.this,null,null));
+				((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(0));
+				browserListViewAdapter.notifyDataSetChanged();
+			}
 		}
 		
+		//detect if app was opened from a different app to open a site
+		if (intent.getAction()==Intent.ACTION_WEB_SEARCH ||intent.getAction()==Intent.ACTION_VIEW){
+        	if (intent.getAction()==Intent.ACTION_WEB_SEARCH ||intent.getAction()==Intent.ACTION_VIEW){
+        		if (intent.getDataString()!=null){
+    	    		webWindows.add(new CustomWebView(MainActivity.this,null,intent.getDataString()));
+    	    		((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
+    	    		((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(webWindows.size()-1));
+    	    		((EditText) bar.findViewById(R.id.browser_searchbar)).setText(intent.getDataString());
+    	    		browserListViewAdapter.notifyDataSetChanged();
+        		}
+            }
+        }
 		
 		
 		
@@ -347,15 +361,13 @@ public class MainActivity extends BrowserHandler {
         
         if (intent.getAction()==Intent.ACTION_WEB_SEARCH ||intent.getAction()==Intent.ACTION_VIEW){
         	if (intent.getAction()==Intent.ACTION_WEB_SEARCH ||intent.getAction()==Intent.ACTION_VIEW){
-    	        	if (webWindows.size()==0){
-    	    			webWindows.add(new CustomWebView(MainActivity.this,null,null));
-    	    			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
-    	    			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(0));
-    	    			((EditText) bar.findViewById(R.id.browser_searchbar)).setText("...");
-    	    		}
-    	    		CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
-    	    		WV.stopLoading();
-    	    		WV.loadUrl(intent.getDataString());
+        		if (intent.getDataString()!=null){
+    	    		webWindows.add(new CustomWebView(MainActivity.this,null,intent.getDataString()));
+    	    		((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
+    	    		((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(webWindows.size()-1));
+    	    		((EditText) bar.findViewById(R.id.browser_searchbar)).setText(intent.getDataString());
+    	    		browserListViewAdapter.notifyDataSetChanged();
+        		}
             }
         }
 	}
