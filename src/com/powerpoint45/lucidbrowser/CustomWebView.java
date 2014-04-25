@@ -25,10 +25,14 @@ public class CustomWebView extends WebView{
 	private boolean videoPlaying;
 	VideoEnabledWebChromeClient chromeClient;
 	
-	public CustomWebView(Context context,AttributeSet set) {
+	public CustomWebView(Context context,AttributeSet set, String url) {
 		super(context,set);
 		this.setId(R.id.browser_page);
-		this.loadUrl(MainActivity.mPrefs.getString("browserhome", "http://www.google.com/"));
+		if (url==null)
+			this.loadUrl(MainActivity.mPrefs.getString("browserhome", "http://www.google.com/"));
+		else
+			this.loadUrl(url);
+			
 		this.getSettings().setPluginState(PluginState.ON);
 		this.getSettings().setDomStorageEnabled(true);
 		this.getSettings().setJavaScriptEnabled(true);
@@ -61,35 +65,40 @@ public class CustomWebView extends WebView{
              	   PB = (ProgressBar) MainActivity.webLayout.findViewById(R.id.webpgbar);
                if (MainActivity.browserListViewAdapter!=null)
          	   MainActivity.browserListViewAdapter.notifyDataSetChanged();
-         	   if (((EditText)((Activity) MainActivity.activity).findViewById(R.id.browser_searchbar))!=null)
-         		   if (!((EditText)((Activity) MainActivity.activity).findViewById(R.id.browser_searchbar)).isFocused())
-         			   if (view!=null)
-         				  if (view.getUrl()!=null && view.getUrl().compareTo("about:blank")!=0)
-         					  ((EditText)((Activity) MainActivity.activity).findViewById(R.id.browser_searchbar)).setText(view.getUrl().replace("http://", "").replace("https://", ""));
-                PB.setVisibility(ProgressBar.INVISIBLE);
-                
-                ImageButton IB = (ImageButton) MainActivity.bar.findViewById(R.id.browser_refresh);
-	    		if (IB!=null){
-	    		IB.setImageResource(R.drawable.btn_toolbar_reload_normal);
-	    	    }
-	    		
-	    		ImageButton BI = (ImageButton) MainActivity.bar.findViewById(R.id.browser_bookmark);
-	    		if (BI!=null){
-	    			int numBooks=MainActivity.mPrefs.getInt("numbookmarkedpages", 0);
-	    			boolean isBook = false;
-	    			for (int i=0;i<numBooks;i++){
-	    				if (CustomWebView.this!=null)
-	    					if (CustomWebView.this.getUrl()!=null)
-			    				if (MainActivity.mPrefs.getString("bookmark"+i, "").compareTo(CustomWebView.this.getUrl())==0){
-			    					BI.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
-			    					isBook=true;
-			    					break;
-			    				}
-	    			}
-	    			if (!isBook)
-	    				BI.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
-	    	    }
-            }
+               
+               CustomWebView WV = (CustomWebView) MainActivity.webLayout.findViewById(R.id.browser_page);
+               
+	               if (WV==CustomWebView.this){//check if this webview is being currently shown/used
+		         	   if (((EditText)((Activity) MainActivity.activity).findViewById(R.id.browser_searchbar))!=null)
+		         		   if (!((EditText)((Activity) MainActivity.activity).findViewById(R.id.browser_searchbar)).isFocused())
+		         			   if (view!=null)
+		         				  if (view.getUrl()!=null && view.getUrl().compareTo("about:blank")!=0)
+		         					  ((EditText)((Activity) MainActivity.activity).findViewById(R.id.browser_searchbar)).setText(view.getUrl().replace("http://", "").replace("https://", ""));
+		                PB.setVisibility(ProgressBar.INVISIBLE);
+		                
+		                ImageButton IB = (ImageButton) MainActivity.bar.findViewById(R.id.browser_refresh);
+			    		if (IB!=null){
+			    		IB.setImageResource(R.drawable.btn_toolbar_reload_normal);
+			    	    }
+			    		
+			    		ImageButton BI = (ImageButton) MainActivity.bar.findViewById(R.id.browser_bookmark);
+			    		if (BI!=null){
+			    			int numBooks=MainActivity.mPrefs.getInt("numbookmarkedpages", 0);
+			    			boolean isBook = false;
+			    			for (int i=0;i<numBooks;i++){
+			    				if (CustomWebView.this!=null)
+			    					if (CustomWebView.this.getUrl()!=null)
+					    				if (MainActivity.mPrefs.getString("bookmark"+i, "").compareTo(CustomWebView.this.getUrl())==0){
+					    					BI.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
+					    					isBook=true;
+					    					break;
+					    				}
+			    			}
+			    			if (!isBook)
+			    				BI.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
+			    	   }
+	               }
+	        }
 		});
 		
 		
@@ -126,29 +135,7 @@ public class CustomWebView extends WebView{
 		    }
 		});
 
-		this.setOnKeyListener(new OnKeyListener()
-		{
-		    @Override
-		    public boolean onKey(View v, int keyCode, KeyEvent event)
-		    {
-		        if(event.getAction() == KeyEvent.ACTION_DOWN)
-		        {
-
-		            switch(keyCode)
-		            {
-		                case KeyEvent.KEYCODE_BACK:
-		                    if(CustomWebView.this.canGoBack())
-		                    {
-		                    	if (!MainActivity.mainView.isDrawerOpen(MainActivity.browserListView))
-		                        CustomWebView.this.goBack();
-		                        return true;
-		                    }
-		                    break;
-		            }
-		        }
-		        return false;
-		    }
-		});
+		
 	}
 	
 	

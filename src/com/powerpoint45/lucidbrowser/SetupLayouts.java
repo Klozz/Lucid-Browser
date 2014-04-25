@@ -18,16 +18,15 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class SetupLayouts extends MainActivity {
-	static int actionBarNum;
-
-	public static void setuplayouts() {
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-				Properties.ActionbarSize, Properties.ActionbarSize);
+	static int actionBarNum;	
+	public static void setuplayouts(){
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(Properties.ActionbarSize, Properties.ActionbarSize);
 		params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		bar.setClickable(true);
@@ -73,17 +72,11 @@ public class SetupLayouts extends MainActivity {
 				// TODOet Auto-generated method stub
 				if (pos == webWindows.size()) {
 					mainView.closeDrawer(browserListView);
-					webWindows.add(new CustomWebView(MainActivity.activity,
-							null));
-					if (webLayout != null)
-						if (((ViewGroup) webLayout
-								.findViewById(R.id.webviewholder)) != null) {
-							((ViewGroup) webLayout
-									.findViewById(R.id.webviewholder))
-									.removeAllViews();
-							((ViewGroup) webLayout
-									.findViewById(R.id.webviewholder))
-									.addView(webWindows.get(pos));
+					webWindows.add(new CustomWebView(MainActivity.activity,null,null));
+					if (webLayout!=null)
+						if (((ViewGroup) webLayout.findViewById(R.id.webviewholder))!=null){
+							((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
+							((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(pos));
 						}
 					if (((EditText) bar.findViewById(R.id.browser_searchbar)) != null)
 						((EditText) bar.findViewById(R.id.browser_searchbar))
@@ -91,15 +84,16 @@ public class SetupLayouts extends MainActivity {
 
 				} else {
 					mainView.closeDrawer(browserListView);
-					((ViewGroup) webLayout.findViewById(R.id.webviewholder))
-							.removeAllViews();
-					((ViewGroup) webLayout.findViewById(R.id.webviewholder))
-							.addView(webWindows.get(pos));
-					if (webWindows.get(pos).getUrl() != null)
-						((EditText) bar.findViewById(R.id.browser_searchbar))
-								.setText(webWindows.get(pos).getUrl()
-										.replace("http://", "")
-										.replace("https://", ""));
+					((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
+					((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(pos));
+					if (MainActivity.webLayout.findViewById(R.id.webpgbar)!=null)
+						if (webWindows.get(pos).getProgress()!=100)
+							MainActivity.webLayout.findViewById(R.id.webpgbar).setVisibility(View.VISIBLE);
+						else
+							MainActivity.webLayout.findViewById(R.id.webpgbar).setVisibility(View.INVISIBLE);
+						
+					if (webWindows.get(pos).getUrl()!=null)
+						((EditText) bar.findViewById(R.id.browser_searchbar)).setText(webWindows.get(pos).getUrl().replace("http://", "").replace("https://", ""));
 					else
 						((EditText) bar.findViewById(R.id.browser_searchbar))
 								.setText("...");
@@ -136,14 +130,9 @@ public class SetupLayouts extends MainActivity {
 
 			@Override
 			public void onDrawerClosed(View arg0) {
-			}
-		});
 
-		// weblayout-------------------------------------------
-		if (!Properties.webpageProp.disable)
-			webWindows.add((CustomWebView) webLayout
-					.findViewById(R.id.browser_page));
-
+		}});
+		
 	}
 
 	static public int addTransparencyToColor(int alpha, int color) {
