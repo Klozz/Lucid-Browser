@@ -24,9 +24,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class SetupLayouts extends MainActivity {
-	static int actionBarNum;	
-	public static void setuplayouts(){
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(Properties.ActionbarSize, Properties.ActionbarSize);
+	static int actionBarNum;
+
+	public static void setuplayouts() {
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+				Properties.ActionbarSize, Properties.ActionbarSize);
 		params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		bar.setClickable(true);
@@ -51,6 +53,20 @@ public class SetupLayouts extends MainActivity {
 					.setTextColor(Color.BLACK);
 			((TextView) LL.findViewById(R.id.browser_settings))
 					.setTextColor(Color.BLACK);
+		} else if (Properties.sidebarProp.theme.compareTo("c") == 0) {
+			int sidebarTextColor = Properties.sidebarProp.sideBarTextColor;
+
+			((TextView) LL.findViewById(R.id.browser_open_bookmarks))
+					.setTextColor(sidebarTextColor);
+			((TextView) LL.findViewById(R.id.browser_home))
+					.setTextColor(sidebarTextColor);
+			((TextView) LL.findViewById(R.id.browser_share))
+					.setTextColor(sidebarTextColor);
+			((TextView) LL.findViewById(R.id.browser_set_home))
+					.setTextColor(sidebarTextColor);
+			((TextView) LL.findViewById(R.id.browser_settings))
+					.setTextColor(sidebarTextColor);
+
 		}
 		browserListView.addFooterView(LL);
 		MainActivity.browserListView
@@ -59,9 +75,15 @@ public class SetupLayouts extends MainActivity {
 		if (Properties.sidebarProp.theme.compareTo("b") == 0) {
 			browserListView.setBackgroundColor(Color.argb(
 					Properties.sidebarProp.transparency, 17, 17, 17));
-		} else {
+		} else if (Properties.sidebarProp.theme.compareTo("w") == 0) {
 			browserListView.setBackgroundColor(Color.argb(
 					Properties.sidebarProp.transparency, 255, 255, 255));
+			activity.setContentView(R.layout.browser_item);
+
+			
+		} else {
+			int sideBarColor = SetupLayouts.addTransparencyToColor(Properties.sidebarProp.transparency, Properties.sidebarProp.sideBarColor);
+           browserListView.setBackgroundColor(sideBarColor);
 		}
 
 		browserListView.setOnItemClickListener(new OnItemClickListener() {
@@ -72,11 +94,17 @@ public class SetupLayouts extends MainActivity {
 				// TODOet Auto-generated method stub
 				if (pos == webWindows.size()) {
 					mainView.closeDrawer(browserListView);
-					webWindows.add(new CustomWebView(MainActivity.activity,null,null));
-					if (webLayout!=null)
-						if (((ViewGroup) webLayout.findViewById(R.id.webviewholder))!=null){
-							((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
-							((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(pos));
+					webWindows.add(new CustomWebView(MainActivity.activity,
+							null, null));
+					if (webLayout != null)
+						if (((ViewGroup) webLayout
+								.findViewById(R.id.webviewholder)) != null) {
+							((ViewGroup) webLayout
+									.findViewById(R.id.webviewholder))
+									.removeAllViews();
+							((ViewGroup) webLayout
+									.findViewById(R.id.webviewholder))
+									.addView(webWindows.get(pos));
 						}
 					if (((EditText) bar.findViewById(R.id.browser_searchbar)) != null)
 						((EditText) bar.findViewById(R.id.browser_searchbar))
@@ -84,16 +112,23 @@ public class SetupLayouts extends MainActivity {
 
 				} else {
 					mainView.closeDrawer(browserListView);
-					((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
-					((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(pos));
-					if (MainActivity.webLayout.findViewById(R.id.webpgbar)!=null)
-						if (webWindows.get(pos).getProgress()!=100)
-							MainActivity.webLayout.findViewById(R.id.webpgbar).setVisibility(View.VISIBLE);
+					((ViewGroup) webLayout.findViewById(R.id.webviewholder))
+							.removeAllViews();
+					((ViewGroup) webLayout.findViewById(R.id.webviewholder))
+							.addView(webWindows.get(pos));
+					if (MainActivity.webLayout.findViewById(R.id.webpgbar) != null)
+						if (webWindows.get(pos).getProgress() != 100)
+							MainActivity.webLayout.findViewById(R.id.webpgbar)
+									.setVisibility(View.VISIBLE);
 						else
-							MainActivity.webLayout.findViewById(R.id.webpgbar).setVisibility(View.INVISIBLE);
-						
-					if (webWindows.get(pos).getUrl()!=null)
-						((EditText) bar.findViewById(R.id.browser_searchbar)).setText(webWindows.get(pos).getUrl().replace("http://", "").replace("https://", ""));
+							MainActivity.webLayout.findViewById(R.id.webpgbar)
+									.setVisibility(View.INVISIBLE);
+
+					if (webWindows.get(pos).getUrl() != null)
+						((EditText) bar.findViewById(R.id.browser_searchbar))
+								.setText(webWindows.get(pos).getUrl()
+										.replace("http://", "")
+										.replace("https://", ""));
 					else
 						((EditText) bar.findViewById(R.id.browser_searchbar))
 								.setText("...");
@@ -131,15 +166,17 @@ public class SetupLayouts extends MainActivity {
 			@Override
 			public void onDrawerClosed(View arg0) {
 
-		}});
-		
+			}
+		});
+
 	}
 
 	static public int addTransparencyToColor(int alpha, int color) {
 		int[] colorARGB = new int[4];
-		
-		// Cap the Alpha value at 255. (Happens at around 75% action bar opacity)
-		if (alpha>255) {
+
+		// Cap the Alpha value at 255. (Happens at around 75% action bar
+		// opacity)
+		if (alpha > 255) {
 			colorARGB[0] = 255;
 		} else {
 			colorARGB[0] = alpha;
@@ -147,8 +184,9 @@ public class SetupLayouts extends MainActivity {
 		colorARGB[1] = Color.red(color);
 		colorARGB[2] = Color.green(color);
 		colorARGB[3] = Color.blue(color);
-		
-		return Color.argb(colorARGB[0], colorARGB[1], colorARGB[2], colorARGB[3]);
+
+		return Color.argb(colorARGB[0], colorARGB[1], colorARGB[2],
+				colorARGB[3]);
 
 	}
 
@@ -168,13 +206,17 @@ public class SetupLayouts extends MainActivity {
 		// URL bar backdrop color
 		// ----------------------------------------------
 		if (Properties.webpageProp.showBackdrop) {
-			// ShowBackdrop is active -> Set chosen backdrop color (with opacity)
-			
+			// ShowBackdrop is active -> Set chosen backdrop color (with
+			// opacity)
+
 			int actionbarTransparency = Properties.appProp.actionBarTransparency;
 			int backdropColor = Properties.appProp.urlBarColor;
 
-			// Apply color filter on backdrop with a little more opacity to make it always visible
-			urlBarBackdrop.setColorFilter(addTransparencyToColor(actionbarTransparency+65,backdropColor), Mode.SRC);
+			// Apply color filter on backdrop with a little more opacity to make
+			// it always visible
+			urlBarBackdrop.setColorFilter(
+					addTransparencyToColor(actionbarTransparency + 65,
+							backdropColor), Mode.SRC);
 		} else {
 			// ShowBackdrop is inactive -> make backdrop invisible
 			urlBarBackdrop.setColorFilter(Color.TRANSPARENT, Mode.CLEAR);

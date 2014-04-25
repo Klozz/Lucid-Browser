@@ -36,8 +36,9 @@
         
     </PreferenceScreen>
     
-    <PreferenceScreen android:title="@string/sidebarsettingstitle" >
-        <PreferenceCategory android:title="@string/cat_title_appearance" >
+    <PreferenceScreen android:title="@string/sidebarsettingstitle"
+        android:key="sidebarsettings">
+        <PreferenceCategory android:title="@string/cat_title_appearance" android:key="sideappearance">
             <ListPreference
                 android:defaultValue="b"
                 android:entries="@array/sidebarthemes"
@@ -45,6 +46,18 @@
                 android:key="sidebartheme"
                 android:summary="@string/sidebarthemesummary"
                 android:title="@string/sidebarthemetitle" />
+            
+            <preferences.ColorPickerPreference
+                android:defaultValue="@android:color/black"
+                android:key="sidebarcolor"
+                android:summary="@string/sidebarcolorsummary"
+                android:title="@string/sidebarcolortitle" />
+            
+            <preferences.ColorPickerPreference
+                android:defaultValue="@android:color/white"
+                android:key="sidebartextcolor"
+                android:summary="@string/sidebartextcolorsummary"
+                android:title="@string/sidebartextcolortitle" />
 
             <preferences.SeekBarPreference
                 android:defaultValue="100"

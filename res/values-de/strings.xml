@@ -293,4 +293,11 @@
 <string name="clearonexitsummary">Verlauf, Cache und Cookies entfernen beim Beenden des Browsers (Alle Tabs müssen geschlossen sein)</string>
 
 <string name="nobookmarks">Keine Lesezeichen vorhanden</string>
+
+<string name="sidebar_custom">Benutzerdefiniert</string>
+<string name="sidebarcolortitle">Farbe der Seitenleiste</string>
+<string name="sidebarcolorsummary"></string>
+<string name="sidebartextcolortitle">Textfarbe der Seitenleiste</string>
+<string name="sidebartextcolorsummary"></string>
+
 </resources>
