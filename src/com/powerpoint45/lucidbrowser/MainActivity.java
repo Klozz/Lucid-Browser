@@ -436,9 +436,17 @@ public class MainActivity extends BrowserHandler {
             if (msg.what == 3) {//bookmark dialog
             	dialog = new Dialog(activity);
 				dialog.setTitle(R.string.bookmarks);
-				ListView lv = new ListView(activity);
-				lv.setAdapter(new BookmarksListAdapter());
-				dialog.setContentView(lv);
+				int numBooks=MainActivity.mPrefs.getInt("numbookmarkedpages", 0);
+				
+				if (numBooks==0){
+					RelativeLayout noBooks = (RelativeLayout) MainActivity.inflater.inflate(R.layout.empty_bookmarks_item, null);					
+					dialog.setContentView(noBooks);
+				} else {
+					ListView lv = new ListView(activity);
+					lv.setAdapter(new BookmarksListAdapter());
+					dialog.setContentView(lv);					
+				}
+				
 				dialog.show();
             }
         }

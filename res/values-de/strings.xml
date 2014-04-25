@@ -292,5 +292,5 @@
 <string name="clearonexittitle">Browserspuren autom. löschen</string>
 <string name="clearonexitsummary">Verlauf, Cache und Cookies entfernen beim Beenden des Browsers (Alle Tabs müssen geschlossen sein)</string>
 
-
+<string name="nobookmarks">Keine Lesezeichen vorhanden</string>
 </resources>
