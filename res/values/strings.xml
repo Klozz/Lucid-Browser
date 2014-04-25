@@ -288,4 +288,10 @@
 
 <string name="alert_leftswipegesture">Gesture was set. Disable the browser to use it</string>
 
+<string name="urlbarcolortitle">URL bar color</string>
+<string name="urlbarcolorsummary">Set the background color of the URL bar</string>
+
+<string name="clearonexittitle">Clear browser traces on exit</string>
+<string name="clearonexitsummary">Exiting browser after closing all tabs clears history, cache and cookies</string>
+
 </resources>

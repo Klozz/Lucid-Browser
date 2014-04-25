@@ -16,160 +16,225 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class SetupLayouts extends MainActivity{
+public class SetupLayouts extends MainActivity {
 	static int actionBarNum;
-	
-	public static void setuplayouts(){		
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(Properties.ActionbarSize, Properties.ActionbarSize);
+
+	public static void setuplayouts() {
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+				Properties.ActionbarSize, Properties.ActionbarSize);
 		params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		bar.setClickable(true);
-		bar.setFocusable(true); 
+		bar.setFocusable(true);
 		bar.setFocusableInTouchMode(true);
 		bar.setBackgroundColor(Properties.appProp.actionBarColor);
 		bar.getBackground().setAlpha(Properties.appProp.actionBarTransparency);
 		setUpActionBar();
 		actionBar.setCustomView(bar);
 		actionBar.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-		
-		LinearLayout LL = (LinearLayout) inflater.inflate(R.layout.web_sidebar_footer, null);
-		if (Properties.sidebarProp.theme.compareTo("w")==0){
-			((TextView) LL.findViewById(R.id.browser_open_bookmarks)).setTextColor(Color.BLACK);
-			((TextView) LL.findViewById(R.id.browser_home)).setTextColor(Color.BLACK);
-			((TextView) LL.findViewById(R.id.browser_share)).setTextColor(Color.BLACK);
-			((TextView) LL.findViewById(R.id.browser_set_home)).setTextColor(Color.BLACK);
-			((TextView) LL.findViewById(R.id.browser_settings)).setTextColor(Color.BLACK);
+
+		LinearLayout LL = (LinearLayout) inflater.inflate(
+				R.layout.web_sidebar_footer, null);
+		if (Properties.sidebarProp.theme.compareTo("w") == 0) {
+			((TextView) LL.findViewById(R.id.browser_open_bookmarks))
+					.setTextColor(Color.BLACK);
+			((TextView) LL.findViewById(R.id.browser_home))
+					.setTextColor(Color.BLACK);
+			((TextView) LL.findViewById(R.id.browser_share))
+					.setTextColor(Color.BLACK);
+			((TextView) LL.findViewById(R.id.browser_set_home))
+					.setTextColor(Color.BLACK);
+			((TextView) LL.findViewById(R.id.browser_settings))
+					.setTextColor(Color.BLACK);
 		}
 		browserListView.addFooterView(LL);
-		MainActivity.browserListView.setAdapter(MainActivity.browserListViewAdapter);
-		
-		if (Properties.sidebarProp.theme.compareTo("b")==0){
-			browserListView.setBackgroundColor(Color.argb(Properties.sidebarProp.transparency,17, 17, 17));
-		}
-		else{
-			browserListView.setBackgroundColor(Color.argb(Properties.sidebarProp.transparency,255, 255, 255));
+		MainActivity.browserListView
+				.setAdapter(MainActivity.browserListViewAdapter);
+
+		if (Properties.sidebarProp.theme.compareTo("b") == 0) {
+			browserListView.setBackgroundColor(Color.argb(
+					Properties.sidebarProp.transparency, 17, 17, 17));
+		} else {
+			browserListView.setBackgroundColor(Color.argb(
+					Properties.sidebarProp.transparency, 255, 255, 255));
 		}
 
-		
 		browserListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
 					long arg3) {
 				// TODOet Auto-generated method stub
-				if (pos==webWindows.size()){
+				if (pos == webWindows.size()) {
 					mainView.closeDrawer(browserListView);
-					webWindows.add(new CustomWebView(MainActivity.activity,null));
-					if (webLayout!=null)
-						if (((ViewGroup) webLayout.findViewById(R.id.webviewholder))!=null){
-							((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
-							((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(pos));
+					webWindows.add(new CustomWebView(MainActivity.activity,
+							null));
+					if (webLayout != null)
+						if (((ViewGroup) webLayout
+								.findViewById(R.id.webviewholder)) != null) {
+							((ViewGroup) webLayout
+									.findViewById(R.id.webviewholder))
+									.removeAllViews();
+							((ViewGroup) webLayout
+									.findViewById(R.id.webviewholder))
+									.addView(webWindows.get(pos));
 						}
-					if (((EditText) bar.findViewById(R.id.browser_searchbar))!=null)
-						((EditText) bar.findViewById(R.id.browser_searchbar)).setText("...");
-					
-				}
-				else{
+					if (((EditText) bar.findViewById(R.id.browser_searchbar)) != null)
+						((EditText) bar.findViewById(R.id.browser_searchbar))
+								.setText("...");
+
+				} else {
 					mainView.closeDrawer(browserListView);
-					((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
-					((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(pos));
-					if (webWindows.get(pos).getUrl()!=null)
-						((EditText) bar.findViewById(R.id.browser_searchbar)).setText(webWindows.get(pos).getUrl().replace("http://", "").replace("https://", ""));
+					((ViewGroup) webLayout.findViewById(R.id.webviewholder))
+							.removeAllViews();
+					((ViewGroup) webLayout.findViewById(R.id.webviewholder))
+							.addView(webWindows.get(pos));
+					if (webWindows.get(pos).getUrl() != null)
+						((EditText) bar.findViewById(R.id.browser_searchbar))
+								.setText(webWindows.get(pos).getUrl()
+										.replace("http://", "")
+										.replace("https://", ""));
 					else
-						((EditText) bar.findViewById(R.id.browser_searchbar)).setText("...");
+						((EditText) bar.findViewById(R.id.browser_searchbar))
+								.setText("...");
 				}
 				MainActivity.browserListViewAdapter.notifyDataSetChanged();
 			}
-		   });
-		//browserListView.setPadding(0, 0, 0, NavMargine+StatusMargine);
-		//browserListView.setY(StatusMargine);
-		
+		});
+		// browserListView.setPadding(0, 0, 0, NavMargine+StatusMargine);
+		// browserListView.setY(StatusMargine);
+
 		mainView.setDrawerListener(new DrawerListener() {
-			
+
 			@Override
 			public void onDrawerStateChanged(int state) {
 				// TODO Auto-generated method stub
 
-					final Handler handler = new Handler();
-					handler.post(new Runnable() {
-					    @Override
-					    public void run() {
-					    	closeVideoViewIfOpen();
-					    }
-					});			
+				final Handler handler = new Handler();
+				handler.post(new Runnable() {
+					@Override
+					public void run() {
+						closeVideoViewIfOpen();
+					}
+				});
 			}
-			
+
 			@Override
 			public void onDrawerSlide(View v, float arg1) {
 			}
-			
+
 			@Override
 			public void onDrawerOpened(View arg0) {
-				
+
 			}
-			
+
 			@Override
 			public void onDrawerClosed(View arg0) {
-		}});
+			}
+		});
 
-		
-		//weblayout-------------------------------------------
+		// weblayout-------------------------------------------
 		if (!Properties.webpageProp.disable)
-			webWindows.add((CustomWebView) webLayout.findViewById(R.id.browser_page));
-		
+			webWindows.add((CustomWebView) webLayout
+					.findViewById(R.id.browser_page));
+
 	}
-	            	      
-	static public void setUpActionBar(){
-			View browserBar = (RelativeLayout) inflater.inflate(R.layout.browser_bar_with_bg, null);
-			bar.removeAllViews();
-			RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, Properties.numtodp(3));
-			relativeParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-			if (Properties.webpageProp.showBackdrop){
-				browserBar = (RelativeLayout) inflater.inflate(R.layout.browser_bar_with_bg, null);
-				((ImageButton)browserBar.findViewById(R.id.browser_back)).setColorFilter(Color.DKGRAY, Mode.MULTIPLY);
-				((ImageButton)browserBar.findViewById(R.id.browser_forward)).setColorFilter(Color.DKGRAY, Mode.MULTIPLY);
-				((ImageButton)browserBar.findViewById(R.id.browser_refresh)).setColorFilter(Color.DKGRAY, Mode.MULTIPLY);
-				((ImageButton)browserBar.findViewById(R.id.browser_bookmark)).setColorFilter(Color.DKGRAY, Mode.MULTIPLY);
+
+	static public int addTransparencyToColor(int alpha, int color) {
+		int[] colorARGB = new int[4];
+		
+		// Cap the Alpha value at 255. (Happens at around 75% action bar opacity)
+		if (alpha>255) {
+			colorARGB[0] = 255;
+		} else {
+			colorARGB[0] = alpha;
+		}
+		colorARGB[1] = Color.red(color);
+		colorARGB[2] = Color.green(color);
+		colorARGB[3] = Color.blue(color);
+		
+		return Color.argb(colorARGB[0], colorARGB[1], colorARGB[2], colorARGB[3]);
+
+	}
+
+	static public void setUpActionBar() {
+		bar.removeAllViews();
+
+		View browserBar = (RelativeLayout) inflater.inflate(
+				R.layout.browser_bar, null);
+
+		ImageView urlBarBackdrop = (ImageView) browserBar
+				.findViewById(R.id.backdrop);
+
+		RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(
+				LayoutParams.MATCH_PARENT, Properties.numtodp(3));
+		relativeParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+		// URL bar backdrop color
+		// ----------------------------------------------
+		if (Properties.webpageProp.showBackdrop) {
+			// ShowBackdrop is active -> Set chosen backdrop color (with opacity)
+			
+			int actionbarTransparency = Properties.appProp.actionBarTransparency;
+			int backdropColor = Properties.appProp.urlBarColor;
+
+			// Apply color filter on backdrop with a little more opacity to make it always visible
+			urlBarBackdrop.setColorFilter(addTransparencyToColor(actionbarTransparency+65,backdropColor), Mode.SRC);
+		} else {
+			// ShowBackdrop is inactive -> make backdrop invisible
+			urlBarBackdrop.setColorFilter(Color.TRANSPARENT, Mode.CLEAR);
+		}
+
+		// Paint the buttons and text with the user selected color
+		((ImageButton) browserBar.findViewById(R.id.browser_back))
+				.setColorFilter(Properties.appProp.primaryIntColor,
+						Mode.MULTIPLY);
+		((ImageButton) browserBar.findViewById(R.id.browser_forward))
+				.setColorFilter(Properties.appProp.primaryIntColor,
+						Mode.MULTIPLY);
+		((ImageButton) browserBar.findViewById(R.id.browser_refresh))
+				.setColorFilter(Properties.appProp.primaryIntColor,
+						Mode.MULTIPLY);
+		((ImageButton) browserBar.findViewById(R.id.browser_bookmark))
+				.setColorFilter(Properties.appProp.primaryIntColor,
+						Mode.MULTIPLY);
+		((EditText) browserBar.findViewById(R.id.browser_searchbar))
+				.setTextColor(Properties.appProp.primaryIntColor);
+
+		final EditText ET = ((EditText) browserBar
+				.findViewById(R.id.browser_searchbar));
+		ET.setScrollContainer(true);
+
+		ET.setOnKeyListener(new OnKeyListener() {
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				// If the event is a key-down event on the "enter" button
+				if ((event.getAction() == KeyEvent.ACTION_DOWN)
+						&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
+					new AsyncTask<Void, Void, Void>() {
+						@Override
+						protected void onPostExecute(Void result) {
+							super.onPostExecute(result);
+							imm.hideSoftInputFromWindow(ET.getWindowToken(), 0);
+							browserSearch();
+						}
+
+						@Override
+						protected Void doInBackground(Void... params) {
+							return null;
+						}
+					}.execute();
+					return true;
+				}
+				return false;
 			}
-			else{
-				browserBar = (LinearLayout) inflater.inflate(R.layout.browser_bar, null);
-				((ImageButton)browserBar.findViewById(R.id.browser_back)).setColorFilter(Properties.appProp.primaryIntColor, Mode.MULTIPLY);
-				((ImageButton)browserBar.findViewById(R.id.browser_forward)).setColorFilter(Properties.appProp.primaryIntColor, Mode.MULTIPLY);
-				((ImageButton)browserBar.findViewById(R.id.browser_refresh)).setColorFilter(Properties.appProp.primaryIntColor, Mode.MULTIPLY);
-				((ImageButton)browserBar.findViewById(R.id.browser_bookmark)).setColorFilter(Properties.appProp.primaryIntColor, Mode.MULTIPLY);
-				((EditText)browserBar.findViewById(R.id.browser_searchbar)).setTextColor(Properties.appProp.primaryIntColor);
-			}
-			
-			final EditText ET = ((EditText)browserBar.findViewById(R.id.browser_searchbar));
-			ET.setScrollContainer(true);
-			
-			ET.setOnKeyListener(new OnKeyListener() {
-			    public boolean onKey(View v, int keyCode, KeyEvent event) {
-			        // If the event is a key-down event on the "enter" button
-			        if ((event.getAction() == KeyEvent.ACTION_DOWN)
-			                && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-			        	new AsyncTask<Void, Void, Void>() {
-						    @Override
-						    protected void onPostExecute(Void result) {
-						        super.onPostExecute(result);
-						        imm.hideSoftInputFromWindow(ET.getWindowToken(), 0);
-					        	browserSearch();
-						    }
-							@Override
-							protected Void doInBackground(Void... params) {
-								return null;
-							}
-						}.execute();
-			            return true;
-			        }
-			        return false;
-			        }
-			    });
-			
-			bar.addView(browserBar);
+		});
+
+		bar.addView(browserBar);
 	}
 }

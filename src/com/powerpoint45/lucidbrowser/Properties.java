@@ -11,6 +11,7 @@ public class Properties extends MainActivity {
 		public static int actionBarTransparency;
 		static int actionBarColor;
 		public static int primaryIntColor;
+		static int urlBarColor;
 		static boolean fullscreen = false;
 		static boolean transparentNav = true;
 		static boolean TransparentStatus = false;
@@ -53,6 +54,7 @@ public class Properties extends MainActivity {
 		appProp.systemPersistent=MainActivity.mGlobalPrefs.getBoolean ("systempersistent"      ,false);
 		appProp.primaryIntColor=MainActivity.mGlobalPrefs.getInt      ("textcolor",Color.BLACK);
 		appProp.actionBarColor=MainActivity.mGlobalPrefs.getInt       ("actionbarcolor",Color.WHITE);
+		appProp.urlBarColor=MainActivity.mGlobalPrefs.getInt          ("urlbarcolor", Color.WHITE);
 		
 		sidebarProp.SidebarIconSize=numtodp(MainActivity.mGlobalPrefs.getInt    ("sidebariconsize"  ,80));
 		sidebarProp.SidebarIconPadding=numtodp(MainActivity.mGlobalPrefs.getInt ("sidebariconpadding",10));

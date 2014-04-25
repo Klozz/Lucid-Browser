@@ -384,7 +384,7 @@ public class MainActivity extends BrowserHandler {
  	}
 	
 	
-	//used in thew web dialog popup /res/layout/web_menu_popup.xml
+	//used in the web dialog popup /res/layout/web_menu_popup.xml
 	public void webviewActionClicked(View v){
 		switch(v.getId()){
 		case R.id.saveimage:

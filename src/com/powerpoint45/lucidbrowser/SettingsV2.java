@@ -45,11 +45,11 @@ public class SettingsV2 extends PreferenceActivity {
         
         ((Preference) findPreference("reset")).setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
-            		Toast.makeText(getApplicationContext(),
-			               (getResources().getText(R.string.complete)), Toast.LENGTH_LONG).show();
 	            	SharedPreferences.Editor ed = globalPref.edit();
 					ed.clear();
 					ed.commit();
+					Toast.makeText(getApplicationContext(),
+							(getResources().getText(R.string.complete)), Toast.LENGTH_LONG).show();
 					return false;
             }
       });
