@@ -31,11 +31,13 @@ public class Properties extends MainActivity {
 	}
 	public static class webpageProp{
 		static boolean showBackdrop;
+		static boolean useDesktopView;
 	}
 
 	
 	public static void update_preferences(){
 		webpageProp.showBackdrop=MainActivity.mGlobalPrefs.getBoolean("showbrowserbackdrop",false);
+		webpageProp.useDesktopView=MainActivity.mGlobalPrefs.getBoolean("usedesktopview",false);
 	
 		int actionBarHeight = LayoutParams.MATCH_PARENT;//fallback size
 		TypedValue tv = new TypedValue();
