@@ -16,10 +16,6 @@
   	    <item name="android:actionMenuTextColor">#fff</item>
     </style>
     
-    <style name="MyListView" parent="@android:style/Widget.ListView">
-        <item name="android:listSelector">@drawable/ic_menu_overflow_rounded_ffffff</item>
-    </style>
-    
 
 	<style name="dialog_color_pciker_view_portrait">
         <item name="android:layout_width">240dp</item>

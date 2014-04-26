@@ -302,7 +302,4 @@
 <string name="sidebartextcolortitle">Sidebar Text Color</string>
 <string name="sidebartextcolorsummary">Set the text color of the sidebar</string>
 
-<string name="desktopviewtitle">Enable Desktop View</string>
-<string name="desktopviewsummary">Display web pages like a desktop browser</string>
-
 </resources>

@@ -95,12 +95,13 @@ public class MainActivity extends BrowserHandler {
 			System.out.println("RESTORING STATE");
 			String [] urls = savedInstanceState.getStringArray("URLs");
 			int tabNumber = savedInstanceState.getInt("tabNumber");
-			
 			for (int I=0;I<urls.length;I++){
 				webWindows.add(new CustomWebView(MainActivity.this,null,urls[I]));
 				browserListViewAdapter.notifyDataSetChanged();
 			}
 			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(tabNumber));
+			savedInstanceState.clear();
+			savedInstanceState=null;
 		}
 		else{//If no InstanceState is found, just add a single page
 			if (intent.getAction()!=Intent.ACTION_WEB_SEARCH &&intent.getAction()!=Intent.ACTION_VIEW){//if page was requested from a different app, do not load home page
@@ -111,16 +112,14 @@ public class MainActivity extends BrowserHandler {
 		}
 		
 		//detect if app was opened from a different app to open a site
-		if (intent.getAction()==Intent.ACTION_WEB_SEARCH ||intent.getAction()==Intent.ACTION_VIEW){
-        	if (intent.getAction()==Intent.ACTION_WEB_SEARCH ||intent.getAction()==Intent.ACTION_VIEW){
-        		if (intent.getDataString()!=null){
-    	    		webWindows.add(new CustomWebView(MainActivity.this,null,intent.getDataString()));
-    	    		((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
-    	    		((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(webWindows.size()-1));
-    	    		((EditText) bar.findViewById(R.id.browser_searchbar)).setText(intent.getDataString());
-    	    		browserListViewAdapter.notifyDataSetChanged();
-        		}
-            }
+        if (intent.getAction()==Intent.ACTION_WEB_SEARCH ||intent.getAction()==Intent.ACTION_VIEW){
+        	if (intent.getDataString()!=null){
+    	    	webWindows.add(new CustomWebView(MainActivity.this,null,intent.getDataString()));
+    	    	((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
+    	    	((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(webWindows.size()-1));
+    	    	((EditText) bar.findViewById(R.id.browser_searchbar)).setText(intent.getDataString());
+    	    	browserListViewAdapter.notifyDataSetChanged();
+        	}
         }
 		
 		
@@ -347,10 +346,6 @@ public class MainActivity extends BrowserHandler {
 		    ed.putInt("numbookmarkedpages",numBooks-1);
 		    ed.commit();
 			v.setVisibility(View.GONE);
-			
-			if (numBooks-1 == 0){
-                dismissDialog();
-			}
 			break;
 		}
 	}
