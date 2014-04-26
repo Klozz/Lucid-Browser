@@ -347,6 +347,10 @@ public class MainActivity extends BrowserHandler {
 		    ed.putInt("numbookmarkedpages",numBooks-1);
 		    ed.commit();
 			v.setVisibility(View.GONE);
+			
+			if (numBooks-1 == 0){
+                dismissDialog();
+			}
 			break;
 		}
 	}
