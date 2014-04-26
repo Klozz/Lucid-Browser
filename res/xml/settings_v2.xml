@@ -84,6 +84,11 @@
                 android:key="urlbarcolor"
                 android:summary="@string/urlbarcolorsummary"
                 android:title="@string/urlbarcolortitle" />
+            <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="usedesktopview"
+                android:summary="@string/desktopviewsummary"
+                android:title="@string/desktopviewtitle" />
         </PreferenceCategory>
         
         <PreferenceCategory android:title="@string/cat_title_tools" >
