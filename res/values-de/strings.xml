@@ -300,4 +300,6 @@
 <string name="sidebartextcolortitle">Textfarbe der Seitenleiste</string>
 <string name="sidebartextcolorsummary"></string>
 
+<string name="desktopviewtitle">Desktop-Ansicht verwenden</string>
+<string name="desktopviewsummary">Webseiten wie ein Desktop-Browser darstellen</string>
 </resources>
