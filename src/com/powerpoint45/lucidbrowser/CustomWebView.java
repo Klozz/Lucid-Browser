@@ -24,7 +24,6 @@ public class CustomWebView extends WebView {
 	private ProgressBar PB;
 	private boolean videoPlaying;
 	VideoEnabledWebChromeClient chromeClient;
-	String defaultUserAgent = this.getSettings().getUserAgentString();
 
 	private String createUserAgentString(Context application, String mode) {
 		String ua = "";
@@ -60,9 +59,11 @@ public class CustomWebView extends WebView {
 		if (useDesktopView) {
 			this.getSettings().setUserAgentString(
 					createUserAgentString(context, "desktop"));
+			this.getSettings().setLoadWithOverviewMode(true);
 		} else {
 			this.getSettings().setUserAgentString(
 					createUserAgentString(context, "mobile"));
+			this.getSettings().setLoadWithOverviewMode(false);
 		}
 
 		this.getSettings().setPluginState(PluginState.ON);
@@ -72,6 +73,7 @@ public class CustomWebView extends WebView {
 		this.getSettings().setDisplayZoomControls(false);
 		this.getSettings().setUseWideViewPort(true);
 		this.getSettings().setSaveFormData(true);
+
 		this.setLayoutParams(new RelativeLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 		((Activity) MainActivity.activity).registerForContextMenu(this);
