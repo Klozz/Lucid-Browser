@@ -32,13 +32,15 @@ public class Properties extends MainActivity {
 	public static class webpageProp{
 		static boolean showBackdrop;
 		static boolean useDesktopView;
+		static boolean clearonexit;
 	}
 
 	
 	public static void update_preferences(){
 		webpageProp.showBackdrop=MainActivity.mGlobalPrefs.getBoolean("showbrowserbackdrop",false);
 		webpageProp.useDesktopView=MainActivity.mGlobalPrefs.getBoolean("usedesktopview",false);
-	
+		webpageProp.clearonexit=MainActivity.mGlobalPrefs.getBoolean("clearonexit",false);
+		
 		int actionBarHeight = LayoutParams.MATCH_PARENT;//fallback size
 		TypedValue tv = new TypedValue();
 		if (MainActivity.ctxt.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))

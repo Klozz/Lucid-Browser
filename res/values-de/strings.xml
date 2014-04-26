@@ -290,7 +290,7 @@
 <string name="urlbarcolorsummary">Hintergrundfarbe der Adresszeile wählen</string>
 
 <string name="clearonexittitle">Browserspuren autom. löschen</string>
-<string name="clearonexitsummary">Verlauf, Cache und Cookies entfernen beim Beenden des Browsers (Alle Tabs müssen geschlossen sein)</string>
+<string name="clearonexitsummary">Entfernen von Verlauf, Cache und Cookies beim Verlassen des Browsers nachdem alle Tabs geschlossen wurden</string>
 
 <string name="nobookmarks">Keine Lesezeichen vorhanden</string>
 

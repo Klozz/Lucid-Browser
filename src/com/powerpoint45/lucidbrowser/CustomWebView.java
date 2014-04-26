@@ -173,6 +173,7 @@ public class CustomWebView extends WebView {
 					DownloadManager.Request request = new DownloadManager.Request(
 							Uri.parse(url));
 
+					// TODO Check if necessary
 					if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB)
 						request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
 					else

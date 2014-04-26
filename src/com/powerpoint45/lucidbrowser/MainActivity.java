@@ -13,6 +13,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.BitmapFactory;
@@ -462,15 +463,31 @@ public class MainActivity extends BrowserHandler {
 	                return true;
 	            }
 			}
-			if (WV!=null && WV.canGoBack()==false)
-				finish();
-			else if (webWindows.size()==0)
-				finish();
-			
-			return true;
+			if ((WV!=null && WV.canGoBack()==false) || webWindows.size()==0){
+				
+				// FIXME files do not get deleted instantly
+				if (Properties.webpageProp.clearonexit){
+					ApplicationInfo appInfo = getApplicationInfo();
+					new SettingsV2().clearBrowsingTrace("all",appInfo);
+				}
+				
+				finish();		
+			}
+				return true;
         }
 	    return false;
 	};
+	
+//	if (WV!=null && WV.canGoBack()==false)
+//		finish();
+//	else if (webWindows.size()==0)
+//		finish();
+//	
+//	return true;
+//}
+//return false;
+//};
+	
 	
     static void dismissDialog(){
    	 if (dialog!=null){
