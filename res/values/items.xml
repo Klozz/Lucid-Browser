@@ -23,5 +23,6 @@
     <string-array name="sidebartheme_values" translatable="false">
         <item>b</item>
         <item>w</item>
+        <item>c</item>
     </string-array>
 </resources>

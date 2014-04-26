@@ -288,4 +288,18 @@
 
 <string name="alert_leftswipegesture">Gesture was set. Disable the browser to use it</string>
 
+<string name="urlbarcolortitle">URL bar color</string>
+<string name="urlbarcolorsummary">Set the background color of the URL bar</string>
+
+<string name="clearonexittitle">Clear browser traces on exit</string>
+<string name="clearonexitsummary">Exiting browser after closing all tabs clears history, cache and cookies</string>
+
+<string name="nobookmarks">No Bookmarks set</string>
+
+<string name="sidebar_custom">Custom</string>
+<string name="sidebarcolortitle">Sidebar Color</string>
+<string name="sidebarcolorsummary">Set the color of the sidebar</string>
+<string name="sidebartextcolortitle">Sidebar Text Color</string>
+<string name="sidebartextcolorsummary">Set the text color of the sidebar</string>
+
 </resources>

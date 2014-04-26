@@ -197,8 +197,8 @@
     <string name="enablefloatoptiontitle">Schwebende Apps aktivieren</string>
     <string name="enablefloatoptionsummary">App lange drücken, um sie in eigenem Fenster starten zu können (experimentell, nur bei unterstützten ROMs)</string>
 
-    <string name="showbackgroundonurlbartitle">Weiße Adresszeile</string>
-    <string name="showbackgroundonurlbarsummary">Färbt den Hintergrund der Adresszeile weiß</string>
+    <string name="showbackgroundonurlbartitle">Farbige Adresszeile</string>
+    <string name="showbackgroundonurlbarsummary">Färbt den Hintergrund der Adresszeile ein</string>
 
     <string name="browsercompactmodetitle">Kompaktmodus aktivieren</string>
     <string name="browsercompactmodesummary">Verbessert das Browserlayout für kleinere Geräte</string>
@@ -281,9 +281,23 @@
 <string name="action_openapp_animationnormal">App-Start mit Standardanimation</string>
 <string name="action_openapp_animationslide">App-Start mit Schiebeanimation</string>
 
-    <string name="alert_leftswipegesture">Geste wurde definiert. Zum Benutzen bitte Browser deaktivieren</string>
+<string name="alert_leftswipegesture">Geste wurde definiert. Zum Benutzen bitte Browser deaktivieren</string>
 
 <string name="gesturedoubletaptitle">Doppelt Tippen</string>
 <string name="gesturedoubletapsummary">Aktion wählen für das doppelte Tippen auf den Home-Bildschirm</string>
+
+<string name="urlbarcolortitle">Farbe der Adresszeile</string>
+<string name="urlbarcolorsummary">Hintergrundfarbe der Adresszeile wählen</string>
+
+<string name="clearonexittitle">Browserspuren autom. löschen</string>
+<string name="clearonexitsummary">Verlauf, Cache und Cookies entfernen beim Beenden des Browsers (Alle Tabs müssen geschlossen sein)</string>
+
+<string name="nobookmarks">Keine Lesezeichen vorhanden</string>
+
+<string name="sidebar_custom">Benutzerdefiniert</string>
+<string name="sidebarcolortitle">Farbe der Seitenleiste</string>
+<string name="sidebarcolorsummary"></string>
+<string name="sidebartextcolortitle">Textfarbe der Seitenleiste</string>
+<string name="sidebartextcolorsummary"></string>
 
 </resources>

@@ -11,6 +11,7 @@ public class Properties extends MainActivity {
 		public static int actionBarTransparency;
 		static int actionBarColor;
 		public static int primaryIntColor;
+		static int urlBarColor;
 		static boolean fullscreen = false;
 		static boolean transparentNav = true;
 		static boolean TransparentStatus = false;
@@ -25,6 +26,8 @@ public class Properties extends MainActivity {
 		static String theme;
 		static boolean showLabel;
 		static boolean disable;
+		static int sideBarColor;
+		static int sideBarTextColor;
 	}
 	public static class webpageProp{
 		static boolean showBackdrop;
@@ -51,10 +54,13 @@ public class Properties extends MainActivity {
 		appProp.systemPersistent=MainActivity.mGlobalPrefs.getBoolean ("systempersistent"      ,false);
 		appProp.primaryIntColor=MainActivity.mGlobalPrefs.getInt      ("textcolor",Color.BLACK);
 		appProp.actionBarColor=MainActivity.mGlobalPrefs.getInt       ("actionbarcolor",Color.WHITE);
+		appProp.urlBarColor=MainActivity.mGlobalPrefs.getInt          ("urlbarcolor", Color.WHITE);
 		
 		sidebarProp.SidebarIconSize=numtodp(MainActivity.mGlobalPrefs.getInt    ("sidebariconsize"  ,80));
 		sidebarProp.SidebarIconPadding=numtodp(MainActivity.mGlobalPrefs.getInt ("sidebariconpadding",10));
 		sidebarProp.theme=MainActivity.mGlobalPrefs.getString                   ("sidebartheme", "b");
+		sidebarProp.sideBarColor=MainActivity.mGlobalPrefs.getInt               ("sidebarcolor",Color.BLACK);
+        sidebarProp.sideBarTextColor=MainActivity.mGlobalPrefs.getInt           ("sidebartextcolor", Color.WHITE);
 		sidebarProp.showLabel=MainActivity.mGlobalPrefs.getBoolean              ("showfavoriteslabels", true);
 		sidebarProp.transparency=MainActivity.mGlobalPrefs.getInt               ("sidebartransparency" ,100);
 		sidebarProp.transparency= (254*sidebarProp.transparency)/100;

@@ -23,6 +23,7 @@
     <string-array name="sidebarthemes">
         <item>@string/sidebar_dark</item>
         <item>@string/sidebar_light</item>
+        <item>@string/sidebar_custom</item>
     </string-array>
     
     
