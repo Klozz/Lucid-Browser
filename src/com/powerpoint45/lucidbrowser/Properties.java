@@ -31,6 +31,7 @@ public class Properties extends MainActivity {
 	}
 	public static class webpageProp{
 		static boolean showBackdrop;
+		static boolean useDesktopView;
 	}
 
 	

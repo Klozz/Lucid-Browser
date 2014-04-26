@@ -6,9 +6,9 @@ import android.app.DownloadManager.Request;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.DownloadListener;
 import android.webkit.WebSettings.PluginState;
@@ -24,43 +24,14 @@ public class CustomWebView extends WebView{
 	private ProgressBar PB;
 	private boolean videoPlaying;
 	VideoEnabledWebChromeClient chromeClient;
-<<<<<<< HEAD
 	
-	public CustomWebView(Context context,AttributeSet set, String url) {
-		super(context,set);
-=======
-
-	private String createUserAgentString(Context application, String mode) {
-		String ua = "";
-
-		// TODO Test with different user agents
-		// For now copied Chrome user agents and adapt them to the user's device
-		if (mode.equals("mobile")) {
-
-			ua = "Mozilla/5.0 (" + System.getProperty("os.name", "Linux")
-					+ "; Android " + Build.VERSION.RELEASE + "; " + Build.MODEL
-					+ "; Build/" + Build.ID
-					+ ") AppleWebKit/537.36 (KHTML, like Gecko) "
-					+ "Chrome/34.0.1847.114 Mobile Safari/537.36";
-
-		} else if (mode.equals("desktop")) {
-			ua = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36";
-
-		}
-		return ua;
-	}
-
 	public CustomWebView(Context context, AttributeSet set, String url) {
 		super(context, set);
->>>>>>> cbae82dc467e379967dca9b7101ec682a669b582
 		this.setId(R.id.browser_page);
 		if (url==null)
 			this.loadUrl(MainActivity.mPrefs.getString("browserhome", "http://www.google.com/"));
 		else
 			this.loadUrl(url);
-<<<<<<< HEAD
-			
-=======
 
 		Boolean useDesktopView = Properties.webpageProp.useDesktopView;
 
@@ -74,7 +45,6 @@ public class CustomWebView extends WebView{
 			this.getSettings().setLoadWithOverviewMode(false);
 		}
 
->>>>>>> cbae82dc467e379967dca9b7101ec682a669b582
 		this.getSettings().setPluginState(PluginState.ON);
 		this.getSettings().setDomStorageEnabled(true);
 		this.getSettings().setJavaScriptEnabled(true);
@@ -82,13 +52,9 @@ public class CustomWebView extends WebView{
 		this.getSettings().setDisplayZoomControls(false);
 		this.getSettings().setUseWideViewPort(true);
 		this.getSettings().setSaveFormData(true);
-<<<<<<< HEAD
 		this.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
-=======
-
 		this.setLayoutParams(new RelativeLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
->>>>>>> cbae82dc467e379967dca9b7101ec682a669b582
 		((Activity) MainActivity.activity).registerForContextMenu(this);
 		this.setWebViewClient(new WebViewClient() {
 	        @Override
@@ -200,6 +166,26 @@ public class CustomWebView extends WebView{
     public boolean isVideoPlaying(){
     	return videoPlaying;
     }
+    
+    private String createUserAgentString(Context application, String mode) {
+		String ua = "";
+
+		// TODO Test with different user agents
+		// For now copied Chrome user agents and adapt them to the user's device
+		if (mode.equals("mobile")) {
+
+			ua = "Mozilla/5.0 (" + System.getProperty("os.name", "Linux")
+					+ "; Android " + Build.VERSION.RELEASE + "; " + Build.MODEL
+					+ "; Build/" + Build.ID
+					+ ") AppleWebKit/537.36 (KHTML, like Gecko) "
+					+ "Chrome/34.0.1847.114 Mobile Safari/537.36";
+
+		} else if (mode.equals("desktop")) {
+			ua = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36";
+
+		}
+		return ua;
+	}
     
     public void setVideoPlaying(boolean b){
     	videoPlaying = b;
