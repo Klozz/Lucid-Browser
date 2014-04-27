@@ -13,7 +13,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.BitmapFactory;
@@ -32,7 +31,10 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
+import android.webkit.WebViewDatabase;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -455,6 +457,7 @@ public class MainActivity extends BrowserHandler {
         }
 		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
 			CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
+			
 			if (WV!=null){
 				if(WV.canGoBack())
 	            {
@@ -464,30 +467,35 @@ public class MainActivity extends BrowserHandler {
 	            }
 			}
 			if ((WV!=null && WV.canGoBack()==false) || webWindows.size()==0){
-				
-				// FIXME files do not get deleted instantly
+				finish();		
+
+				// TODO Works fine now, but unless page isn't reloaded, user won't notice cleared cookies
 				if (Properties.webpageProp.clearonexit){
-					ApplicationInfo appInfo = getApplicationInfo();
-					new SettingsV2().clearBrowsingTrace("all",appInfo);
+					clearTraces();
 				}
 				
-				finish();		
 			}
 				return true;
         }
 	    return false;
 	};
 	
-//	if (WV!=null && WV.canGoBack()==false)
-//		finish();
-//	else if (webWindows.size()==0)
-//		finish();
-//	
-//	return true;
-//}
-//return false;
-//};
-	
+	@Override
+	public void onUserLeaveHint(){
+		// TODO Check: Should tabs be closed too?
+		if (Properties.webpageProp.clearonexit){
+			clearTraces();
+			
+			// Usefull for future commits:
+//			cookieManager.setAcceptCookie(false)
+//
+//			WebView webview = new WebView(this);
+//			WebSettings ws = webview.getSettings();
+//			ws.setSaveFormData(false);
+//			ws.setSavePassword(false); // Not needed for API level 18 or greater (deprecat
+		}
+		
+	}
 	
     static void dismissDialog(){
    	 if (dialog!=null){
@@ -496,7 +504,18 @@ public class MainActivity extends BrowserHandler {
    	 }
     }
     
-    
+    protected static void clearTraces(){
+    	CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
+		WV.clearHistory();
+		WV.clearCache(true);
+		
+		WebViewDatabase wDB = WebViewDatabase.getInstance(activity);
+		wDB.clearFormData();
+		
+		CookieSyncManager.createInstance(activity);
+		CookieManager cookieManager = CookieManager.getInstance();
+		cookieManager.removeAllCookie();
+    }
     
 	protected static Handler messageHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
@@ -522,6 +541,8 @@ public class MainActivity extends BrowserHandler {
             }
         }
  };
+ 
+ 
  
  @Override
  public void onSaveInstanceState(Bundle savedInstanceState) {

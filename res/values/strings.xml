@@ -292,7 +292,7 @@
 <string name="urlbarcolorsummary">Set the background color of the URL bar</string>
 
 <string name="clearonexittitle">Clear browser traces on exit</string>
-<string name="clearonexitsummary">Exiting browser after closing all tabs clears history, cache and cookies</string>
+<string name="clearonexitsummary">Exiting browser clears history, cache and cookies</string>
 
 <string name="nobookmarks">No Bookmarks set</string>
 

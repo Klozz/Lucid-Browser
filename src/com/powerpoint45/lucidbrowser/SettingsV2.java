@@ -32,10 +32,12 @@ import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.view.View;
+import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -44,6 +46,58 @@ public class SettingsV2 extends PreferenceActivity {
 	ColorPickerPreference sideColor;
 	ColorPickerPreference sideTextColor;
 	Boolean firstStart = true;
+
+	public static class HelperMethods {
+		static void DeleteRecursive(File fileOrDirectory) {
+			if (fileOrDirectory.exists()) {
+				if (fileOrDirectory.isDirectory())
+					for (File child : fileOrDirectory.listFiles())
+						DeleteRecursive(child);
+
+				fileOrDirectory.delete();
+			}
+		}
+
+		static void clearBrowsingTrace(String trace, ApplicationInfo appInfo) {
+			if (trace == "cache") {
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/app_webview/Cache/"));
+				DeleteRecursive(new File(appInfo.dataDir + "/cache/"));
+
+			} else if (trace == "cookies") {
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/databases/webviewCookiesChromium.db"));
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/databases/webviewCookiesChromiumPrivate.db"));
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/app_webview/Cookies"));
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/app_webview/Cookies-journal"));
+
+			} else if (trace == "history") {
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/databases/webview.db"));
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/databases/webview.db-shm"));
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/databases/webview.db-wal"));
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/app_webview/Web Data"));
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/app_webview/Web Data-journal"));
+			} else if (trace == "all") {
+
+				clearBrowsingTrace("cache", appInfo);
+				clearBrowsingTrace("cookies", appInfo);
+				clearBrowsingTrace("history", appInfo);
+
+			} else {
+				System.err
+						.println("clearBrowsingTrace(String trace) did nothing. Wrong parameter was given");
+			}
+		}
+
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -70,7 +124,7 @@ public class SettingsV2 extends PreferenceActivity {
 				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 					public boolean onPreferenceClick(Preference preference) {
 						ApplicationInfo appInfo = getApplicationInfo();
-						clearBrowsingTrace("cache",appInfo);
+						HelperMethods.clearBrowsingTrace("cache", appInfo);
 						Toast.makeText(getApplicationContext(),
 								(getResources().getText(R.string.complete)),
 								Toast.LENGTH_LONG).show();
@@ -82,7 +136,7 @@ public class SettingsV2 extends PreferenceActivity {
 				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 					public boolean onPreferenceClick(Preference preference) {
 						ApplicationInfo appInfo = getApplicationInfo();
-						clearBrowsingTrace("history",appInfo);
+						HelperMethods.clearBrowsingTrace("history", appInfo);
 						Toast.makeText(getApplicationContext(),
 								(getResources().getText(R.string.complete)),
 								Toast.LENGTH_LONG).show();
@@ -94,7 +148,7 @@ public class SettingsV2 extends PreferenceActivity {
 				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 					public boolean onPreferenceClick(Preference preference) {
 						ApplicationInfo appInfo = getApplicationInfo();
-						clearBrowsingTrace("cookies",appInfo);
+						HelperMethods.clearBrowsingTrace("cookies", appInfo);
 						Toast.makeText(getApplicationContext(),
 								(getResources().getText(R.string.complete)),
 								Toast.LENGTH_LONG).show();
@@ -190,55 +244,6 @@ public class SettingsV2 extends PreferenceActivity {
 			;
 		}
 
-	}
-
-	void DeleteRecursive(File fileOrDirectory) {
-		if (fileOrDirectory.exists()) {
-			if (fileOrDirectory.isDirectory())
-				for (File child : fileOrDirectory.listFiles())
-					DeleteRecursive(child);
-
-			fileOrDirectory.delete();
-		}
-	}
-
-	public void clearBrowsingTrace(String trace, ApplicationInfo appInfo) {
-		if (trace == "cache") {
-			DeleteRecursive(new File(appInfo.dataDir
-					+ "/app_webview/Cache/"));
-			DeleteRecursive(new File(appInfo.dataDir + "/cache/"));
-
-		} else if (trace == "cookies") {
-			DeleteRecursive(new File(appInfo.dataDir
-					+ "/databases/webviewCookiesChromium.db"));
-			DeleteRecursive(new File(appInfo.dataDir
-					+ "/databases/webviewCookiesChromiumPrivate.db"));
-			DeleteRecursive(new File(appInfo.dataDir
-					+ "/app_webview/Cookies"));
-			DeleteRecursive(new File(appInfo.dataDir
-					+ "/app_webview/Cookies-journal"));
-
-		} else if (trace == "history") {
-			DeleteRecursive(new File(appInfo.dataDir
-					+ "/databases/webview.db"));
-			DeleteRecursive(new File(appInfo.dataDir
-					+ "/databases/webview.db-shm"));
-			DeleteRecursive(new File(appInfo.dataDir
-					+ "/databases/webview.db-wal"));
-			DeleteRecursive(new File(appInfo.dataDir
-					+ "/app_webview/Web Data"));
-			DeleteRecursive(new File(appInfo.dataDir
-					+ "/app_webview/Web Data-journal"));
-		} else if (trace == "all") {
-
-			clearBrowsingTrace("cache",appInfo);
-			clearBrowsingTrace("cookies",appInfo);
-			clearBrowsingTrace("history",appInfo);
-
-		} else {
-			System.err
-					.println("clearBrowsingTrace(String trace) did nothing. Wrong parameter was given");
-		}
 	}
 
 	@Override
