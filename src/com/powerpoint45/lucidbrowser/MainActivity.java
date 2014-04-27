@@ -91,7 +91,6 @@ public class MainActivity extends BrowserHandler {
 		Properties.update_preferences();
 		SetupLayouts.setuplayouts();
 		
-		
 		Intent intent = getIntent();
 		
 		if (savedInstanceState!=null){
@@ -486,13 +485,6 @@ public class MainActivity extends BrowserHandler {
 		if (Properties.webpageProp.clearonexit){
 			clearTraces();
 			
-			// Usefull for future commits:
-//			cookieManager.setAcceptCookie(false)
-//
-//			WebView webview = new WebView(this);
-//			WebSettings ws = webview.getSettings();
-//			ws.setSaveFormData(false);
-//			ws.setSavePassword(false); // Not needed for API level 18 or greater (deprecat
 		}
 		
 	}
@@ -515,6 +507,13 @@ public class MainActivity extends BrowserHandler {
 		CookieSyncManager.createInstance(activity);
 		CookieManager cookieManager = CookieManager.getInstance();
 		cookieManager.removeAllCookie();
+		// Usefull for future commits:
+//			cookieManager.setAcceptCookie(false)
+//
+//			WebView webview = new WebView(this);
+//			WebSettings ws = webview.getSettings();
+//			ws.setSaveFormData(false);
+//			ws.setSavePassword(false); // Not needed for API level 18 or greater (deprecat
     }
     
 	protected static Handler messageHandler = new Handler() {

@@ -263,6 +263,7 @@
     <string name="cat_title_other">Other</string>
     <string name="cat_title_layout">Layout</string>
     <string name="cat_title_setup">Setup</string>
+    <string name="cat_title_content">Content</string>
 
 <string name="disablesidebarsummary">Select to disable the favorites sidebar</string>
 
@@ -304,5 +305,9 @@
 
 <string name="desktopviewtitle">Enable Desktop View</string>
 <string name="desktopviewsummary">Display web pages like a desktop browser</string>
+
+<string name="enableimages">Load Images</string>
+<string name="enablejavascript">Enable JavaScript</string> <!-- not used yet -->
+<string name="enablecookies">Allow Cookies</string>
 
 </resources>

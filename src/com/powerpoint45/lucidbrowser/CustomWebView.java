@@ -12,6 +12,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.webkit.DownloadListener;
 import android.webkit.WebSettings.PluginState;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
@@ -54,9 +56,7 @@ public class CustomWebView extends WebView {
 		else
 			this.loadUrl(url);
 
-		Boolean useDesktopView = Properties.webpageProp.useDesktopView;
-
-		if (useDesktopView) {
+		if (Properties.webpageProp.useDesktopView) {
 			this.getSettings().setUserAgentString(
 					createUserAgentString(context, "desktop"));
 			this.getSettings().setLoadWithOverviewMode(true);
@@ -66,9 +66,35 @@ public class CustomWebView extends WebView {
 			this.getSettings().setLoadWithOverviewMode(false);
 		}
 
+		// Enable / Disable cookies
+		if (!Properties.webpageProp.enablecookies) {
+			CookieSyncManager.createInstance(context);
+			CookieManager cookieManager = CookieManager.getInstance();
+			cookieManager.setAcceptCookie(false);
+		} else {
+			CookieSyncManager.createInstance(context);
+			CookieManager cookieManager = CookieManager.getInstance();
+			cookieManager.setAcceptCookie(true);
+		}
+
+//		Uncomment if wanted by users
+//
+//		// Enable / Disable JavaScript
+//		if (!Properties.webpageProp.enablejavascript) {
+//			this.getSettings().setJavaScriptEnabled(false);
+//		} else {
+			this.getSettings().setJavaScriptEnabled(true);
+//		}
+		
+		// Enable / Disable Images
+		if (!Properties.webpageProp.enableimages) {
+			this.getSettings().setLoadsImagesAutomatically(false);
+		} else {
+			this.getSettings().setLoadsImagesAutomatically(true);
+		}
+
 		this.getSettings().setPluginState(PluginState.ON);
 		this.getSettings().setDomStorageEnabled(true);
-		this.getSettings().setJavaScriptEnabled(true);
 		this.getSettings().setBuiltInZoomControls(true);
 		this.getSettings().setDisplayZoomControls(false);
 		this.getSettings().setUseWideViewPort(true);

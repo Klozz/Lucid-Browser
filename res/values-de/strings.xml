@@ -303,4 +303,8 @@
 <string name="desktopviewtitle">Desktop-Ansicht</string>
 <string name="desktopviewsummary">Webseiten wie ein Desktop-Browser darstellen</string>
 
+<string name="enableimages">Bilder laden</string>
+<string name="enablejavascript">JavaScript aktivieren</string><!-- not used yet -->
+<string name="enablecookies">Cookies zulassen</string>
+
 </resources>
