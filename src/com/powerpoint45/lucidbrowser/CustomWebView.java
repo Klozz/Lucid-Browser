@@ -10,10 +10,10 @@ import android.os.Build;
 import android.os.Environment;
 import android.util.AttributeSet;
 import android.view.View;
-import android.webkit.DownloadListener;
-import android.webkit.WebSettings.PluginState;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
+import android.webkit.DownloadListener;
+import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
@@ -146,35 +146,6 @@ public class CustomWebView extends WebView{
 	    this.setWebChromeClient(chromeClient);
 	    
 		this.setDownloadListener(new DownloadListener() {
-<<<<<<< HEAD
-            public void onDownloadStart(String url, String userAgent,
-                    String contentDisposition, String mimetype,
-                    long contentLength) {
-
-			   if (MainActivity.isDownloadManagerAvailable(MainActivity.ctxt)){
-				   DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-				   
-				   if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) 
-				       request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-				   else 
-				       request.setShowRunningNotification(true);
-				   
-				   if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.HONEYCOMB_MR2)
-					   request.setNotificationVisibility(Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-				   else
-					   request.setNotificationVisibility(Request.VISIBILITY_VISIBLE);
-				   
-				   
-				        
-				   
-				   request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-				   request.allowScanningByMediaScanner();
-				   request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, url.substring( url.lastIndexOf('/')+1, url.length() ));
-				   DownloadManager manager = (DownloadManager) MainActivity.ctxt.getSystemService(Context.DOWNLOAD_SERVICE);
-				   manager.enqueue(request);
-			   }
-		    }
-
 			public void onDownloadStart(String url, String userAgent,
 					String contentDisposition, String mimetype,
 					long contentLength) {

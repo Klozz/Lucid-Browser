@@ -265,7 +265,7 @@
     <string name="cat_title_setup">Setup</string>
     <string name="cat_title_content">Content</string>
 
-<string name="disablesidebarsummary">Select to disable the favorites sidebar</string>
+	<string name="disablesidebarsummary">Select to disable the favorites sidebar</string>
 
     <string name="cat_title_gestures">Gestures</string>
 
