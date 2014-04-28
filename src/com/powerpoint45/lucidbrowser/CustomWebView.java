@@ -12,6 +12,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.webkit.DownloadListener;
 import android.webkit.WebSettings.PluginState;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
@@ -33,9 +35,7 @@ public class CustomWebView extends WebView{
 		else
 			this.loadUrl(url);
 
-		Boolean useDesktopView = Properties.webpageProp.useDesktopView;
-
-		if (useDesktopView) {
+		if (Properties.webpageProp.useDesktopView) {
 			this.getSettings().setUserAgentString(
 					createUserAgentString(context, "desktop"));
 			this.getSettings().setLoadWithOverviewMode(true);
@@ -45,9 +45,35 @@ public class CustomWebView extends WebView{
 			this.getSettings().setLoadWithOverviewMode(false);
 		}
 
+		// Enable / Disable cookies
+		if (!Properties.webpageProp.enablecookies) {
+			CookieSyncManager.createInstance(context);
+			CookieManager cookieManager = CookieManager.getInstance();
+			cookieManager.setAcceptCookie(false);
+		} else {
+			CookieSyncManager.createInstance(context);
+			CookieManager cookieManager = CookieManager.getInstance();
+			cookieManager.setAcceptCookie(true);
+		}
+
+//		Uncomment if wanted by users
+//
+//		// Enable / Disable JavaScript
+//		if (!Properties.webpageProp.enablejavascript) {
+//			this.getSettings().setJavaScriptEnabled(false);
+//		} else {
+			this.getSettings().setJavaScriptEnabled(true);
+//		}
+		
+		// Enable / Disable Images
+		if (!Properties.webpageProp.enableimages) {
+			this.getSettings().setLoadsImagesAutomatically(false);
+		} else {
+			this.getSettings().setLoadsImagesAutomatically(true);
+		}
+
 		this.getSettings().setPluginState(PluginState.ON);
 		this.getSettings().setDomStorageEnabled(true);
-		this.getSettings().setJavaScriptEnabled(true);
 		this.getSettings().setBuiltInZoomControls(true);
 		this.getSettings().setDisplayZoomControls(false);
 		this.getSettings().setUseWideViewPort(true);
@@ -120,6 +146,7 @@ public class CustomWebView extends WebView{
 	    this.setWebChromeClient(chromeClient);
 	    
 		this.setDownloadListener(new DownloadListener() {
+<<<<<<< HEAD
             public void onDownloadStart(String url, String userAgent,
                     String contentDisposition, String mimetype,
                     long contentLength) {
@@ -147,6 +174,37 @@ public class CustomWebView extends WebView{
 				   manager.enqueue(request);
 			   }
 		    }
+
+			public void onDownloadStart(String url, String userAgent,
+					String contentDisposition, String mimetype,
+					long contentLength) {
+
+				if (MainActivity.isDownloadManagerAvailable(MainActivity.ctxt)) {
+					DownloadManager.Request request = new DownloadManager.Request(
+							Uri.parse(url));
+
+					// TODO Check if necessary
+					if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB)
+						request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+					else
+						request.setShowRunningNotification(true);
+
+					if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.HONEYCOMB_MR2)
+						request.setNotificationVisibility(Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+					else
+						request.setNotificationVisibility(Request.VISIBILITY_VISIBLE);
+
+					request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+					request.allowScanningByMediaScanner();
+					request.setDestinationInExternalPublicDir(
+							Environment.DIRECTORY_DOWNLOADS,
+							url.substring(url.lastIndexOf('/') + 1,
+									url.length()));
+					DownloadManager manager = (DownloadManager) MainActivity.ctxt
+							.getSystemService(Context.DOWNLOAD_SERVICE);
+					manager.enqueue(request);
+				}
+			}
 		});
 
 		

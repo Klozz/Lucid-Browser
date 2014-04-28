@@ -18,6 +18,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnShowListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -31,10 +32,12 @@ import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.view.View;
+import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -43,8 +46,58 @@ public class SettingsV2 extends PreferenceActivity {
 	ColorPickerPreference sideColor;
 	ColorPickerPreference sideTextColor;
 	Boolean firstStart = true;
-	
-	
+
+	public static class HelperMethods {
+		static void DeleteRecursive(File fileOrDirectory) {
+			if (fileOrDirectory.exists()) {
+				if (fileOrDirectory.isDirectory())
+					for (File child : fileOrDirectory.listFiles())
+						DeleteRecursive(child);
+
+				fileOrDirectory.delete();
+			}
+		}
+
+		static void clearBrowsingTrace(String trace, ApplicationInfo appInfo) {
+			if (trace == "cache") {
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/app_webview/Cache/"));
+				DeleteRecursive(new File(appInfo.dataDir + "/cache/"));
+
+			} else if (trace == "cookies") {
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/databases/webviewCookiesChromium.db"));
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/databases/webviewCookiesChromiumPrivate.db"));
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/app_webview/Cookies"));
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/app_webview/Cookies-journal"));
+
+			} else if (trace == "history") {
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/databases/webview.db"));
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/databases/webview.db-shm"));
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/databases/webview.db-wal"));
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/app_webview/Web Data"));
+				DeleteRecursive(new File(appInfo.dataDir
+						+ "/app_webview/Web Data-journal"));
+			} else if (trace == "all") {
+
+				clearBrowsingTrace("cache", appInfo);
+				clearBrowsingTrace("cookies", appInfo);
+				clearBrowsingTrace("history", appInfo);
+
+			} else {
+				System.err
+						.println("clearBrowsingTrace(String trace) did nothing. Wrong parameter was given");
+			}
+		}
+
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -70,10 +123,8 @@ public class SettingsV2 extends PreferenceActivity {
 		((Preference) findPreference("clearbrowsercache"))
 				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 					public boolean onPreferenceClick(Preference preference) {
-						DeleteRecursive(new File(getApplicationInfo().dataDir
-								+ "/app_webview/Cache/"));
-						DeleteRecursive(new File(getApplicationInfo().dataDir
-								+ "/cache/"));
+						ApplicationInfo appInfo = getApplicationInfo();
+						HelperMethods.clearBrowsingTrace("cache", appInfo);
 						Toast.makeText(getApplicationContext(),
 								(getResources().getText(R.string.complete)),
 								Toast.LENGTH_LONG).show();
@@ -84,16 +135,8 @@ public class SettingsV2 extends PreferenceActivity {
 		((Preference) findPreference("clearbrowserhistory"))
 				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 					public boolean onPreferenceClick(Preference preference) {
-						DeleteRecursive(new File(getApplicationInfo().dataDir
-								+ "/databases/webview.db"));
-						DeleteRecursive(new File(getApplicationInfo().dataDir
-								+ "/databases/webview.db-shm"));
-						DeleteRecursive(new File(getApplicationInfo().dataDir
-								+ "/databases/webview.db-wal"));
-						DeleteRecursive(new File(getApplicationInfo().dataDir
-								+ "/app_webview/Web Data"));
-						DeleteRecursive(new File(getApplicationInfo().dataDir
-								+ "/app_webview/Web Data-journal"));
+						ApplicationInfo appInfo = getApplicationInfo();
+						HelperMethods.clearBrowsingTrace("history", appInfo);
 						Toast.makeText(getApplicationContext(),
 								(getResources().getText(R.string.complete)),
 								Toast.LENGTH_LONG).show();
@@ -104,32 +147,8 @@ public class SettingsV2 extends PreferenceActivity {
 		((Preference) findPreference("clearbrowsercookies"))
 				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 					public boolean onPreferenceClick(Preference preference) {
-						DeleteRecursive(new File(getApplicationInfo().dataDir
-								+ "/databases/webviewCookiesChromium.db"));
-						DeleteRecursive(new File(getApplicationInfo().dataDir
-								+ "/databases/webviewCookiesChromiumPrivate.db"));
-						DeleteRecursive(new File(getApplicationInfo().dataDir
-								+ "/app_webview/Cookies"));
-						DeleteRecursive(new File(getApplicationInfo().dataDir
-								+ "/app_webview/Cookies-journal"));
-						Toast.makeText(getApplicationContext(),
-								(getResources().getText(R.string.complete)),
-								Toast.LENGTH_LONG).show();
-						return false;
-					}
-				});
-
-		((Preference) findPreference("clearbrowsercookies"))
-				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-					public boolean onPreferenceClick(Preference preference) {
-						DeleteRecursive(new File(getApplicationInfo().dataDir
-								+ "/databases/webviewCookiesChromium.db"));
-						DeleteRecursive(new File(getApplicationInfo().dataDir
-								+ "/databases/webviewCookiesChromiumPrivate.db"));
-						DeleteRecursive(new File(getApplicationInfo().dataDir
-								+ "/app_webview/Cookies"));
-						DeleteRecursive(new File(getApplicationInfo().dataDir
-								+ "/app_webview/Cookies-journal"));
+						ApplicationInfo appInfo = getApplicationInfo();
+						HelperMethods.clearBrowsingTrace("cookies", appInfo);
 						Toast.makeText(getApplicationContext(),
 								(getResources().getText(R.string.complete)),
 								Toast.LENGTH_LONG).show();
@@ -140,35 +159,36 @@ public class SettingsV2 extends PreferenceActivity {
 		/*
 		 * Customizable side bar
 		 * 
-		 * 1. Remove sidebar color settings from settings_v2.xml
-		 *    Save it globally, so that it can be added later
+		 * 1. Remove sidebar color settings from settings_v2.xml Save it
+		 * globally, so that it can be added later
 		 * 
 		 * 2. Set OnPreferenceChangeListener to hide sidebarcolor and
-		 * sidebartextcolor when sidebartheme = b or sidebartheme = w
-		 *    Add sidebar color settings when c (custom) is selected)
+		 * sidebartextcolor when sidebartheme = b or sidebartheme = w Add
+		 * sidebar color settings when c (custom) is selected)
 		 */
-		
-		if (firstStart){
+
+		if (firstStart) {
 			String sidebarTheme = globalPref.getString("sidebartheme", "b");
 			if (!sidebarTheme.equals("c")) {
-				
+
 				PreferenceScreen preferenceScreen = getPreferenceScreen();
-				
+
 				sideColor = (ColorPickerPreference) preferenceScreen
 						.findPreference("sidebarcolor");
 				sideTextColor = (ColorPickerPreference) preferenceScreen
 						.findPreference("sidebartextcolor");
-				
+
 				((PreferenceGroup) findPreference("sideappearance"))
-				.removePreference(sideColor);
+						.removePreference(sideColor);
 				((PreferenceGroup) findPreference("sideappearance"))
-				.removePreference(sideTextColor);
-				
+						.removePreference(sideTextColor);
+
 				firstStart = false;
 			}
 			;
-		};
-		
+		}
+		;
+
 		((Preference) findPreference("sidebartheme"))
 				.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 					public boolean onPreferenceChange(Preference preference,
@@ -183,7 +203,7 @@ public class SettingsV2 extends PreferenceActivity {
 										.removePreference(sideColor);
 								((PreferenceGroup) findPreference("sideappearance"))
 										.removePreference(sideTextColor);
-								
+
 							} catch (Exception e) {
 								System.out
 										.println("Sidebar color preferences already removed");
@@ -193,12 +213,13 @@ public class SettingsV2 extends PreferenceActivity {
 
 							ColorPickerPreference testSideColor = (ColorPickerPreference) preferenceScreen
 									.findPreference("sidebarcolor");
-							
-							if (testSideColor == null){
-								
-								((PreferenceGroup) findPreference("sideappearance")).addPreference(sideColor);
+
+							if (testSideColor == null) {
+
 								((PreferenceGroup) findPreference("sideappearance"))
-								.addPreference(sideTextColor);								
+										.addPreference(sideColor);
+								((PreferenceGroup) findPreference("sideappearance"))
+										.addPreference(sideTextColor);
 							}
 
 						}
@@ -206,8 +227,6 @@ public class SettingsV2 extends PreferenceActivity {
 						return true;
 					}
 				});
-
-		
 
 		// if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) { //
 		// Translucent available
@@ -225,16 +244,6 @@ public class SettingsV2 extends PreferenceActivity {
 			;
 		}
 
-	}
-
-	void DeleteRecursive(File fileOrDirectory) {
-		if (fileOrDirectory.exists()) {
-			if (fileOrDirectory.isDirectory())
-				for (File child : fileOrDirectory.listFiles())
-					DeleteRecursive(child);
-
-			fileOrDirectory.delete();
-		}
 	}
 
 	@Override

@@ -70,6 +70,32 @@
     </PreferenceScreen>
     
     <PreferenceScreen android:title="@string/websettingstitle" >
+        <PreferenceCategory android:title="@string/cat_title_content" >
+           
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="enableimages"
+                android:summary=""
+                android:title="@string/enableimages" />
+
+           <!-- Uncomment if wanted by users
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="enablejavascript"
+                android:summary=""
+                android:title="@string/enablejavascript" />
+                -->
+            
+
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="enablecookies"
+                android:summary=""
+                android:title="@string/enablecookies" />
+
+        </PreferenceCategory>
+        
+        
         <PreferenceCategory android:title="@string/cat_title_appearance" >
            
             <CheckBoxPreference
@@ -102,15 +128,13 @@
                 android:key="clearbrowsercookies"
                 android:title="@string/clearcookiestitle" />
 
-            <!--
-            Not implemented yet
             <CheckBoxPreference
                 android:defaultValue="false"
                 android:key="clearonexit"
                 android:summary="@string/clearonexitsummary"
                 android:title="@string/clearonexittitle" />
-            -->
-        </PreferenceCategory>
+
+            </PreferenceCategory>
     </PreferenceScreen>
     
     <PreferenceScreen android:title="@string/advancedsettingstitle" >

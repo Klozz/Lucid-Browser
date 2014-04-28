@@ -32,12 +32,22 @@ public class Properties extends MainActivity {
 	public static class webpageProp{
 		static boolean showBackdrop;
 		static boolean useDesktopView;
+		static boolean clearonexit;
+		static boolean enableimages;
+		//static boolean enablejavascript; //uncomment if wanted by users
+		static boolean enablecookies;
 	}
 
 	
 	public static void update_preferences(){
 		webpageProp.showBackdrop=MainActivity.mGlobalPrefs.getBoolean("showbrowserbackdrop",false);
 		webpageProp.useDesktopView=MainActivity.mGlobalPrefs.getBoolean("usedesktopview",false);
+		webpageProp.clearonexit=MainActivity.mGlobalPrefs.getBoolean("clearonexit",false);
+		webpageProp.enableimages=MainActivity.mGlobalPrefs.getBoolean("enableimages", true);
+		//webpageProp.enablejavascript=MainActivity.mGlobalPrefs.getBoolean("enablejavascript", true);
+		//uncomment if wanted by users
+		webpageProp.enablecookies=MainActivity.mGlobalPrefs.getBoolean("enablecookies", true);
+
 		
 		int actionBarHeight = LayoutParams.MATCH_PARENT;//fallback size
 		TypedValue tv = new TypedValue();
@@ -62,7 +72,7 @@ public class Properties extends MainActivity {
 		sidebarProp.SidebarIconPadding=numtodp(MainActivity.mGlobalPrefs.getInt ("sidebariconpadding",10));
 		sidebarProp.theme=MainActivity.mGlobalPrefs.getString                   ("sidebartheme", "b");
 		sidebarProp.sideBarColor=MainActivity.mGlobalPrefs.getInt               ("sidebarcolor",Color.BLACK);
-        sidebarProp.sideBarTextColor=MainActivity.mGlobalPrefs.getInt           ("sidebartextcolor", Color.WHITE);
+        	sidebarProp.sideBarTextColor=MainActivity.mGlobalPrefs.getInt           ("sidebartextcolor", Color.WHITE);
 		sidebarProp.showLabel=MainActivity.mGlobalPrefs.getBoolean              ("showfavoriteslabels", true);
 		sidebarProp.transparency=MainActivity.mGlobalPrefs.getInt               ("sidebartransparency" ,100);
 		sidebarProp.transparency= (254*sidebarProp.transparency)/100;
