@@ -287,4 +287,29 @@
 <string name="gesturedoubletaptitle">双击</string>
 <string name="gesturedoubletapsummary">双击请选择用于操作主屏幕</string>
 
+<string name="urlbarcolortitle">地址栏的颜色</string>
+<string name="urlbarcolorsummary">设置地址栏的背景颜色</string>
+
+<string name="clearonexittitle">退出时清除浏览器的痕迹</string>
+<string name="clearonexitsummary">退出清除浏览器的历史记录，缓存和Cookie</string>
+
+<string name="nobookmarks">无书签设置</string>
+
+<string name="sidebar_custom">定制</string>
+<string name="sidebarcolortitle">侧边栏颜色</string>
+<string name="sidebarcolorsummary">设置侧边栏的颜色</string>
+<string name="sidebartextcolortitle">侧边栏文字颜色</string>
+<string name="sidebartextcolorsummary">设置侧边栏的文本颜色</string>
+
+<string name="desktopviewtitle">启用桌面视图</string>
+<string name="desktopviewsummary">显示网页像桌面的浏览器</string>
+
+<string name="home_folder">添加文件夹</string>
+
+<string name="cat_title_content">内容 </string>
+<string name="enablecookies">允许cookie</string>
+<string name="disabledrawersummary">选择禁用该应用程序的抽屉</string>
+<string name="enablejavascript">启用JavaScript</string>
+<string name="enableimages">加载图片</string>
+
 </resources>

@@ -25,7 +25,7 @@
     <string name="search">"Pesquisa"</string>
     
     <string name="system_settings">"Configurações do Sistema "</string>
-    <string name="settings">"Configurações"</string>
+    <string name="launcher_settings">"Configurações Lançador"</string>
     <string name="wallpaper">"Alterar Wallpaper"</string>
     <string name="lock_desktop">"Desktop Lock"</string>
     <string name="unlock_desktop">"Desbloquear área de trabalho"</string>

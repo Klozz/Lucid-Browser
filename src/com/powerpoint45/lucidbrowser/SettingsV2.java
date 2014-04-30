@@ -7,9 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
-
 import com.powerpoint45.lucidbrowser.Properties.sidebarProp;
-
+import com.powerpoint45.lucidbrowserfree.R;
 import preferences.ColorPickerPreference;
 import android.app.AlertDialog;
 import android.app.Dialog;

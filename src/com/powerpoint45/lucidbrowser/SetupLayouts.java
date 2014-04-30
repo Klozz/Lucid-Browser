@@ -22,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.powerpoint45.lucidbrowserfree.R;
 
 public class SetupLayouts extends MainActivity {
 	static int actionBarNum;

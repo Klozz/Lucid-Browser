@@ -24,7 +24,7 @@
   <string name="wallpaper_instructions">"Seleziona applicazione per scegliere lo sfondo"</string>
   <string name="search">"Cerca"</string>
   <string name="system_settings">"Impostazioni di sistema"</string>
-  <string name="settings">"Impostazioni"</string>
+  <string name="launcher_settings">"Impostazioni Launcher"</string>
   <string name="wallpaper">"Sfondo"</string>
   <string name="lock_page">"Blocca la pagina"</string>
   <string name="unlock_page">Sblocca la pagina</string>
@@ -163,6 +163,18 @@
     <string name="floatapp">Fluttua App</string>
 
 
+
+
+
+
+<string name="searchbaractiontitle">Azione ActionBar</string>
+<string name="searchbaractionsummary">seleziona una azione customizzata quando viene premuta la ActionBar</string>
+
+<string name="lucidactionstitle">Azioni Lucid Launcher</string>
+<string name="lucidactionssummary">seleziona un\'azione per Lucid Launcher</string>
+<string name="lucidactiondrawer">App Drawer</string>
+
+
 <string name="bottompaddingporttitle">Rimuovi padding sul fondo (Verticale)</string>
 <string name="bottompaddingportsummary">in caso di necessità, questo rimuoverà qualsiasi imbottitura vicino alla navbar</string>
 
@@ -249,7 +261,60 @@
 
     <string name="alert_leftswipegesture">La gesture è stata impostata. Disabilita il browser per utilizzarla.</string>
 
-<string name="gesturedoubletaptitle">Doppio tocco</string>
-<string name="gesturedoubletapsummary">Seleziona un azione per il doppio tocco sulla home screen</string>
+<string name="gesturedoubletaptitle">Doppio tap</string>
+<string name="gesturedoubletapsummary">Seleziona un azione per il doppio tap sulla home screen</string>
+
+
+<string name="urlbarcolortitle">Colore URL bar</string>
+<string name="urlbarcolorsummary">imposta il colore di sfondo della URL bar</string>
+
+<string name="clearonexittitle">Pulisci le tracce del browser all\'uscita</string>
+<string name="clearonexitsummary">Uscire dal browser dopo aver chiuso tutte le schede pulisce cronologia, cache e cookies</string>
+
+<string name="nobookmarks">Nessun Bookmark impostato</string>
+
+<string name="sidebar_custom">Personalizzazione</string>
+<string name="sidebarcolortitle">Colore Sidebar</string>
+<string name="sidebarcolorsummary">imposta il colore della sidebar</string>
+<string name="sidebartextcolortitle">Colore Testo Sidebar</string>
+<string name="sidebartextcolorsummary">imposta il colore del testo della sidebar</string>
+
+<string name="desktopviewtitle">Abilità modalità Desktop</string>
+<string name="desktopviewsummary">mostra le pagine web come un desktop browser</string>
+
+<string name="home_folder">Aggiungi Cartella</string>
+
+<string name="enablecookies">Abilita Cookies</string>
+<string name="disabledrawersummary">seleziona per disabilitare l\'App Drawer</string>
+<string name="enablejavascript">Avilita JavaScript</string>
+<string name="enableimages">Carica Immagini</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </resources>

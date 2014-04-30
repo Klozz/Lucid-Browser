@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.powerpoint45.lucidbrowserfree.R;
 
 public class BrowserImageAdapter extends BaseAdapter{
 

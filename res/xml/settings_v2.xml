@@ -16,12 +16,12 @@
         
         <PreferenceCategory android:title="@string/cat_title_actionbar" >
             <preferences.ColorPickerPreference
-                android:defaultValue="@android:color/white"
+                android:defaultValue="@color/urlback"
                 android:key="actionbarcolor"
                 android:summary="@string/actionbarcolorsummary"
                 android:title="@string/actionbarcolortitle" />
             <preferences.ColorPickerPreference
-                android:defaultValue="@android:color/black"
+                android:defaultValue="@android:color/white"
                 android:key="textcolor"
                 android:summary="@string/textcolorsummary"
                 android:title="@string/textcolortitle" />
@@ -99,13 +99,13 @@
         <PreferenceCategory android:title="@string/cat_title_appearance" >
            
             <CheckBoxPreference
-                android:defaultValue="false"
+                android:defaultValue="true"
                 android:key="showbrowserbackdrop"
                 android:summary="@string/showbackgroundonurlbarsummary"
                 android:title="@string/showbackgroundonurlbartitle" />
 
             <preferences.ColorPickerPreference
-                android:defaultValue="@android:color/white"
+                android:defaultValue="@color/urlfront"
                 android:dependency="showbrowserbackdrop"
                 android:key="urlbarcolor"
                 android:summary="@string/urlbarcolorsummary"
@@ -156,7 +156,8 @@
     <Preference
         android:icon="@drawable/pro"
         android:key="pro"
-        android:title="@string/pro_name" >
+        android:title="@string/pro_name"
+        android:summary="@string/prodescription" >
         <intent
             android:action="android.intent.action.VIEW"
             android:data="http://play.google.com/store/apps/details?id=com.powerpoint45.launcherpro" />

@@ -22,6 +22,8 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -44,6 +46,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.powerpoint45.lucidbrowserfree.R;
 
 public class MainActivity extends BrowserHandler {
 	public static Activity           activity;
@@ -92,18 +96,23 @@ public class MainActivity extends BrowserHandler {
 		SetupLayouts.setuplayouts();
 		
 		Intent intent = getIntent();
+		SharedPreferences savedInstancePreferences = getSharedPreferences("state",0);
+		int numSavedTabs =savedInstancePreferences.getInt("numtabs", 0);
 		
-		if (savedInstanceState!=null){
+		if (numSavedTabs>0){
 			System.out.println("RESTORING STATE");
-			String [] urls = savedInstanceState.getStringArray("URLs");
-			int tabNumber = savedInstanceState.getInt("tabNumber");
+			String [] urls = new String[numSavedTabs];
+			for (int I = 0;I<numSavedTabs;I++)
+				urls[I]=savedInstancePreferences.getString("URL"+I, "http://www.google.com/");
+			 
+			int tabNumber = savedInstancePreferences.getInt("tabNumber",0);
 			for (int I=0;I<urls.length;I++){
 				webWindows.add(new CustomWebView(MainActivity.this,null,urls[I]));
 				browserListViewAdapter.notifyDataSetChanged();
 			}
 			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(tabNumber));
-			savedInstanceState.clear();
-			savedInstanceState=null;
+			savedInstancePreferences.edit().clear().commit();
+			savedInstancePreferences=null;
 		}
 		else{//If no InstanceState is found, just add a single page
 			if (intent.getAction()!=Intent.ACTION_WEB_SEARCH &&intent.getAction()!=Intent.ACTION_VIEW){//if page was requested from a different app, do not load home page
@@ -148,7 +157,29 @@ public class MainActivity extends BrowserHandler {
 			mNotificationManager.notify(1, mBuilder.build());
 		}
 		
-		
+		((TextView) bar.findViewById(R.id.browser_searchbar)).addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				if (s.toString().compareTo("file:///android_asset/home.html")==0){
+					((TextView) bar.findViewById(R.id.browser_searchbar)).setText(getResources().getString(R.string.urlbardefault));
+					MainActivity.browserListViewAdapter.notifyDataSetChanged();
+				}
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		contentView.addView(webLayout);
 		setContentView(mainView);
 
@@ -190,6 +221,8 @@ public class MainActivity extends BrowserHandler {
 			else
 				WV.loadUrl("http://"+q);
 		}
+		else if (q.startsWith("about:home"))
+				WV.loadUrl("file:///android_asset/home.html");
 		else if (q.startsWith("about:")||q.startsWith("file:"))
 			WV.loadUrl(q);
 		else
@@ -291,6 +324,7 @@ public class MainActivity extends BrowserHandler {
 			if (mNotificationManager!=null)
 				mNotificationManager.cancel(1);
 			startActivity(new Intent(ctxt,SettingsV2.class));
+			onStop();
 			android.os.Process.killProcess(android.os.Process.myPid());
 			break;
 		}
@@ -543,26 +577,30 @@ public class MainActivity extends BrowserHandler {
  
  @Override
  public void onSaveInstanceState(Bundle savedInstanceState) {
-   super.onSaveInstanceState(savedInstanceState);
-   // Save UI state changes to the savedInstanceState.
-   // This bundle will be passed to onCreate if the process is
-   // killed and restarted.
-   
-   
-   //save opened page URLs and tab number
-   CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
-   int tabNumber = 0;
-   String urls [] = new String[webWindows.size()];
-   
-   if (WV!=null)
-	   for (int I=0;I<webWindows.size();I++){
-		   if (webWindows.get(I)==WV)
-			  tabNumber=I;
-		   urls[I]=webWindows.get(I).getUrl();
-	   }
-		   
-   savedInstanceState.putStringArray("URLs", urls);
-   savedInstanceState.putInt("tabNumber", tabNumber);
+    super.onSaveInstanceState(savedInstanceState);
+    saveState();
+ }
+ 
+ @Override
+ public void onStop(){
+	super.onStop();
+	saveState();
+ }
+ 
+ 
+ void saveState(){
+	 SharedPreferences savedInstancePreferences = getSharedPreferences("state",0);
+	   CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
+	   int tabNumber = 0;
+	   savedInstancePreferences.edit().putInt("numtabs", webWindows.size()).commit();
+	   
+	   if (WV!=null)
+		   for (int I=0;I<webWindows.size();I++){
+			   if (webWindows.get(I)==WV)
+				  tabNumber=I;
+			   savedInstancePreferences.edit().putString("URL"+I, webWindows.get(I).getUrl()).commit();
+		   }
+	   savedInstancePreferences.edit().putInt("tabNumber", tabNumber).commit();
  }
  
 

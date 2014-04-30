@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
 import android.webkit.CookieManager;
@@ -21,6 +22,8 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.powerpoint45.lucidbrowserfree.R;
+
 public class CustomWebView extends WebView{
 
 	private ProgressBar PB;
@@ -31,7 +34,7 @@ public class CustomWebView extends WebView{
 		super(context, set);
 		this.setId(R.id.browser_page);
 		if (url==null)
-			this.loadUrl(MainActivity.mPrefs.getString("browserhome", "http://www.google.com/"));
+			this.loadUrl(MainActivity.mPrefs.getString("browserhome", "file:///android_asset/home.html"));
 		else
 			this.loadUrl(url);
 
@@ -100,6 +103,7 @@ public class CustomWebView extends WebView{
 	    	    }
 	        }
 	        public void onPageFinished(WebView view, String url) {
+	        	
                 // do your stuff here
                if (PB==null)
              	   PB = (ProgressBar) MainActivity.webLayout.findViewById(R.id.webpgbar);
@@ -112,8 +116,24 @@ public class CustomWebView extends WebView{
 		         	   if (((EditText)((Activity) MainActivity.activity).findViewById(R.id.browser_searchbar))!=null)
 		         		   if (!((EditText)((Activity) MainActivity.activity).findViewById(R.id.browser_searchbar)).isFocused())
 		         			   if (view!=null)
-		         				  if (view.getUrl()!=null && view.getUrl().compareTo("about:blank")!=0)
-		         					  ((EditText)((Activity) MainActivity.activity).findViewById(R.id.browser_searchbar)).setText(view.getUrl().replace("http://", "").replace("https://", ""));
+		         				  if (view.getUrl()!=null && view.getUrl().compareTo("about:blank")!=0){
+		         					  if (view.getUrl().compareTo("file:///android_asset/home.html")==0){
+		         						 ((EditText)((Activity) MainActivity.activity).findViewById(R.id.browser_searchbar)).setText(MainActivity.activity.getResources().getString(R.string.urlbardefault));
+		         						 CustomWebView.this.loadUrl("javascript:(function() { " +  
+		         			                    "document.getElementById('searchbtn').value = " +"'"+MainActivity.activity.getResources().getString(R.string.search)+"';" +  
+		         								"document.title = '"+MainActivity.activity.getResources().getString(R.string.home)+"';"+
+		         			                    "})()");
+		         						Handler handler=new Handler();
+		         				 		Runnable r=new Runnable(){
+		         				 		    public void run() {
+		         				 		    	MainActivity.browserListViewAdapter.notifyDataSetChanged();
+		         				 		    }
+		         				 		}; 
+		         				 		handler.postDelayed(r, 500);//allows to wait for js to take effect
+		         					  }
+		         					  else
+		         						  ((EditText)((Activity) MainActivity.activity).findViewById(R.id.browser_searchbar)).setText(view.getUrl().replace("http://", "").replace("https://", ""));
+		         				  }
 		                PB.setVisibility(ProgressBar.INVISIBLE);
 		                
 		                ImageButton IB = (ImageButton) MainActivity.bar.findViewById(R.id.browser_refresh);
@@ -138,6 +158,8 @@ public class CustomWebView extends WebView{
 			    				BI.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
 			    	   }
 	               }
+	               
+	               
 	        }
 		});
 		

@@ -25,7 +25,7 @@
     <string name="search">"Keresés"</string>
     
     <string name="system_settings">"Rendszerbeállítások"</string>
-    <string name="settings">"Beállítások"</string>
+    <string name="launcher_settings">"Launcher beállítások"</string>
     <string name="wallpaper">"Háttérkép megváltoztatása"</string>
     <string name="lock_desktop">"Asztal zárolása"</string>
     <string name="unlock_desktop">"Asztal feloldása"</string>

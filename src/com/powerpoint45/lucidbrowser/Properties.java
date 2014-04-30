@@ -1,5 +1,7 @@
 package com.powerpoint45.lucidbrowser;
 
+import com.powerpoint45.lucidbrowserfree.R;
+
 import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.ViewGroup.LayoutParams;
@@ -40,7 +42,7 @@ public class Properties extends MainActivity {
 
 	
 	public static void update_preferences(){
-		webpageProp.showBackdrop=MainActivity.mGlobalPrefs.getBoolean("showbrowserbackdrop",false);
+		webpageProp.showBackdrop=MainActivity.mGlobalPrefs.getBoolean("showbrowserbackdrop",true);
 		webpageProp.useDesktopView=MainActivity.mGlobalPrefs.getBoolean("usedesktopview",false);
 		webpageProp.clearonexit=MainActivity.mGlobalPrefs.getBoolean("clearonexit",false);
 		webpageProp.enableimages=MainActivity.mGlobalPrefs.getBoolean("enableimages", true);
@@ -64,15 +66,15 @@ public class Properties extends MainActivity {
 		appProp.transparentNav=MainActivity.mGlobalPrefs.getBoolean   ("transparentnav"       ,true);
 		appProp.TransparentStatus=MainActivity.mGlobalPrefs.getBoolean("transparentstatus"    ,true);
 		appProp.systemPersistent=MainActivity.mGlobalPrefs.getBoolean ("systempersistent"      ,false);
-		appProp.primaryIntColor=MainActivity.mGlobalPrefs.getInt      ("textcolor",Color.BLACK);
-		appProp.actionBarColor=MainActivity.mGlobalPrefs.getInt       ("actionbarcolor",Color.WHITE);
-		appProp.urlBarColor=MainActivity.mGlobalPrefs.getInt          ("urlbarcolor", Color.WHITE);
+		appProp.primaryIntColor=MainActivity.mGlobalPrefs.getInt      ("textcolor",Color.WHITE);
+		appProp.actionBarColor=MainActivity.mGlobalPrefs.getInt       ("actionbarcolor", MainActivity.activity.getResources().getColor(R.color.urlback));
+		appProp.urlBarColor=MainActivity.mGlobalPrefs.getInt          ("urlbarcolor", MainActivity.activity.getResources().getColor(R.color.urlfront));
 		
 		sidebarProp.SidebarIconSize=numtodp(MainActivity.mGlobalPrefs.getInt    ("sidebariconsize"  ,80));
 		sidebarProp.SidebarIconPadding=numtodp(MainActivity.mGlobalPrefs.getInt ("sidebariconpadding",10));
 		sidebarProp.theme=MainActivity.mGlobalPrefs.getString                   ("sidebartheme", "b");
 		sidebarProp.sideBarColor=MainActivity.mGlobalPrefs.getInt               ("sidebarcolor",Color.BLACK);
-        	sidebarProp.sideBarTextColor=MainActivity.mGlobalPrefs.getInt           ("sidebartextcolor", Color.WHITE);
+        sidebarProp.sideBarTextColor=MainActivity.mGlobalPrefs.getInt           ("sidebartextcolor", Color.WHITE);
 		sidebarProp.showLabel=MainActivity.mGlobalPrefs.getBoolean              ("showfavoriteslabels", true);
 		sidebarProp.transparency=MainActivity.mGlobalPrefs.getInt               ("sidebartransparency" ,100);
 		sidebarProp.transparency= (254*sidebarProp.transparency)/100;

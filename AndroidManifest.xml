@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.powerpoint45.lucidbrowser"
-    android:versionCode="9"
-    android:versionName="1.7" >
+    package="com.powerpoint45.lucidbrowserfree"
+    android:versionCode="1"
+    android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="11"

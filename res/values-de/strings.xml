@@ -27,7 +27,7 @@
     <string name="gadget_error_text">Widget konnte nicht geladen werden</string>
     
     <string name="system_settings">Systemeinstellungen</string>
-    <string name="settings">Einstellungen</string>
+    <string name="launcher_settings">Launcher-Einstellungen</string>
     <string name="wallpaper">Hintergrundbild ändern</string>
     <string name="lock_desktop" >Desktop fixieren</string>
     <string name="unlock_desktop" >Desktop lösen</string>
@@ -197,8 +197,8 @@
     <string name="enablefloatoptiontitle">Schwebende Apps aktivieren</string>
     <string name="enablefloatoptionsummary">App lange drücken, um sie in eigenem Fenster starten zu können (experimentell, nur bei unterstützten ROMs)</string>
 
-    <string name="showbackgroundonurlbartitle">Farbige Adresszeile</string>
-    <string name="showbackgroundonurlbarsummary">Färbt den Hintergrund der Adresszeile ein</string>
+    <string name="showbackgroundonurlbartitle">Weiße Adresszeile</string>
+    <string name="showbackgroundonurlbarsummary">Färbt den Hintergrund der Adresszeile weiß</string>
 
     <string name="browsercompactmodetitle">Kompaktmodus aktivieren</string>
     <string name="browsercompactmodesummary">Verbessert das Browserlayout für kleinere Geräte</string>
@@ -215,6 +215,13 @@
  <string name="clearhistorytitle">Verlauf leeren</string>
 <string name="clearcachetitle">Cache leeren</string>
 <string name="clearcookiestitle">Cookies entfernen</string>
+
+<string name="searchbaractiontitle">Aktion der Suchleiste</string>
+<string name="searchbaractionsummary">Aktion für das Drücken der Suchleiste auswählen</string>
+
+<string name="lucidactionstitle">Lucid Launcher Aktionen</string>
+<string name="lucidactionssummary">Eine Lucid Launcher Aktion auswählen</string>
+<string name="lucidactiondrawer">App Drawer</string>
 
 <string name="shortcutlabelstitle">Verknüpfungsbezeichner</string>
 <string name="shortcutlabelssummary">Bezeichner unter Verknüpfungen anzeigen/verbergen</string>
@@ -281,7 +288,7 @@
 <string name="action_openapp_animationnormal">App-Start mit Standardanimation</string>
 <string name="action_openapp_animationslide">App-Start mit Schiebeanimation</string>
 
-<string name="alert_leftswipegesture">Geste wurde definiert. Zum Benutzen bitte Browser deaktivieren</string>
+    <string name="alert_leftswipegesture">Geste wurde definiert. Zum Benutzen bitte Browser deaktivieren</string>
 
 <string name="gesturedoubletaptitle">Doppelt Tippen</string>
 <string name="gesturedoubletapsummary">Aktion wählen für das doppelte Tippen auf den Home-Bildschirm</string>
@@ -303,8 +310,12 @@
 <string name="desktopviewtitle">Desktop-Ansicht</string>
 <string name="desktopviewsummary">Webseiten wie ein Desktop-Browser darstellen</string>
 
+<string name="home_folder">Ordner hinzufügen</string>
+
+<string name="cat_title_content">Inhalt</string>
+<string name="enablecookies">Cookies erlauben</string>
+<string name="disabledrawersummary">Den App Drawer deaktivieren</string>
+<string name="enablejavascript">JavaScript aktivieren</string>
 <string name="enableimages">Bilder laden</string>
-<string name="enablejavascript">JavaScript aktivieren</string><!-- not used yet -->
-<string name="enablecookies">Cookies zulassen</string>
 
 </resources>

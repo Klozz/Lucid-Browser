@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import com.powerpoint45.lucidbrowserfree.R;
 
 public class BookmarksListAdapter extends BaseAdapter {
 

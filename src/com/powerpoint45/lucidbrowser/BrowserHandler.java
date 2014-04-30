@@ -5,12 +5,12 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
-
 import android.app.Activity;
 import android.content.ContentValues;
 import android.os.Environment;
 import android.os.Message;
 import android.provider.MediaStore;
+import com.powerpoint45.lucidbrowserfree.R;
 
 
 public class BrowserHandler extends Activity{

@@ -307,7 +307,9 @@
 <string name="desktopviewsummary">Display web pages like a desktop browser</string>
 
 <string name="enableimages">Load Images</string>
-<string name="enablejavascript">Enable JavaScript</string> <!-- not used yet -->
+<string name="enablejavascript">Enable JavaScript</string>
 <string name="enablecookies">Allow Cookies</string>
 
+<string name="prodescription">Help support the project by purchasing Lucid Launcher Pro</string>
+<string name="urlbardefault">Enter Search or Address</string>
 </resources>
