@@ -318,4 +318,8 @@
 <string name="enablejavascript">JavaScript aktivieren</string>
 <string name="enableimages">Bilder laden</string>
 
+<string name="prodescription">Der Kauf des Lucid Launcher Pro unterstützt die Entwicklung des Projektes</string>
+
+<string name="urlbardefault">Suchbegriff oder Adresse eingeben</string>
+
 </resources>

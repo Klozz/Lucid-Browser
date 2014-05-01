@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources> 
     <string name="search">Rechercher</string>
 
@@ -10,7 +9,7 @@
     <string name="trans_spinin">Rotation</string>
     <string name="trans_stackin">Rotation en Z</string>
     <string name="trans_coverflow">Coverflow</string>
-    <string name="trans_flyin">Translation en Z</string>
+    <string name="trans_flyin">Transition en Z</string>
     <string name="trans_cubezoom">Cube Zoom</string>
     <string name="trans_none">Aucune</string>
 
