@@ -95,7 +95,7 @@ public class CustomWebView extends WebView{
 	        	if (PB==null)
 	            	try{PB = (ProgressBar) MainActivity.webLayout.findViewById(R.id.webpgbar);}catch(Exception e){};
 	        	if (view.getVisibility()==View.VISIBLE)
-	        		if (PB!=null && PB.getVisibility()!=View.VISIBLE)
+	        		if (PB!=null && PB.getVisibility()!=View.VISIBLE && url.compareTo("about:blank")!=0)
 	        			PB.setVisibility(ProgressBar.VISIBLE);
 	        	ImageButton IB = (ImageButton) MainActivity.bar.findViewById(R.id.browser_refresh);
 	    		if (IB!=null){

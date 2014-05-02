@@ -21,6 +21,7 @@
 <string name="sidebar_light">亮</string>
 
 <string name="menu_settings">设置</string>
+<string name="settings">设置</string>
 <string name="wallpaper_instructions">选择操作</string>
    
 <string name="search">搜索</string>
@@ -200,7 +201,7 @@
 <string name="enablefloatoptionsummary">在支持的ROM，您可以漂浮应用程序（长按应用程序的选项）</string>
 
 <string name="showbackgroundonurlbartitle">在地址栏中显示背景</string>
-<string name="showbackgroundonurlbarsummary">添加白色的背景，在URL栏</string>
+<string name="showbackgroundonurlbarsummary">添加颜色背景到地址栏</string>
 
 <string name="browsercompactmodetitle">启用精简模式</string>
 <string name="browsercompactmodesummary">启用浏览器的布局适应为较小的设备</string>
@@ -276,16 +277,16 @@
 <string name="gesturelefttitle">向左滑动</string>
 <string name="gestureleftsummary">选择一个动作快速滑动（浏览器必须被禁用）</string>
 
-<string name="action_togglestatusbar">切换通知栏 </string>
+<string name="action_togglestatusbar">隐藏/显示通知栏 </string>
 <string name="action_openapp">桌面应用</string>
 
 <string name="action_openapp_animationnormal">正常的应用程序打开动画</string>
 <string name="action_openapp_animationslide">滑开动画</string>
 
-    <string name="alert_leftswipegesture">手势设置。需要禁用浏览器使用才能它</string>
+    <string name="alert_leftswipegesture">启用这个手势，设置需要禁用浏览器使用才能它</string>
 
 <string name="gesturedoubletaptitle">双击</string>
-<string name="gesturedoubletapsummary">双击请选择用于操作主屏幕</string>
+<string name="gesturedoubletapsummary">用于在主屏幕双击的操作</string>
 
 <string name="urlbarcolortitle">地址栏的颜色</string>
 <string name="urlbarcolorsummary">设置地址栏的背景颜色</string>
@@ -301,8 +302,8 @@
 <string name="sidebartextcolortitle">侧边栏文字颜色</string>
 <string name="sidebartextcolorsummary">设置侧边栏的文本颜色</string>
 
-<string name="desktopviewtitle">启用桌面视图</string>
-<string name="desktopviewsummary">显示网页像桌面的浏览器</string>
+<string name="desktopviewtitle">启用桌面模式</string>
+<string name="desktopviewsummary">打开网页为电脑版网页</string>
 
 <string name="home_folder">添加文件夹</string>
 
@@ -312,6 +313,10 @@
 <string name="enablejavascript">启用JavaScript</string>
 <string name="enableimages">加载图片</string>
 
-<string name="prodescription">帮助购买Lucid Launcher专业版</string>
+<string name="prodescription">帮助购买Lucid Launcher 专业版</string>
+
+<string name="urlbardefault">输入搜索内容或地址</string>
+<string name="exit">出口</string>
+
 
 </resources>

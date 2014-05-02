@@ -43,6 +43,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -158,7 +159,6 @@ public class MainActivity extends BrowserHandler {
 		}
 		
 		((TextView) bar.findViewById(R.id.browser_searchbar)).addTextChangedListener(new TextWatcher() {
-			
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				if (s.toString().compareTo("file:///android_asset/home.html")==0){
@@ -166,18 +166,12 @@ public class MainActivity extends BrowserHandler {
 					MainActivity.browserListViewAdapter.notifyDataSetChanged();
 				}
 			}
-			
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				// TODO Auto-generated method stub
-				
 			}
-			
 			@Override
 			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
-				
 			}
 		});
 		contentView.addView(webLayout);
@@ -327,18 +321,52 @@ public class MainActivity extends BrowserHandler {
 			onStop();
 			android.os.Process.killProcess(android.os.Process.myPid());
 			break;
+		case R.id.browser_exit:
+			finish();
+			break;
 		}
 	}
 	
 	public void closeCurrentTab(View v){
 		int pos = (Integer) v.getTag();
-			
+		ProgressBar PB = (ProgressBar) MainActivity.webLayout.findViewById(R.id.webpgbar);
+		ImageButton BookmarkButton = (ImageButton) MainActivity.bar.findViewById(R.id.browser_bookmark);
+		ImageButton refreshButton = (ImageButton) MainActivity.bar.findViewById(R.id.browser_refresh);
+		
+		webWindows.get(pos).loadUrl("about:blank");
+		
 		if (webLayout.findViewById(R.id.browser_page)==webWindows.get(pos)){
 			if ((pos-1)>=0){
 				((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
 				((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(pos-1));
 				if (((TextView) bar.findViewById(R.id.browser_searchbar))!=null)
 					((TextView) bar.findViewById(R.id.browser_searchbar)).setText(webWindows.get(pos-1).getUrl().replace("http://", "").replace("https://", ""));
+				if (webWindows.get(pos-1).getProgress()<100){
+					PB.setVisibility(View.VISIBLE);
+					refreshButton.setImageResource(R.drawable.btn_toolbar_stop_loading_normal);
+				}
+				else{
+					PB.setVisibility(View.INVISIBLE);
+					refreshButton.setImageResource(R.drawable.btn_toolbar_reload_normal);
+				}
+				System.out.println("CLOSED"+ webWindows.get(pos-1).getProgress());
+				
+				
+				int numBooks=MainActivity.mPrefs.getInt("numbookmarkedpages", 0);
+				boolean isBook = false;
+				for (int i=0;i<numBooks;i++){
+					if (webWindows.get(pos-1)!=null)
+						if (webWindows.get(pos-1).getUrl()!=null)
+		    				if (MainActivity.mPrefs.getString("bookmark"+i, "").compareTo(webWindows.get(pos-1).getUrl())==0){
+		    					BookmarkButton.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
+		    					isBook=true;
+		    					break;
+		    				}
+				}
+				if (!isBook){
+					BookmarkButton.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
+				}
+				
 			}
 			else{
 				((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
@@ -349,9 +377,12 @@ public class MainActivity extends BrowserHandler {
 				IV.setScaleType(ImageView.ScaleType.CENTER);
 				IV.setImageResource(R.drawable.web_logo);
 				((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(IV);
+				PB.setVisibility(View.INVISIBLE);
+				BookmarkButton.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
+				refreshButton.setImageResource(R.drawable.btn_toolbar_reload_normal);
 			}
 		}
-		webWindows.get(pos).loadUrl("about:blank");
+		
 		webWindows.remove(pos);
 		browserListViewAdapter.notifyDataSetChanged();
 	}

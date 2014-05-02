@@ -18,10 +18,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.powerpoint45.lucidbrowserfree.R;
 
 public class SetupLayouts extends MainActivity {
@@ -54,6 +53,8 @@ public class SetupLayouts extends MainActivity {
 					.setTextColor(Color.BLACK);
 			((TextView) LL.findViewById(R.id.browser_settings))
 					.setTextColor(Color.BLACK);
+			((TextView) LL.findViewById(R.id.browser_exit))
+				.setTextColor(Color.BLACK);
 		} else if (Properties.sidebarProp.theme.compareTo("c") == 0) {
 			int sidebarTextColor = Properties.sidebarProp.sideBarTextColor;
 
@@ -66,6 +67,8 @@ public class SetupLayouts extends MainActivity {
 			((TextView) LL.findViewById(R.id.browser_set_home))
 					.setTextColor(sidebarTextColor);
 			((TextView) LL.findViewById(R.id.browser_settings))
+					.setTextColor(sidebarTextColor);
+			((TextView) LL.findViewById(R.id.browser_exit))
 					.setTextColor(sidebarTextColor);
 
 		}
@@ -90,53 +93,61 @@ public class SetupLayouts extends MainActivity {
 		browserListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
-					long arg3) {
-				// TODOet Auto-generated method stub
-				if (pos == webWindows.size()) {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,long arg3) {
+				
+				ImageButton BookmarkButton = (ImageButton) MainActivity.bar.findViewById(R.id.browser_bookmark);
+				ImageButton refreshButton = (ImageButton) MainActivity.bar.findViewById(R.id.browser_refresh);
+				
+				if (pos==webWindows.size()){
 					mainView.closeDrawer(browserListView);
-					webWindows.add(new CustomWebView(MainActivity.activity,
-							null, null));
-					if (webLayout != null)
-						if (((ViewGroup) webLayout
-								.findViewById(R.id.webviewholder)) != null) {
-							((ViewGroup) webLayout
-									.findViewById(R.id.webviewholder))
-									.removeAllViews();
-							((ViewGroup) webLayout
-									.findViewById(R.id.webviewholder))
-									.addView(webWindows.get(pos));
+					webWindows.add(new CustomWebView(MainActivity.activity,null,null));
+					if (webLayout!=null)
+						if (((ViewGroup) webLayout.findViewById(R.id.webviewholder))!=null){
+							((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
+							((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(pos));
 						}
-					if (((EditText) bar.findViewById(R.id.browser_searchbar)) != null)
-						((EditText) bar.findViewById(R.id.browser_searchbar))
-								.setText("...");
-
-				} else {
+					if (((EditText) bar.findViewById(R.id.browser_searchbar))!=null)
+						((EditText) bar.findViewById(R.id.browser_searchbar)).setText("...");
+					
+				}
+				else{
 					mainView.closeDrawer(browserListView);
-					((ViewGroup) webLayout.findViewById(R.id.webviewholder))
-							.removeAllViews();
-					((ViewGroup) webLayout.findViewById(R.id.webviewholder))
-							.addView(webWindows.get(pos));
-					if (MainActivity.webLayout.findViewById(R.id.webpgbar) != null)
-						if (webWindows.get(pos).getProgress() != 100)
-							MainActivity.webLayout.findViewById(R.id.webpgbar)
-									.setVisibility(View.VISIBLE);
-						else
-							MainActivity.webLayout.findViewById(R.id.webpgbar)
-									.setVisibility(View.INVISIBLE);
-
-					if (webWindows.get(pos).getUrl() != null)
-						((EditText) bar.findViewById(R.id.browser_searchbar))
-								.setText(webWindows.get(pos).getUrl()
-										.replace("http://", "")
-										.replace("https://", ""));
+					((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
+					((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(pos));
+					if (MainActivity.webLayout.findViewById(R.id.webpgbar)!=null){
+						if (webWindows.get(pos).getProgress()<100){
+							refreshButton.setImageResource(R.drawable.btn_toolbar_stop_loading_normal);
+							MainActivity.webLayout.findViewById(R.id.webpgbar).setVisibility(View.VISIBLE);
+						}
+						else{
+							refreshButton.setImageResource(R.drawable.btn_toolbar_reload_normal);
+							MainActivity.webLayout.findViewById(R.id.webpgbar).setVisibility(View.INVISIBLE);
+						}
+					}
+					
+					int numBooks=MainActivity.mPrefs.getInt("numbookmarkedpages", 0);
+					boolean isBook = false;
+					for (int i=0;i<numBooks;i++){
+						if (webWindows.get(pos)!=null)
+							if (webWindows.get(pos).getUrl()!=null)
+			    				if (MainActivity.mPrefs.getString("bookmark"+i, "").compareTo(webWindows.get(pos).getUrl())==0){
+			    					BookmarkButton.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
+			    					isBook=true;
+			    					break;
+			    				}
+					}
+					if (!isBook){
+						BookmarkButton.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
+					}
+					
+					if (webWindows.get(pos).getUrl()!=null)
+						((EditText) bar.findViewById(R.id.browser_searchbar)).setText(webWindows.get(pos).getUrl().replace("http://", "").replace("https://", ""));
 					else
-						((EditText) bar.findViewById(R.id.browser_searchbar))
-								.setText("...");
+						((EditText) bar.findViewById(R.id.browser_searchbar)).setText("...");
 				}
 				MainActivity.browserListViewAdapter.notifyDataSetChanged();
 			}
-		});
+		   });
 		// browserListView.setPadding(0, 0, 0, NavMargine+StatusMargine);
 		// browserListView.setY(StatusMargine);
 

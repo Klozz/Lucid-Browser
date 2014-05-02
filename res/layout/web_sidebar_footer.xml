@@ -67,5 +67,17 @@
         android:padding="10dp"
         android:text="@string/settings"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <TextView
+        android:id="@+id/browser_exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:clickable="true"
+        android:fontFamily="sans-serif-light"
+        android:onClick="browserActionClicked"
+        android:padding="10dp"
+        android:text="@string/exit"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </LinearLayout>

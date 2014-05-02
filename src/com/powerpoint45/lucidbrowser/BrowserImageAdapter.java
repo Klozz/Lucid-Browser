@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.powerpoint45.lucidbrowserfree.R;
 
 public class BrowserImageAdapter extends BaseAdapter{
@@ -91,7 +92,10 @@ public class BrowserImageAdapter extends BaseAdapter{
 				viewHolder.tabStatus.setTextColor(sidetextcolor);
 				viewHolder.closeButton.setColorFilter(sidetextcolor, Mode.MULTIPLY);
 			}
-			viewHolder.tabStatus.setText(MainActivity.webWindows.get(pos).getTitle());
+			if (MainActivity.webWindows.get(pos).getUrl()!=null && MainActivity.webWindows.get(pos).getUrl().compareTo("file:///android_asset/home.html")==0)
+				viewHolder.tabStatus.setText(MainActivity.activity.getResources().getString(R.string.home));
+			else
+				viewHolder.tabStatus.setText(MainActivity.webWindows.get(pos).getTitle());
 			viewHolder.closeButton.setVisibility(View.VISIBLE);
 		}
 		
