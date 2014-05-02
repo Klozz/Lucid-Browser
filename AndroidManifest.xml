@@ -18,7 +18,7 @@
         android:label="@string/app_name"
          >
         <activity
-            android:name="com.powerpoint45.lucidbrowser.MainActivity"
+            android:name="com.powerpoint45.lucidbrowserfree.MainActivity"
             android:label="@string/app_name"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask" 
@@ -52,7 +52,7 @@
         
         <activity
             android:label="@string/settings"
-            android:name="com.powerpoint45.lucidbrowser.SettingsV2" 
+            android:name="com.powerpoint45.lucidbrowserfree.SettingsV2" 
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter >
                 <action android:name="com.powerpoint45.lucidbrowser.SettingsV2" />
