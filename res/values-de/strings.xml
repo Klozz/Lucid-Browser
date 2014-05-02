@@ -330,4 +330,6 @@
 <string name="sidebar_switched_title">Sidebarposition vertauschen</string>
 <string name="sidebar_switched_summary">Bildschirmseite der Sidebar wechseln</string>
 
+<string name="copyurl">Link kopieren</string>
+
 </resources>
