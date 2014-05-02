@@ -242,7 +242,7 @@ public class MainActivity extends BrowserHandler {
 		CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
 		switch (v.getId()){
 		case R.id.browser_home:
-			WV.loadUrl(mPrefs.getString("browserhome", "http://www.google.com/"));
+			WV.loadUrl(mPrefs.getString("browserhome", "file:///android_asset/home.html"));
 			WV.clearHistory();
 			break;
 		case R.id.browser_share:
@@ -624,6 +624,7 @@ public class MainActivity extends BrowserHandler {
  
  @Override
  public void onSaveInstanceState(Bundle savedInstanceState) {
+	 
     super.onSaveInstanceState(savedInstanceState);
     saveState();
  }
