@@ -65,7 +65,7 @@
         android:fontFamily="sans-serif-light"
         android:onClick="browserActionClicked"
         android:padding="10dp"
-        android:text="@string/settings"
+        android:text="@string/menu_settings"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <TextView
