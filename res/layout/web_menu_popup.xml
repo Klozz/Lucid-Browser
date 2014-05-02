@@ -6,20 +6,29 @@
 
     <Button
         android:id="@+id/openinnewtab"
-        android:background="@drawable/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/button"
         android:drawableLeft="@android:drawable/ic_menu_add"
         android:onClick="webviewActionClicked"
         android:text="@string/openinnewtab" />
+
     <Button
-        android:id="@+id/saveimage"
-        android:background="@drawable/button"
+        android:id="@+id/copyurl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:drawableLeft="@drawable/ic_action_copy"
+        android:onClick="webviewActionClicked"
+        android:text="@string/copyurl" />
+
+    <Button
+        android:id="@+id/saveimage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
         android:drawableLeft="@android:drawable/ic_menu_save"
         android:onClick="webviewActionClicked"
         android:text="@string/saveimage" />
-    
 
 </LinearLayout>

@@ -10,6 +10,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -47,8 +49,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.powerpoint45.lucidbrowserfree.R;
 
 public class MainActivity extends BrowserHandler {
 	public static Activity           activity;
@@ -459,13 +459,13 @@ public class MainActivity extends BrowserHandler {
 
  	        if (result != null) {
  	            int type = result.getType();
- 	            
- 	           if (type == WebView.HitTestResult.SRC_ANCHOR_TYPE) {
+
+ 	            if (type == WebView.HitTestResult.SRC_ANCHOR_TYPE) {
 	                LinearLayout inflateView = ((LinearLayout) MainActivity.inflater.inflate(R.layout.web_menu_popup, null));
 	                
-	           if (type == WebView.HitTestResult.IMAGE_TYPE || type == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE){}
-	                else
-	                	inflateView.findViewById(R.id.saveimage).setVisibility(View.GONE);
+	           if (type != WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE){
+	        	   inflateView.findViewById(R.id.saveimage).setVisibility(View.GONE);	        	   
+	           }
 	                inflateView.setTag(result.getExtra());
 	                MainActivity.dialog = new Dialog(MainActivity.activity);
 					MainActivity.dialog.setTitle(R.string.wallpaper_instructions);
@@ -474,6 +474,11 @@ public class MainActivity extends BrowserHandler {
 	            }
  	           else if (type == WebView.HitTestResult.IMAGE_TYPE || type == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE) {
  	                LinearLayout inflateView = ((LinearLayout) MainActivity.inflater.inflate(R.layout.web_menu_popup, null));
+ 	                
+ 	                if (type==WebView.HitTestResult.IMAGE_TYPE){
+ 	                	inflateView.findViewById(R.id.copyurl).setVisibility(View.GONE); 	                	
+ 	                }
+ 	                
  	                inflateView.setTag(result.getExtra());
  	                MainActivity.dialog = new Dialog(MainActivity.activity);
 					MainActivity.dialog.setTitle(R.string.wallpaper_instructions);
@@ -492,7 +497,7 @@ public class MainActivity extends BrowserHandler {
 		case R.id.saveimage:
 			dismissDialog();
 			try {
-				dlImage(new URL(((LinearLayout) v.getParent()).getTag().toString()));//meathod in handler
+				dlImage(new URL(((LinearLayout) v.getParent()).getTag().toString()));//method in handler
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			}
@@ -506,7 +511,18 @@ public class MainActivity extends BrowserHandler {
 			((EditText) bar.findViewById(R.id.browser_searchbar)).setText("...");
 			browserListViewAdapter.notifyDataSetChanged();
 			break;
-		}
+		case R.id.copyurl:
+			dismissDialog();
+			String url = ((LinearLayout) v.getParent()).getTag().toString();
+			
+			// Gets a handle to the Clipboard Manager
+		    ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+		    ClipData clip = ClipData.newPlainText("Copied URL", url);
+		    clipboard.setPrimaryClip(clip);
+
+			
+			
+		}	
 	}
 	
 	public boolean onKeyUp(int keyCode, KeyEvent event) {

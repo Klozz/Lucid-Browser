@@ -312,4 +312,7 @@
 <string name="prodescription">Help support the project by purchasing Lucid Launcher Pro</string>
 <string name="urlbardefault">Enter Search or Address</string>
 <string name="exit">Exit</string>
+
+<string name="copyurl">Copy Link</string>
+
 </resources>
