@@ -1,4 +1,4 @@
-package com.powerpoint45.lucidbrowser;
+package com.powerpoint45.lucidbrowserfree;
 
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;

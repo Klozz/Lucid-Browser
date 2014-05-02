@@ -321,5 +321,13 @@
 <string name="prodescription">Der Kauf des Lucid Launcher Pro unterstützt die Entwicklung des Projektes</string>
 
 <string name="urlbardefault">Suchbegriff oder Adresse eingeben</string>
-<string name="exit">Exit</string>
+
+<string name="exit">Beenden</string>
+
+<string name="font_size_title">Schriftgröße</string>
+<string name="font_size_summary"></string>
+
+<string name="sidebar_switched_title">Sidebarposition vertauschen</string>
+<string name="sidebar_switched_summary">Bildschirmseite der Sidebar wechseln</string>
+
 </resources>

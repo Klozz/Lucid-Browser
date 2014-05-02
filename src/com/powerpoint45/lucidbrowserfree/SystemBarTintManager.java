@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.powerpoint45.lucidbrowser;
+package com.powerpoint45.lucidbrowserfree;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
