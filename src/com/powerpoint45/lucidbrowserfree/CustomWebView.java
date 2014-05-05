@@ -99,6 +99,7 @@ public class CustomWebView extends WebView {
 
 					Intent intent = new Intent(Intent.ACTION_VIEW, Uri
 							.parse(url));
+					intent.putExtra("tabNumber", MainActivity.getTabNumber());
 					MainActivity.activity.startActivity(intent);
 					System.out.println("Play Store!!");
 					return true;
@@ -115,6 +116,7 @@ public class CustomWebView extends WebView {
 					}
 					Intent intent = new Intent(Intent.ACTION_VIEW, Uri
 							.parse(url));
+					intent.putExtra("tabNumber", MainActivity.getTabNumber());
 					MainActivity.activity.startActivity(intent);
 					return true;
 				}
@@ -124,6 +126,7 @@ public class CustomWebView extends WebView {
 
 					Intent intent = new Intent(Intent.ACTION_VIEW, Uri
 							.parse(url));
+					intent.putExtra("tabNumber", MainActivity.getTabNumber());
 					MainActivity.activity.startActivity(intent);
 					return true;
 				} else if (url.startsWith("intent://")) {
@@ -136,12 +139,14 @@ public class CustomWebView extends WebView {
 						System.out.println("INVALID INTENT URI");
 						return false;
 					}
+					intent.putExtra("tabNumber", MainActivity.getTabNumber());
 					MainActivity.activity.startActivity(intent);
 					return true;
 				} else if (url.startsWith("mailto:")) {
 
 					Intent intent = new Intent(Intent.ACTION_VIEW, Uri
 							.parse(url));
+					intent.putExtra("tabNumber", MainActivity.getTabNumber());
 					MainActivity.activity.startActivity(intent);
 					return true;
 				}
