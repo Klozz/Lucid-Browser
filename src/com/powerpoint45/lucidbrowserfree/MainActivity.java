@@ -152,7 +152,7 @@ public class MainActivity extends BrowserHandler {
 					.setOngoing(true)
 					.setContentIntent(contentIntent)
 					.setPriority(2)
-			        .setContentTitle(getResources().getString(R.string.app_name));
+			        .setContentTitle(getResources().getString(R.string.label));
 			mNotificationManager =
 			    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 			mNotificationManager.notify(1, mBuilder.build());
@@ -429,15 +429,23 @@ public class MainActivity extends BrowserHandler {
         }
         
         if (intent.getAction()==Intent.ACTION_WEB_SEARCH ||intent.getAction()==Intent.ACTION_VIEW){
-        	if (intent.getAction()==Intent.ACTION_WEB_SEARCH ||intent.getAction()==Intent.ACTION_VIEW){
         		if (intent.getDataString()!=null){
-    	    		webWindows.add(new CustomWebView(MainActivity.this,null,intent.getDataString()));
-    	    		((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
-    	    		((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(webWindows.size()-1));
-    	    		((EditText) bar.findViewById(R.id.browser_searchbar)).setText(intent.getDataString());
-    	    		browserListViewAdapter.notifyDataSetChanged();
+        			int tabNumber = intent.getIntExtra("tabNumber", -1); //used if intent is coming from Lucid Browser
+        			
+        			if (tabNumber!=-1 && tabNumber < webWindows.size()){
+        				webWindows.get(tabNumber).loadUrl(intent.getDataString());
+        			}else
+        				tabNumber=-1;
+        				
+        			if (tabNumber==-1){
+	    	    		webWindows.add(new CustomWebView(MainActivity.this,null,intent.getDataString()));
+	    	    		((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
+	    	    		((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(webWindows.size()-1));
+	    	    		((EditText) bar.findViewById(R.id.browser_searchbar)).setText(intent.getDataString());
+	    	    		browserListViewAdapter.notifyDataSetChanged();
+        			}
+        			
         		}
-            }
         }
 	}
 	
@@ -639,18 +647,28 @@ public class MainActivity extends BrowserHandler {
  void saveState(){
 	 SharedPreferences savedInstancePreferences = getSharedPreferences("state",0);
 	   CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
-	   int tabNumber = 0;
+	   int tabNumber = getTabNumber();
 	   savedInstancePreferences.edit().putInt("numtabs", webWindows.size()).commit();
 	   
 	   if (WV!=null)
 		   for (int I=0;I<webWindows.size();I++){
-			   if (webWindows.get(I)==WV)
-				  tabNumber=I;
 			   savedInstancePreferences.edit().putString("URL"+I, webWindows.get(I).getUrl()).commit();
 		   }
+	   if (tabNumber==-1)
+		   tabNumber = 0;
 	   savedInstancePreferences.edit().putInt("tabNumber", tabNumber).commit();
  }
  
+ public static int getTabNumber(){
+	 int tabNumber = -1;
+	 CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
+	 if (WV!=null)
+		 for (int I=0;I<webWindows.size();I++){
+			  if (webWindows.get(I)==WV)
+				  tabNumber=I;
+		 }
+	 return tabNumber;
+ }
 
  
  
