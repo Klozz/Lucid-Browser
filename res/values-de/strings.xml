@@ -332,4 +332,16 @@
 
 <string name="copyurl">Link kopieren</string>
 
+<string name="sslUntrustedTitle">Dem SSL Zertifikat wird nicht vertraut</string>
+<string name="sslUntrustedMessage">Die Website unter\n\n%s\n\nnutzt ein selbst signiertes SSL Zertifikat.</string>
+<string name="sslIdMismatchTitle">SSL Zertifikat für Website nicht gültig</string>
+<string name="sslIdMismatchMessage" formatted="false">Die Website unter\n\n%2s\n\nnutzt ein SSL Zertifikat, dass nur für %2s gültig ist.</string>
+<string name="sslExpiredTitle">SSL Zertifikat ist abgelaufen</string>
+<string name="sslExpiredMessage" formatted="false">Die Website unter\n\n%1s\n\nnutzt ein abgelaufenes SSL Zertifikat. Es ist abgelaufen am %2s.</string>
+<string name="sslNotYetValidTitle">SSL Zertifikat noch nicht gültig</string>
+<string name="sslNotYetValidMessage" formatted="false">Die Website unter\n\n%1s\n\nnutzt ein noch nicht gültiges SSL Zertifikat. Es ist gültig ab %2s.</string>
+
+<string name="sslWebsiteWarning">Die Website ist möglicherweise nicht sicher und sollte mit Vorsicht genutzt werden.</string>
+<string name="sslProceedQuestion">Soll das Zertifikat akzeptiert werden?</string>
+
 </resources>

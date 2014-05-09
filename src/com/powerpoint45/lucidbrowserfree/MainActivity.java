@@ -152,11 +152,13 @@ public class MainActivity extends BrowserHandler {
 					.setOngoing(true)
 					.setContentIntent(contentIntent)
 					.setPriority(2)
-			        .setContentTitle(getResources().getString(R.string.label));
+			        .setContentTitle(getResources().getString(R.string.app_name));
 			mNotificationManager =
 			    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 			mNotificationManager.notify(1, mBuilder.build());
 		}
+		
+		
 		
 		((TextView) bar.findViewById(R.id.browser_searchbar)).addTextChangedListener(new TextWatcher() {
 			@Override
@@ -419,6 +421,8 @@ public class MainActivity extends BrowserHandler {
 			break;
 		}
 	}
+	
+	
 	
 	@Override
     protected void onNewIntent(Intent intent) {
