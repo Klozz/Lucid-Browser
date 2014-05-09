@@ -315,4 +315,16 @@
 
 <string name="copyurl">Copy Link</string>
 
+<string name="sslUntrustedTitle">SSL Certificate is not trusted</string>
+<string name="sslUntrustedMessage">The webpage at\n\n%s\n\nhas a self-signed SSL certificate.</string>
+<string name="sslIdMismatchTitle">SSL Certificate not valid for this webpage</string>
+<string name="sslIdMismatchMessage" formatted="false">The webpage at\n\n%1s\n\nhas a SSL certificate that is only valid for %2s.</string>
+<string name="sslExpiredTitle">SSL Certificate has expired</string>
+<string name="sslExpiredMessage" formatted="false">The webpage at\n\n%1s\n\nhas an expired SSL certificate. It expired after %2s.</string>
+<string name="sslNotYetValidTitle">SSL Certificate is not yet valid</string>
+<string name="sslNotYetValidMessage" formatted="false">The webpage at\n\n%1s\n\nhas an SSL certificate that is not yet valid. It will be valid from %2s.</string>
+
+<string name="sslWebsiteWarning">The webpage is possibly unsafe as the certificate cannot be verified. Please proceed with caution.</string>
+<string name="sslProceedQuestion">Do you want to accept this certificate?</string>
+
 </resources>

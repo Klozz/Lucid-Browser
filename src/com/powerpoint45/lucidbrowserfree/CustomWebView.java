@@ -1,14 +1,20 @@
 package com.powerpoint45.lucidbrowserfree;
 
 import java.net.URISyntaxException;
+import java.util.Calendar;
+import java.util.Date;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.app.DownloadManager.Request;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources.NotFoundException;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
@@ -17,6 +23,7 @@ import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -24,8 +31,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-
-import com.powerpoint45.lucidbrowserfree.R;
 
 public class CustomWebView extends WebView {
 
@@ -101,7 +106,6 @@ public class CustomWebView extends WebView {
 							.parse(url));
 					intent.putExtra("tabNumber", MainActivity.getTabNumber());
 					MainActivity.activity.startActivity(intent);
-					System.out.println("Play Store!!");
 					return true;
 				}
 
@@ -150,7 +154,6 @@ public class CustomWebView extends WebView {
 					MainActivity.activity.startActivity(intent);
 					return true;
 				}
-				System.out.println(url);
 
 				return false;
 			}
@@ -272,6 +275,114 @@ public class CustomWebView extends WebView {
 				}
 
 			}
+
+			@Override
+			public void onReceivedSslError(WebView view,
+					SslErrorHandler handler, SslError error) {
+
+				int errorCode = error.getPrimaryError();
+				System.out.println("SSL ERROR " + errorCode + " DETECTED");
+
+				sslCertificateErrorDialog(view, handler, error, errorCode);
+			}
+
+			private void sslCertificateErrorDialog(WebView view,
+					final SslErrorHandler handler, SslError error, int errorCode)
+					throws NotFoundException {
+
+				String title = "SSL Error detected";
+				String msg = "";
+
+				String sslWarning = getResources().getString(
+						R.string.sslWebsiteWarning);
+				String proceedQuestion = getResources().getString(
+						R.string.sslProceedQuestion);
+
+				if (errorCode == SslError.SSL_UNTRUSTED) {
+					msg = String.format(
+							getResources().getString(
+									R.string.sslUntrustedMessage),
+							error.getUrl());
+
+					title = String.format(
+							getResources()
+									.getString(R.string.sslUntrustedTitle),
+							error.getUrl());
+				} else if (errorCode == SslError.SSL_IDMISMATCH) {
+					String issuedTo = error.getCertificate().getIssuedTo()
+							.getCName();
+					msg = String.format(
+							getResources().getString(
+									R.string.sslIdMismatchMessage),
+							error.getUrl(), issuedTo);
+
+					title = String.format(
+							getResources().getString(
+									R.string.sslIdMismatchTitle),
+							error.getUrl());
+				} else if (errorCode == SslError.SSL_DATE_INVALID) {
+
+					Date currentDate = Calendar.getInstance().getTime();
+					Date expiredOn = error.getCertificate()
+							.getValidNotAfterDate();
+
+					if (currentDate.after(expiredOn)) {
+
+						msg = String.format(
+								getResources().getString(
+										R.string.sslExpiredMessage),
+								error.getUrl(), expiredOn.toString());
+
+						title = String.format(
+								getResources().getString(
+										R.string.sslExpiredTitle),
+								error.getUrl());
+					} else {
+						Date validFrom = error.getCertificate()
+								.getValidNotBeforeDate();
+						msg = String.format(
+								getResources().getString(
+										R.string.sslNotYetValidMessage),
+								error.getUrl(), validFrom.toString());
+
+						title = String.format(
+								getResources().getString(
+										R.string.sslNotYetValidTitle),
+								error.getUrl());
+
+					}
+
+				} 
+				
+				AlertDialog.Builder builder = new AlertDialog.Builder(
+						MainActivity.activity);
+
+				builder.setMessage(
+						msg + " " + sslWarning + "\n\n" + proceedQuestion)
+						.setTitle(title)
+						.setPositiveButton(android.R.string.ok,
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										handler.proceed();
+									}
+								})
+						.setNegativeButton(android.R.string.cancel,
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										handler.cancel();
+
+									}
+								});
+
+				MainActivity.dialog = builder.create();
+				MainActivity.dialog.setCancelable(false);
+				MainActivity.dialog.setCanceledOnTouchOutside(false);
+				MainActivity.dialog.show();
+
+			}
+
 		});
 
 		chromeClient = new VideoEnabledWebChromeClient(this);
@@ -330,17 +441,18 @@ public class CustomWebView extends WebView {
 		String ua = "";
 
 		// TODO Test with different user agents
-		// For now copied Chrome user agents and adapt them to the user's device
+		// Stopped mimicking Chrome to be better safe than sorry
 		if (mode.equals("mobile")) {
 
 			ua = "Mozilla/5.0 (" + System.getProperty("os.name", "Linux")
 					+ "; Android " + Build.VERSION.RELEASE + "; " + Build.MODEL
 					+ "; Build/" + Build.ID
 					+ ") AppleWebKit/537.36 (KHTML, like Gecko) "
-					+ "Chrome/34.0.1847.114 Mobile Safari/537.36";
+					+ "Chrome/30.0.0.0 Mobile Safari/537.36";
+			// + "Chrome/34.0.1847.114 Mobile Safari/537.36";
 
 		} else if (mode.equals("desktop")) {
-			ua = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36";
+			ua = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.0.0 Mobile Safari/537.36";
 
 		}
 		return ua;
