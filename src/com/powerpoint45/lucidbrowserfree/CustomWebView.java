@@ -313,9 +313,7 @@ public class CustomWebView extends WebView {
 							getResources().getString(
 									R.string.sslUntrustedMessage), url);
 
-					title = String
-							.format(getResources().getString(
-									R.string.sslUntrustedTitle), url);
+					title = getResources().getString(R.string.sslUntrustedTitle);
 				} else if (errorCode == SslError.SSL_IDMISMATCH) {
 					String issuedTo = error.getCertificate().getIssuedTo()
 							.getCName();
@@ -324,9 +322,7 @@ public class CustomWebView extends WebView {
 									R.string.sslIdMismatchMessage), url,
 							issuedTo);
 
-					title = String.format(
-							getResources().getString(
-									R.string.sslIdMismatchTitle), url);
+					title = getResources().getString(R.string.sslIdMismatchTitle);
 				} else if (errorCode == SslError.SSL_DATE_INVALID) {
 
 					Date currentDate = Calendar.getInstance().getTime();
@@ -340,9 +336,7 @@ public class CustomWebView extends WebView {
 										R.string.sslExpiredMessage), url,
 								expiredOn.toString());
 
-						title = String.format(
-								getResources().getString(
-										R.string.sslExpiredTitle), url);
+						title = getResources().getString(R.string.sslExpiredTitle);
 					} else {
 						Date validFrom = error.getCertificate()
 								.getValidNotBeforeDate();
@@ -351,9 +345,7 @@ public class CustomWebView extends WebView {
 										R.string.sslNotYetValidMessage), url,
 								validFrom.toString());
 
-						title = String.format(
-								getResources().getString(
-										R.string.sslNotYetValidTitle), url);
+						title = getResources().getString(R.string.sslNotYetValidTitle);
 
 					}
 
