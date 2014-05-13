@@ -3,7 +3,7 @@ package com.powerpoint45.lucidbrowserfree;
 import java.net.URISyntaxException;
 import java.util.Calendar;
 import java.util.Date;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
@@ -286,12 +286,22 @@ public class CustomWebView extends WebView {
 				sslCertificateErrorDialog(view, handler, error, errorCode);
 			}
 
+			@SuppressLint("NewApi")
+			// Is surpressed as the code will only be executed on the correct platform
 			private void sslCertificateErrorDialog(WebView view,
 					final SslErrorHandler handler, SslError error, int errorCode)
 					throws NotFoundException {
 
 				String title = "SSL Error detected";
 				String msg = "";
+				String url = "";
+
+				if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+					url = error.getUrl();
+				} else {
+					url = error.toString();
+					url = url.substring(url.lastIndexOf(" on URL: ") + 9);
+				}
 
 				String sslWarning = getResources().getString(
 						R.string.sslWebsiteWarning);
@@ -301,25 +311,18 @@ public class CustomWebView extends WebView {
 				if (errorCode == SslError.SSL_UNTRUSTED) {
 					msg = String.format(
 							getResources().getString(
-									R.string.sslUntrustedMessage),
-							error.getUrl());
+									R.string.sslUntrustedMessage), url);
 
-					title = String.format(
-							getResources()
-									.getString(R.string.sslUntrustedTitle),
-							error.getUrl());
+					title = getResources().getString(R.string.sslUntrustedTitle);
 				} else if (errorCode == SslError.SSL_IDMISMATCH) {
 					String issuedTo = error.getCertificate().getIssuedTo()
 							.getCName();
 					msg = String.format(
 							getResources().getString(
-									R.string.sslIdMismatchMessage),
-							error.getUrl(), issuedTo);
+									R.string.sslIdMismatchMessage), url,
+							issuedTo);
 
-					title = String.format(
-							getResources().getString(
-									R.string.sslIdMismatchTitle),
-							error.getUrl());
+					title = getResources().getString(R.string.sslIdMismatchTitle);
 				} else if (errorCode == SslError.SSL_DATE_INVALID) {
 
 					Date currentDate = Calendar.getInstance().getTime();
@@ -330,30 +333,24 @@ public class CustomWebView extends WebView {
 
 						msg = String.format(
 								getResources().getString(
-										R.string.sslExpiredMessage),
-								error.getUrl(), expiredOn.toString());
+										R.string.sslExpiredMessage), url,
+								expiredOn.toString());
 
-						title = String.format(
-								getResources().getString(
-										R.string.sslExpiredTitle),
-								error.getUrl());
+						title = getResources().getString(R.string.sslExpiredTitle);
 					} else {
 						Date validFrom = error.getCertificate()
 								.getValidNotBeforeDate();
 						msg = String.format(
 								getResources().getString(
-										R.string.sslNotYetValidMessage),
-								error.getUrl(), validFrom.toString());
+										R.string.sslNotYetValidMessage), url,
+								validFrom.toString());
 
-						title = String.format(
-								getResources().getString(
-										R.string.sslNotYetValidTitle),
-								error.getUrl());
+						title = getResources().getString(R.string.sslNotYetValidTitle);
 
 					}
 
-				} 
-				
+				}
+
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						MainActivity.activity);
 
