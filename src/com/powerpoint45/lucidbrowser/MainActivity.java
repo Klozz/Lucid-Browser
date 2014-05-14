@@ -7,7 +7,6 @@ import java.util.Vector;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -19,6 +18,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,9 +26,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
-import android.text.Html;
 import android.text.TextWatcher;
-import android.text.method.LinkMovementMethod;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -53,8 +51,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.powerpoint45.lucidbrowser.R;
-
 public class MainActivity extends BrowserHandler {
 	public static Activity           activity;
 	public static Context            ctxt;
@@ -75,6 +71,8 @@ public class MainActivity extends BrowserHandler {
 	static Vector <CustomWebView>     webWindows;
 	
 	static Dialog dialog;
+	
+	public static String assetHomePage; //string for default startPage
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +94,15 @@ public class MainActivity extends BrowserHandler {
 		browserListView           = (ListView) mainView.findViewById(R.id.right_drawer);
 		browserListViewAdapter    = new BrowserImageAdapter(this);
 		webWindows                = new Vector<CustomWebView>();
+		
+		Point screenSize = new Point();
+		screenSize.x=getWindow().getWindowManager().getDefaultDisplay().getWidth();
+		screenSize.y=getWindow().getWindowManager().getDefaultDisplay().getHeight();
+		
+		if (Math.min(screenSize.x, screenSize.y)<510)//px  //may need to be adjusted
+			assetHomePage = "file:///android_asset/home_small.html";
+		else
+			assetHomePage = "file:///android_asset/home.html";
 		
 		Properties.update_preferences();
 		SetupLayouts.setuplayouts();
@@ -167,7 +174,7 @@ public class MainActivity extends BrowserHandler {
 		((TextView) bar.findViewById(R.id.browser_searchbar)).addTextChangedListener(new TextWatcher() {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				if (s.toString().compareTo("file:///android_asset/home.html")==0){
+				if (s.toString().compareTo(assetHomePage)==0){
 					((TextView) bar.findViewById(R.id.browser_searchbar)).setText(getResources().getString(R.string.urlbardefault));
 					MainActivity.browserListViewAdapter.notifyDataSetChanged();
 				}
@@ -222,7 +229,7 @@ public class MainActivity extends BrowserHandler {
 				WV.loadUrl("http://"+q);
 		}
 		else if (q.startsWith("about:home"))
-				WV.loadUrl("file:///android_asset/home.html");
+				WV.loadUrl(assetHomePage);
 		else if (q.startsWith("about:")||q.startsWith("file:"))
 			WV.loadUrl(q);
 		else
@@ -248,7 +255,7 @@ public class MainActivity extends BrowserHandler {
 		CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
 		switch (v.getId()){
 		case R.id.browser_home:
-			WV.loadUrl(mPrefs.getString("browserhome", "file:///android_asset/home.html"));
+			WV.loadUrl(mPrefs.getString("browserhome", assetHomePage));
 			WV.clearHistory();
 			break;
 		case R.id.browser_share:

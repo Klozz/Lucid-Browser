@@ -91,7 +91,7 @@ public class BrowserImageAdapter extends BaseAdapter{
 				viewHolder.tabStatus.setTextColor(sidetextcolor);
 				viewHolder.closeButton.setColorFilter(sidetextcolor, Mode.MULTIPLY);
 			}
-			if (MainActivity.webWindows.get(pos).getUrl()!=null && MainActivity.webWindows.get(pos).getUrl().compareTo("file:///android_asset/home.html")==0)
+			if (MainActivity.webWindows.get(pos).getUrl()!=null && MainActivity.webWindows.get(pos).getUrl().compareTo(MainActivity.assetHomePage)==0)
 				viewHolder.tabStatus.setText(MainActivity.activity.getResources().getString(R.string.home));
 			else
 				viewHolder.tabStatus.setText(MainActivity.webWindows.get(pos).getTitle());

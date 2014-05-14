@@ -44,7 +44,7 @@ public class CustomWebView extends WebView {
 		this.setId(R.id.browser_page);
 		if (url == null)
 			this.loadUrl(MainActivity.mPrefs.getString("browserhome",
-					"file:///android_asset/home.html"));
+					MainActivity.assetHomePage));
 		else
 			this.loadUrl(url);
 
@@ -203,7 +203,7 @@ public class CustomWebView extends WebView {
 										&& view.getUrl().compareTo(
 												"about:blank") != 0) {
 									if (view.getUrl().compareTo(
-											"file:///android_asset/home.html") == 0) {
+											MainActivity.assetHomePage) == 0) {
 										((EditText) ((Activity) MainActivity.activity)
 												.findViewById(R.id.browser_searchbar))
 												.setText(MainActivity.activity
