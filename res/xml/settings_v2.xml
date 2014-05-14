@@ -21,7 +21,7 @@
                 android:summary="@string/actionbarcolorsummary"
                 android:title="@string/actionbarcolortitle" />
             <preferences.ColorPickerPreference
-                android:defaultValue="@android:color/white"
+                android:defaultValue="@android:color/black"
                 android:key="textcolor"
                 android:summary="@string/textcolorsummary"
                 android:title="@string/textcolortitle" />

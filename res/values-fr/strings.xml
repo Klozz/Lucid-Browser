@@ -1,3 +1,4 @@
+
 <resources> 
     <string name="search">Rechercher</string>
 
@@ -68,10 +69,10 @@
     <string name="fullscreentitle">"Activer / Désactiver le plein écran"</string>
     <string name="fullscreensummary">"Affiche ou caché la barre d'état"</string>
     
-    <string name="transparentnavtitle">"Activer / Désactiver Transparent barre de navigation"</string>
+    <string name="transparentnavtitle">"Activer / Désactiver Transparence barre de navigation"</string>
     <string name="transparentnavsummary">"Cela met la barre de navigation transparente"</string>
     
-    <string name="transparentstatustitle">"Activer / Désactiver Transparent Barre d\'état"</string>
+    <string name="transparentstatustitle">"Activer / Désactiver Transparence Barre d\'état"</string>
     <string name="transparentstatussummary">"Cela met la barre d\'état transparent"</string>
     
     <string name="sidebariconsizetitle">"Taille des Icônes de la barre latérale"</string>
@@ -165,11 +166,11 @@
 <string name="searchtextmessage">Message personnalisé:</string>
 
 
-<string name="sidebarthèmetitle">Thème de la barre latérale</string>
+<string name="sidebarthemetitle">Thème de la barre latérale</string>
 
-<string name="sidebarthèmesummary">Définir le thème de la barre latérale</string>
+<string name="sidebarthemesummary">Définir le thème de la barre latérale</string>
 
-<string name="sidebarthèmemessage">Choisir un thème:</string>
+<string name="sidebarthememessage">Choisir un thème:</string>
 
 <string name="homenumpagestitle">Nombre de Pages d\'accueil</string>
 
@@ -195,7 +196,7 @@
 <string name="sidebartransparencysummary">Régler la transparence de la sidebar</string>
 
 <string name="share">Partager</string>
-<string name="icon_thème">Thème des icônes</string>
+<string name="icon_theme">Thème des icônes</string>
 <string name="gadget_error_text">Problème lors du changementt du widget</string>
 
 <string name="zoompercenttitle">Pourcentage de Zoom Out</string>
@@ -214,13 +215,13 @@
     <string name="enablefloatoptionsummary">Avec une ROM qui le supporte vous pouvez avoir une app flottante(Appui long sur app pour option)</string>
     <string name="floatapp">App Flottante</string>
  <string name="showbackgroundonurlbartitle">Ajouter fonds sur barre URL</string>
-    <string name="showbackgroundonurlbarsummary">Ajouter un fonds blanc sur la barre URL</string>
+    <string name="showbackgroundonurlbarsummary">Ajouter un fonds sur la barre URL</string>
 
 <string name="browsercompactmodetitle">Activer Mode Compact</string>
 <string name="browsercompactmodesummary">Layout pour petits écrans</string>
 
  <string name="defaulthomepagetitle">Page Home par défaut</string>
- <string name="defaulthomepagesummary">définir la page par défaut</string>
+ <string name="defaulthomepagesummary">Définir la page par défaut</string>
 
 <string name="bottompaddingporttitle">Enlever le remplissage du bas (Portrait)</string>
 <string name="bottompaddingportsummary">Si besoin, cela supprimera le remplissage</string>
@@ -314,7 +315,7 @@
 <string name="urlbarcolorsummary">Change la couleur de fond de la barre d\'adresse</string>
 
 <string name="clearonexittitle">Effacer les traces de navigation a la fermeture</string>
-<string name="clearonexitsummary">A la fermeture du navigateur, l\'historique, les caches et les cookies sont effacer</string>
+<string name="clearonexitsummary">A la fermeture du navigateur, l\'historique, les caches et les cookies sont effacés</string>
 
 <string name="nobookmarks">Auncun marque-page défini</string>
 
@@ -337,20 +338,35 @@
 <string name="prodescription">Passer à Lucid Launcher Pro pour supporter le développement</string>
 <string name="urlbardefault">Entrer l\'Adresse ou Rechercher</string>
 <string name="exit">Quitter</string>
+<string name="font_size_title">Taille de Police</string>
+<string name="font_size_summary">Régler la taille de Police du Texte</string>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<string name="sidebar_switched_title">Changer la position de la Barre Latérale</string>
+<string name="sidebar_switched_summary">La Barre Latérale va changer de coté à l\'écran</string>
+<string name="browserfullscreentitle">Navigateur mode Immersif</string>
+<string name="browserfullscreensummary">Enlève l\'espacement au bas du navigateur</string>
+<string name="folderhidelabeltitle">Nom du dossier</string>
+    <string name="folderhidelabelsummary">Montrer ou cacher le texte des dossiers</string>
+<string name="folder_label_blank">Dossier Sans Titre</string>
+<string name="folderlabelcolortitle">Couleur du texte des dossiers d\'application</string>
+    <string name="folderlabelcolorsummary">Définir la couleur du texte a l\'intérieur des dossiers</string>
+    <string name="remove_from_folder">Enlever du dossier</string>
+<string name="move_to_home">Déplacer vers Page d\'accueil</string>
+<string name="copyurl">Copier le Lien</string>
+<string name="manage_screens">Gérer les écrans</string>
+<string name="remove">Supprimer</string>
+<string name="browser_removed_dialog">Cette application sera retirée du play store suite a des complication. Veuillez cliquer sur le lien suivant pour être rediriger vers la nouvelle application Lucid Browser:</string>
+<string name="sslUntrustedTitle">Le certificat SSL du site n\'est pas approuvé !</string>
+<string name="sslUntrustedMessage">La page\n\n%s\n\na un certificat SSL pas sécurisé !</string>
+<string name="sslIdMismatchTitle">Le certificat SSL de ce site n\'est pas valide !</string>
+<string name="sslIdMismatchMessage" formatted="false">La page\n\n%1s\n\na un certificat SSL valide pour %2s !</string>
+<string name="sslExpiredTitle">Le certificat SSL a expiré !</string>
+<string name="sslExpiredMessage" formatted="false">Le certificat de sécurité du site \n\n%1s\n\n a expiré ! Il a expiré après le %2s.</string>
+<string name="sslNotYetValidTitle">Le certificat SSL du site n\'est pas encore valide !</string>
+<string name="sslNotYetValidMessage" formatted="false">La page\n\n%1s\n\na un certificat SSL qui n\'est pas encore valide ! Il le sera a partir du %2s.</string>
+<string name="sslWebsiteWarning">Le certificat de cette page n\'est pas approuvé ! Soyez prudent.</string>
+<string name="sslProceedQuestion">Voulez-vous accepter ce certificat ?</string>
+<string name="browser">Navigateur</string>
+<string name="app_drawer">Liste d\'applications</string>
+<string name="home_screen">Page d\'acceuil</string>
 </resources>

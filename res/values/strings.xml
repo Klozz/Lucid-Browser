@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources> 
-<string name="app_name" translatable="false">Lucid Browser</string>
+<string name="label" translatable="false">Lucid Browser</string>
 <string name="pro_name" translatable="false">Lucid Launcher Pro</string>
     <string name="trans_zoomout">Zoom-Out</string>
     <string name="trans_pagestack">Page Stack</string>
@@ -323,8 +323,9 @@
 <string name="sslExpiredMessage" formatted="false">The webpage at\n\n%1s\n\nhas an expired SSL certificate. It expired after %2s.</string>
 <string name="sslNotYetValidTitle">SSL Certificate is not yet valid</string>
 <string name="sslNotYetValidMessage" formatted="false">The webpage at\n\n%1s\n\nhas an SSL certificate that is not yet valid. It will be valid from %2s.</string>
-
 <string name="sslWebsiteWarning">The webpage is possibly unsafe as the certificate cannot be verified. Please proceed with caution.</string>
 <string name="sslProceedQuestion">Do you want to accept this certificate?</string>
+
+<string name="browser_removed_dialog">This app will be removed from the store due to policy complications. Please click on the following link to be directed to the newest Lucid Browser app:</string>
 
 </resources>

@@ -106,7 +106,7 @@
 
   <string name="orientationtitle">Orientamento Launcher</string>
   <string name="orientationsummary">imposta l\'orientamento del Launcher</string>
-  <string name="bookmarks">Bookmarks</string>
+  <string name="bookmarks">Preferiti</string>
   <string name="refresh">Ricarica</string>
   <string name="stop">Stop</string>
   <string name="home">Homepage</string>
@@ -156,7 +156,7 @@
     <string name="hidesearchbarsummary">nascondi ActionBar sull\'home screen</string>
 
     <string name="hide_apps">App nascoste</string>
-    <string name="hide_appssummary">nascondu app dall\'App Drawer</string>
+    <string name="hide_appssummary">nascondi app dall\'App Drawer</string>
 
     <string name="enablefloatoptiontitle">Abilita Floating App</string>
     <string name="enablefloatoptionsummary">su una ROM supportata puoi far fluttuare un app (premi a lungo sull\'app per le opzioni)</string>
@@ -187,12 +187,12 @@
 
 
  <string name="showbackgroundonurlbartitle">mostra backdrop nella barra URL</string>
-    <string name="showbackgroundonurlbarsummary">aggiunge un backdrop bianco alla barra URL</string>
+    <string name="showbackgroundonurlbarsummary">aggiunge un backdrop alla barra URL</string>
 
 <string name="browsercompactmodetitle">Abilita Compact Mode</string>
 <string name="browsercompactmodesummary">abilita un layout browser adatto a dispositivi piccoli</string>
 
- <string name="defaulthomepagetitle">Default Home Page</string>
+ <string name="defaulthomepagetitle"> Home Page predefinita</string>
  <string name="defaulthomepagesummary">imposta l\'Home page di predefinita</string>
 
 <string name="shortcutlabelstitle">Etichette scorciatoie</string>
@@ -217,7 +217,7 @@
 <string name="verticalscrolltitle">Sfondo in movimento in verticale</string>
 <string name="verticalscrollsummary">abilita o disabilita animazione di movimento dello sfondo in verticale</string>
 
-<string name="searchpackagestitle">Cerva Packages</string>
+<string name="searchpackagestitle">Cerca Packages</string>
 <string name="searchpackagessummary">abilita o disabilita la possibilità di cercare package come com.google.calendar</string>
 
 <string name="complete">azione completata</string>
@@ -232,7 +232,7 @@
 <string name="adjustwallpapertitle">Adatta Sfondo</string>
 <string name="adjustwallpapersummary">adatta la dimensione dello sfondo per adattarlo allo schermo</string>
 
-    <string name="cat_title_appearance">Apparenza</string>
+    <string name="cat_title_appearance">Aspetto</string>
     <string name="cat_title_actionbar">Action Bar</string>
     <string name="cat_title_tools">Strumenti</string>
     <string name="cat_title_icons">Icone</string>
@@ -286,7 +286,7 @@
 
 <string name="enablecookies">Abilita Cookies</string>
 <string name="disabledrawersummary">seleziona per disabilitare l\'App Drawer</string>
-<string name="enablejavascript">Avilita JavaScript</string>
+<string name="enablejavascript">Abilita JavaScript</string>
 <string name="enableimages">Carica Immagini</string>
 
 <string name="prodescription">Aiuta a supportare il progetto acquistando Lucid Launcher Pro</string>
@@ -295,26 +295,44 @@
 
 <string name="exit">Esci</string>
 
+<string name="font_size_title">Dimensione Font </string>
+<string name="font_size_summary">imposta la dimensione del testo</string>
 
+<string name="sidebar_switched_title">Cambia posizione sidebar</string>
+<string name="sidebar_switched_summary">le sidebar cambieranno lato dello schermo</string>
 
+<string name="browserfullscreentitle">Immersive mode Browser</string>
+<string name="browserfullscreensummary">rimuovi padding dal basso del browser</string>
+<string name="folderhidelabeltitle">Etichette Cartelle</string>
+    <string name="folderhidelabelsummary">mostra o nascondi le etichette sotto ogni cartella</string>
+<string name="folder_label_blank">Cartella senza nome</string>
+<string name="folderlabelcolortitle">Colore delle Etichette delle Cartelle</string>
+    <string name="folderlabelcolorsummary">imposta il colore delle etichette dentro le cartelle</string>
+    <string name="remove_from_folder">Rimuovi dalla Cartella</string>
+<string name="move_to_home">Sposta alla Home</string>
 
+<string name="copyurl">Copia Link</string>
 
+<string name="manage_screens">Gestisci schermate</string>
 
+<string name="remove">Rimuovi</string>
 
+<string name="browser_removed_dialog">Questa app verrà rimossa dallo store a causa di complicazioni di policy. Perfavore clicca sul link seguente per essere reindirizzato alla app Lucid Browser app più recente:</string>
 
+<string name="sslUntrustedTitle">SSL Certificate is not trusted</string>
+<string name="sslUntrustedMessage">The webpage at\n\n%s\n\nhas a self-signed SSL certificate.</string>
+<string name="sslIdMismatchTitle">SSL Certificate not valid for this webpage</string>
+<string name="sslIdMismatchMessage" formatted="false">The webpage at\n\n%1s\n\nhas a SSL certificate that is only valid for %2s.</string>
+<string name="sslExpiredTitle">SSL Certificate has expired</string>
+<string name="sslExpiredMessage" formatted="false">The webpage at\n\n%1s\n\nhas an expired SSL certificate. It expired after %2s.</string>
+<string name="sslNotYetValidTitle">SSL Certificate is not yet valid</string>
+<string name="sslNotYetValidMessage" formatted="false">The webpage at\n\n%1s\n\nhas an SSL certificate that is not yet valid. It will be valid from %2s.</string>
 
+<string name="sslWebsiteWarning">La pagina web potrebbe non essere sicura poiché non può essere verificato il certificato. Perfavore procedere con attenzione.</string>
+<string name="sslProceedQuestion">Vuoi accettare questo certificato?</string>
 
-
-
-
-
-
-
-
-
-
-
-
-
+<string name="browser">Browser</string>
+<string name="app_drawer">App Drawer</string>
+<string name="home_screen">Home Screen</string>
 
 </resources>

@@ -21,7 +21,6 @@
 <string name="sidebar_light">亮</string>
 
 <string name="menu_settings">设置</string>
-<string name="settings">设置</string>
 <string name="wallpaper_instructions">选择操作</string>
    
 <string name="search">搜索</string>
@@ -316,7 +315,30 @@
 <string name="prodescription">帮助购买Lucid Launcher 专业版</string>
 
 <string name="urlbardefault">输入搜索内容或地址</string>
-<string name="exit">出口</string>
 
+
+<string name="exit">退出</string>
+
+<string name="font_size_title">字体大小</string>
+<string name="font_size_summary">设置文本字体大小</string>
+
+<string name="sidebar_switched_title">切换侧边栏的位置</string>
+<string name="sidebar_switched_summary">侧边栏将切换在屏幕两侧的位置</string>
+
+<string name="browserfullscreentitle">沉浸式浏览器</string>
+<string name="browserfullscreensummary">移除浏览器下方填充</string>
+<string name="folderhidelabeltitle">文件夹标签</string>
+    <string name="folderhidelabelsummary">显示或隐藏每个文件夹下的标签</string>
+<string name="folder_label_blank">未命名文件夹</string>
+<string name="folderlabelcolortitle">文件夹应用标签颜色</string>
+    <string name="folderlabelcolorsummary">设置文件夹里面的标签的颜色</string>
+    <string name="remove_from_folder">从文件夹中删除</string>
+<string name="move_to_home">移动到首页</string>
+
+<string name="copyurl">复制链接</string>
+
+<string name="manage_screens">管理画面</string>
+
+<string name="remove">删除</string>
 
 </resources>

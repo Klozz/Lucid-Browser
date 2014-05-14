@@ -50,7 +50,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.powerpoint45.lucidbrowserfree.R;
+import com.powerpoint45.lucidbrowser.R;
 
 /**
  * Displays a color picker to the user and allow them

@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.powerpoint45.lucidbrowserfree.R;
+import com.powerpoint45.lucidbrowser.R;
 
 public class ColorPickerPreference extends DialogPreference implements ColorPickerView.OnColorChangedListener{
 

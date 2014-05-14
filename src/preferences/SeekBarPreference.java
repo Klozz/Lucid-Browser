@@ -13,7 +13,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-import com.powerpoint45.lucidbrowserfree.R;
+import com.powerpoint45.lucidbrowser.R;
 
 public class SeekBarPreference extends Preference implements OnSeekBarChangeListener {
     

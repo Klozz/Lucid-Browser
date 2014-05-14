@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="trans_zoomout">Herauszoomen</string>
@@ -27,7 +26,6 @@
     <string name="gadget_error_text">Widget konnte nicht geladen werden</string>
     
     <string name="system_settings">Systemeinstellungen</string>
-    <string name="launcher_settings">Launcher-Einstellungen</string>
     <string name="wallpaper">Hintergrundbild ändern</string>
     <string name="lock_desktop" >Desktop fixieren</string>
     <string name="unlock_desktop" >Desktop lösen</string>
@@ -85,7 +83,7 @@
     <string name="fullscreensummary">Statusleiste wird im Vollbildmodus versteckt</string>
     
     <string name="transparentnavtitle">Transparente Navigationsleiste</string>
-    <string name="transparentnavsummary"></string>
+    <string name="transparentnavsummary">Transparente Navigationinhalt</string>
     
     <string name="transparentstatustitle">Transparente Statusleiste</string>
     <string name="transparentstatussummary"></string>
@@ -197,14 +195,14 @@
     <string name="enablefloatoptiontitle">Schwebende Apps aktivieren</string>
     <string name="enablefloatoptionsummary">App lange drücken, um sie in eigenem Fenster starten zu können (experimentell, nur bei unterstützten ROMs)</string>
 
-    <string name="showbackgroundonurlbartitle">Weiße Adresszeile</string>
-    <string name="showbackgroundonurlbarsummary">Färbt den Hintergrund der Adresszeile weiß</string>
+    <string name="showbackgroundonurlbartitle">Adresszeile einfärben</string>
+    <string name="showbackgroundonurlbarsummary">Addresszeile mit farbigem Hintergrund darstellen</string>
 
     <string name="browsercompactmodetitle">Kompaktmodus aktivieren</string>
     <string name="browsercompactmodesummary">Verbessert das Browserlayout für kleinere Geräte</string>
 
     <string name="defaulthomepagetitle">Startseite wählen</string>
-    <string name="defaulthomepagesummary"></string>
+    <string name="defaulthomepagesummary">Startseite Inhalt</string>
 
 <string name="bottompaddingporttitle">Abstand entfernen (Hochformat)</string>
 <string name="bottompaddingportsummary">Entfernt jeglichen Abstand bei der Navigationsleiste</string>
@@ -216,12 +214,6 @@
 <string name="clearcachetitle">Cache leeren</string>
 <string name="clearcookiestitle">Cookies entfernen</string>
 
-<string name="searchbaractiontitle">Aktion der Suchleiste</string>
-<string name="searchbaractionsummary">Aktion für das Drücken der Suchleiste auswählen</string>
-
-<string name="lucidactionstitle">Lucid Launcher Aktionen</string>
-<string name="lucidactionssummary">Eine Lucid Launcher Aktion auswählen</string>
-<string name="lucidactiondrawer">App Drawer</string>
 
 <string name="shortcutlabelstitle">Verknüpfungsbezeichner</string>
 <string name="shortcutlabelssummary">Bezeichner unter Verknüpfungen anzeigen/verbergen</string>
@@ -303,9 +295,9 @@
 
 <string name="sidebar_custom">Benutzerdefiniert</string>
 <string name="sidebarcolortitle">Farbe der Seitenleiste</string>
-<string name="sidebarcolorsummary"></string>
+<string name="sidebarcolorsummary">Seitenleiste farb inhalt</string>
 <string name="sidebartextcolortitle">Textfarbe der Seitenleiste</string>
-<string name="sidebartextcolorsummary"></string>
+<string name="sidebartextcolorsummary">Sietenleiste textfarb inhalt</string>
 
 <string name="desktopviewtitle">Desktop-Ansicht</string>
 <string name="desktopviewsummary">Webseiten wie ein Desktop-Browser darstellen</string>
@@ -321,7 +313,6 @@
 <string name="prodescription">Der Kauf des Lucid Launcher Pro unterstützt die Entwicklung des Projektes</string>
 
 <string name="urlbardefault">Suchbegriff oder Adresse eingeben</string>
-
 <string name="exit">Beenden</string>
 
 <string name="font_size_title">Schriftgröße</string>
@@ -330,7 +321,24 @@
 <string name="sidebar_switched_title">Sidebarposition vertauschen</string>
 <string name="sidebar_switched_summary">Bildschirmseite der Sidebar wechseln</string>
 
+<string name="browserfullscreentitle">Immersiver Browser</string>
+<string name="browserfullscreensummary">Entfernen des Abstands am unteren Ende des Browsers</string>
+<string name="folderhidelabeltitle">Ordnerbezeichner</string>
+    <string name="folderhidelabelsummary">Bezeichner unter Ordnern anzeigen oder verbergen</string>
+<string name="folder_label_blank">Unbenannt</string>
+<string name="folderlabelcolortitle">Bezeichnerfarbe im Ordner</string>
+    <string name="folderlabelcolorsummary">Auswählen der Farbe für App-Bezeichner innerhalb eines Ordners</string>
+    <string name="remove_from_folder">Entfernen</string>
+<string name="move_to_home">Auf Home-Bildschirm</string>
+
 <string name="copyurl">Link kopieren</string>
+
+<string name="manage_screens">Bildschirme verwalten</string>
+
+
+<string name="remove">Entfernen</string>
+
+<string name="browser_removed_dialog">Diese App wird auf Grund von Komplikationen mit den Richtlinien des Play Stores entfernt. Der folgende Link führt zur neuesten Version des Lucid Browsers:</string>
 
 <string name="sslUntrustedTitle">Dem SSL Zertifikat wird nicht vertraut</string>
 <string name="sslUntrustedMessage">Die Website unter\n\n%s\n\nnutzt ein selbst signiertes SSL Zertifikat.</string>
@@ -342,6 +350,10 @@
 <string name="sslNotYetValidMessage" formatted="false">Die Website unter\n\n%1s\n\nnutzt ein noch nicht gültiges SSL Zertifikat. Es ist gültig ab %2s.</string>
 
 <string name="sslWebsiteWarning">Die Website ist möglicherweise nicht sicher und sollte mit Vorsicht genutzt werden.</string>
-<string name="sslProceedQuestion">Soll das Zertifikat akzeptiert werden?</string>
+<string name="sslProceedQuestion">sslProceedQuestion">Soll das Zertifikat akzeptiert werden?</string>
+
+<string name="browser">Browser</string>
+<string name="app_drawer">App Drawer</string>
+<string name="home_screen">Home-Bildschirm</string>
 
 </resources>
