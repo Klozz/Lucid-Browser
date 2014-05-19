@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<color name="Black_transparent_50_percent">#80000000</color>
+<color name="Black_transparent_50_percent">#50000000</color>
+<color name="Black_transparent_90_percent">#E6000000</color>
+<color name="Black_transparent_dark">#80000000</color>
+<color name="White_transparent_50_percent">#85ffffff</color>
 <color name="transparent_black_percent_5">#1A000000</color>
 <color name="holo_blue_light">#ff33b5e5</color>
 <color name="holo_red_light">#ffff4444</color>

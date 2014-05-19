@@ -1,3 +1,4 @@
+
 <resources>
 
     <string name="trans_zoomout">Herauszoomen</string>
@@ -26,6 +27,7 @@
     <string name="gadget_error_text">Widget konnte nicht geladen werden</string>
     
     <string name="system_settings">Systemeinstellungen</string>
+    <string name="launcher_settings">Launcher-Einstellungen</string>
     <string name="wallpaper">Hintergrundbild ändern</string>
     <string name="lock_desktop" >Desktop fixieren</string>
     <string name="unlock_desktop" >Desktop lösen</string>
@@ -214,6 +216,12 @@
 <string name="clearcachetitle">Cache leeren</string>
 <string name="clearcookiestitle">Cookies entfernen</string>
 
+<string name="searchbaractiontitle">Aktion der Suchleiste</string>
+<string name="searchbaractionsummary">Aktion für das Drücken der Suchleiste auswählen</string>
+
+<string name="lucidactionstitle">Lucid Launcher Aktionen</string>
+<string name="lucidactionssummary">Eine Lucid Launcher Aktion auswählen</string>
+<string name="lucidactiondrawer">App Drawer</string>
 
 <string name="shortcutlabelstitle">Verknüpfungsbezeichner</string>
 <string name="shortcutlabelssummary">Bezeichner unter Verknüpfungen anzeigen/verbergen</string>
@@ -266,13 +274,13 @@
     <string name="cat_title_gestures">Gesten</string>
 
 <string name="gesturedowntitle">Wisch nach unten</string>
-<string name="gesturedownsummary">Aktion wählen für das nach unten Wischen auf dem obersten Home-Bildschirm</string>
+<string name="gesturedownsummary">Aktion für das nach unten Wischen auf dem obersten Home-Bildschirm wählen</string>
 
 <string name="gestureuptitle">Wisch nach oben</string>
-<string name="gestureupsummary">Aktion wählen für das nach oben Wischen auf dem untersten Home-Bildschirm</string>
+<string name="gestureupsummary">Aktion für das nach oben Wischen auf dem untersten Home-Bildschirm wählen</string>
 
 <string name="gesturelefttitle">Wisch nach links</string>
-<string name="gestureleftsummary">Aktion wählen für das nach links Wischen auf dem Home-Bildschirm (Browser muss deaktiviert sein)</string>
+<string name="gestureleftsummary">Aktion für das nach links Wischen wählen</string>
 
 <string name="action_togglestatusbar">Statusleiste ein-/ausklappen</string>
 <string name="action_openapp">App starten</string>
@@ -355,5 +363,14 @@
 <string name="browser">Browser</string>
 <string name="app_drawer">App Drawer</string>
 <string name="home_screen">Home-Bildschirm</string>
+
+<string name="gesturerighttitle">Wisch nach rechts</string>
+<string name="gesturerightsummary">Aktion für das nach rechts Wischen wählen</string>
+    <string name="gesture_alert">Geste wurde definiert. Zum Benutzen bitte Bildschirme verwalten</string>
+
+<string name="select_screen">Neuen Bildschirm wählen</string>
+
+<string name="paste">Einfügen</string> 
+
 
 </resources>

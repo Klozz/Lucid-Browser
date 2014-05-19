@@ -171,5 +171,7 @@
 
     <string name="restoretitle">"Restore"</string>
     <string name="restoresummary">"Restaurar o backup"</string>
+
+<string name="paste">Colar</string>
     
 </resources>

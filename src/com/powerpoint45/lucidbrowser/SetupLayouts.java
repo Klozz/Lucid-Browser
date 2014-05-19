@@ -1,15 +1,19 @@
 package com.powerpoint45.lucidbrowser;
 
 import android.app.ActionBar;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout.DrawerListener;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
@@ -18,12 +22,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.powerpoint45.lucidbrowser.R;
 
 public class SetupLayouts extends MainActivity {
 	static int actionBarNum;
+	public static PopupWindow popup;
 
 	public static void setuplayouts() {
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
@@ -253,6 +259,65 @@ public class SetupLayouts extends MainActivity {
 				.findViewById(R.id.browser_searchbar));
 		ET.setScrollContainer(true);
 
+		ET.setOnLongClickListener(new OnLongClickListener() {
+			
+			@Override
+			public boolean onLongClick(View v) {
+				
+				boolean noCopyOption = false;
+				boolean noPasteOption = false;
+				
+				if (((EditText) bar.findViewById(R.id.browser_searchbar))!=null){
+					((EditText) bar.findViewById(R.id.browser_searchbar)).setFocusable(false);
+		    		((EditText) bar.findViewById(R.id.browser_searchbar)).selectAll();
+		    		if (((EditText) bar.findViewById(R.id.browser_searchbar)).getText().toString().compareTo("")==0)
+		    			noCopyOption = true;
+				}
+				
+				
+				System.out.println("LONG PRESSED");
+				popup = new PopupWindow(inflater.inflate(R.layout.copy_url_popup, null), ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+				
+				ClipboardManager clipboard = (ClipboardManager)
+			 	        MainActivity.activity.getSystemService(Context.CLIPBOARD_SERVICE);
+				
+				if (!clipboard.hasPrimaryClip())
+					noPasteOption = true;
+				
+				if (noPasteOption)
+					popup.getContentView().findViewById(R.id.pastebutton).setVisibility(View.GONE);
+				
+				if (noCopyOption)
+					popup.getContentView().findViewById(R.id.copyurlbutton).setVisibility(View.GONE);
+				
+				popup.setFocusable(true);
+				popup.setBackgroundDrawable(new ColorDrawable());
+				popup.setAnimationStyle(R.style.AnimationPopup);
+				int[] loc = new int[2];
+				v.getLocationOnScreen(loc);
+				
+				if (noCopyOption && noPasteOption)
+					System.out.println("DO NOTHING");
+				else
+					popup.showAtLocation(MainActivity.bar, Gravity.NO_GRAVITY, loc[0], loc[1]+v.getHeight());
+				
+				OnDismissListener dismissListener = new OnDismissListener() {
+					
+					@Override
+					public void onDismiss() {
+						// TODO Auto-generated method stub
+						if (((EditText) bar.findViewById(R.id.browser_searchbar))!=null){
+							((EditText) bar.findViewById(R.id.browser_searchbar)).setFocusableInTouchMode(true);
+						}
+					}
+				};
+				
+				popup.setOnDismissListener(dismissListener);
+				
+				return false;
+			}
+		});
+		
 		ET.setOnKeyListener(new OnKeyListener() {
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				// If the event is a key-down event on the "enter" button

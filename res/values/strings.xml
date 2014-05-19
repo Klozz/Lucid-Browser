@@ -328,4 +328,6 @@
 
 <string name="browser_removed_dialog">This app will be removed from the store due to policy complications. Please click on the following link to be directed to the newest Lucid Browser app:</string>
 
+<string name="paste">Paste</string>
+
 </resources>

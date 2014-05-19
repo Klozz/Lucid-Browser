@@ -251,7 +251,7 @@
 <string name="gestureupsummary">Seleziona un\'azione strisciando su dalla home page inferiore</string>
 
 <string name="gesturelefttitle">Striscia verso sinistra</string>
-<string name="gestureleftsummary">Seleziona un azione strisciando verso sinistra (il browser deve essere disabilitato)</string>
+
 
 <string name="action_togglestatusbar">Toggle Notification Bar</string>
 <string name="action_openapp">Lancia App</string>
@@ -319,14 +319,14 @@
 
 <string name="browser_removed_dialog">Questa app verrà rimossa dallo store a causa di complicazioni di policy. Perfavore clicca sul link seguente per essere reindirizzato alla app Lucid Browser app più recente:</string>
 
-<string name="sslUntrustedTitle">SSL Certificate is not trusted</string>
-<string name="sslUntrustedMessage">The webpage at\n\n%s\n\nhas a self-signed SSL certificate.</string>
-<string name="sslIdMismatchTitle">SSL Certificate not valid for this webpage</string>
-<string name="sslIdMismatchMessage" formatted="false">The webpage at\n\n%1s\n\nhas a SSL certificate that is only valid for %2s.</string>
-<string name="sslExpiredTitle">SSL Certificate has expired</string>
-<string name="sslExpiredMessage" formatted="false">The webpage at\n\n%1s\n\nhas an expired SSL certificate. It expired after %2s.</string>
-<string name="sslNotYetValidTitle">SSL Certificate is not yet valid</string>
-<string name="sslNotYetValidMessage" formatted="false">The webpage at\n\n%1s\n\nhas an SSL certificate that is not yet valid. It will be valid from %2s.</string>
+<string name="sslUntrustedTitle">Certificato SSL non affidabile</string>
+<string name="sslUntrustedMessage">Questa pagina ha un certificato SSL non affidabile</string>
+<string name="sslIdMismatchTitle">Certificato SSL invalido per questa pagina</string>
+<string name="sslIdMismatchMessage" formatted="false">Questa pagina ha un certificato SSL valido solo per..</string>
+<string name="sslExpiredTitle">Certificato SSL scaduto</string>
+<string name="sslExpiredMessage" formatted="false">Questa pagina ha un certificato SSL scaduto.è scaduto dopo..</string>
+<string name="sslNotYetValidTitle">Il certificato SSL non è ancora valido</string>
+<string name="sslNotYetValidMessage" formatted="false">Questa pagina ha un certificato SSL non valido,lo sarà da..</string>
 
 <string name="sslWebsiteWarning">La pagina web potrebbe non essere sicura poiché non può essere verificato il certificato. Perfavore procedere con attenzione.</string>
 <string name="sslProceedQuestion">Vuoi accettare questo certificato?</string>
@@ -334,5 +334,13 @@
 <string name="browser">Browser</string>
 <string name="app_drawer">App Drawer</string>
 <string name="home_screen">Home Screen</string>
+
+<string name="gesturerighttitle">Striscia verso Destra</string>
+<string name="gesturerightsummary">imposta un azione per strisciare verso destra</string>
+    <string name="gesture_alert">La gesture è stata impostata ma le pagine devono essere riaggiustate per l\'uso</string>
+
+<string name="gestureleftsummary">imposta un azione per strisciare verso sinistra</string>
+
+<string name="paste">Incolla</string>
 
 </resources>

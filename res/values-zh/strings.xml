@@ -21,6 +21,7 @@
 <string name="sidebar_light">亮</string>
 
 <string name="menu_settings">设置</string>
+
 <string name="wallpaper_instructions">选择操作</string>
    
 <string name="search">搜索</string>
@@ -340,5 +341,7 @@
 <string name="manage_screens">管理画面</string>
 
 <string name="remove">删除</string>
+
+<string name="paste">粘贴</string>
 
 </resources>

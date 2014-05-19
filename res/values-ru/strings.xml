@@ -172,4 +172,5 @@
     <string name="restoretitle">"Восстановить"</string>
     <string name="restoresummary">"Восстановить резервную копию"</string>
     
+<string name="paste">Вставить</string>
 </resources>

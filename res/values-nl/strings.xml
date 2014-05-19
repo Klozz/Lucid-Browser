@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources> 
+
+
     <string name="trans_zoomout">Uitzoomen</string>
     <string name="trans_pagestack">Stapelen</string>
     <string name="trans_flipin">Flip</string>
@@ -286,13 +288,13 @@
 <string name="gesturedoubletaptitle">Double Tap</string>
 <string name="gesturedoubletapsummary">Select an action for double tapping the home screen</string>
 
-<string name="urlbarcolortitle">URL bar color</string>
-<string name="urlbarcolorsummary">Set the background color of the URL bar</string>
 
-<string name="clearonexittitle">Clear browser traces on exit</string>
-<string name="clearonexitsummary">Exiting browser clears history, cache and cookies</string>
 
-<string name="nobookmarks">No Bookmarks set</string>
+
+
+
+
+
 
 <string name="sidebar_custom">Custom</string>
 <string name="sidebarcolortitle">Sidebar Color</string>
@@ -300,26 +302,33 @@
 <string name="sidebartextcolortitle">Sidebar Text Color</string>
 <string name="sidebartextcolorsummary">Set the text color of the sidebar</string>
 
-<string name="desktopviewtitle">Enable Desktop View</string>
-<string name="desktopviewsummary">Display web pages like a desktop browser</string>
+<string name="desktopviewtitle">Desktop Weergave Aanzetten</string>
+<string name="desktopviewsummary">Webpagina\'s weergeven als een desktop browser</string>
 
-<string name="home_folder">Add Folder</string>
+<string name="home_folder">Folder toevoegen</string>
 
+<string name="urlbarcolortitle">URL balk kleur</string>
+<string name="urlbarcolorsummary">De achtergrond kleur van de URL balk veranderen</string>
 
-<string name="cat_title_content">Content</string>
-<string name="enablecookies">Allow Cookies</string>
-<string name="disabledrawersummary">Select to disable the app drawer</string>
-<string name="enablejavascript">Enable JavaScript</string>
-<string name="enableimages">Load Images</string>
+<string name="clearonexittitle">Browser traces leeggooien tijdens het uitzetten</string>
+<string name="clearonexitsummary">Bij het sluiten van de browser wordt de geschiedenis, het cache geheugen en de cookies verwijdert</string>
 
-<string name="prodescription">Help support the project by purchasing Lucid Launcher Pro</string>
-<string name="urlbardefault">Enter Search or Address</string>
+<string name="nobookmarks">Geen bookmarks ingesteld</string>
 
-<string name="font_size_title">Font Size</string>
-<string name="font_size_summary">Set the text font size</string>
+<string name="cat_title_content">Inhoud</string>
+<string name="enablecookies">Cookies Toestaan</string>
+<string name="disabledrawersummary">Selecteer om de app drawer uit te zetten</string>
+<string name="enablejavascript">JavaScript aanzetten</string>
+<string name="enableimages">Afbeeldingen Laden</string>
 
-<string name="sidebar_switched_title">Switch sidebar location</string>
-<string name="sidebar_switched_summary">Sidebars will switch sides on the screen</string>
+<string name="prodescription">Help het Lucid Launcher project door de pro versie aan te schaffen</string>
+<string name="urlbardefault">Voer een zoekopdracht of adres in</string>
+
+<string name="font_size_title">Tekst grote</string>
+<string name="font_size_summary">Verander de grootte van de tekst</string>
+
+<string name="sidebar_switched_title">Sidebar locatie veranderen</string>
+<string name="sidebar_switched_summary">Sidebars zullen op het scherm van kanten veranderen</string>
 
 <string name="exit">Beëindigen </string>
 
@@ -357,5 +366,6 @@
 <string name="app_drawer">Apps</string>
 <string name="home_screen">Thuis</string>
 
+<string name="paste">Plakken</string>
 
 </resources>

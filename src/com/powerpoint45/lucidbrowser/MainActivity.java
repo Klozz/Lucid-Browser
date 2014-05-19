@@ -696,6 +696,30 @@ public class MainActivity extends BrowserHandler {
 	 }
 	 
  }
+ 
+ public void copyURLButtonClicked(View v){
+ 	ClipboardManager clipboard = (ClipboardManager)
+ 	        getSystemService(Context.CLIPBOARD_SERVICE);
+ 	
+ 	if (v.getId() == R.id.copyurlbutton){
+	 	ClipData clip = null;
+	 	if (((EditText) bar.findViewById(R.id.browser_searchbar))!=null)
+	 		 clip = ClipData.newPlainText("",((EditText) bar.findViewById(R.id.browser_searchbar)).getText());
+	 	
+	 	if (clip!=null)
+	 		clipboard.setPrimaryClip(clip);
+ 	}
+ 	
+ 	if (v.getId() == R.id.pastebutton){
+	 	if (clipboard.hasPrimaryClip())
+	 		if (((EditText) bar.findViewById(R.id.browser_searchbar))!=null)
+	 			((EditText) bar.findViewById(R.id.browser_searchbar)).setText(clipboard.getText().toString());
+ 	}
+ 	
+ 	SetupLayouts.popup.dismiss();
+ 	if (((EditText) bar.findViewById(R.id.browser_searchbar))!=null)
+ 		((EditText) bar.findViewById(R.id.browser_searchbar)).setFocusableInTouchMode(true);
+ }
 
  
  

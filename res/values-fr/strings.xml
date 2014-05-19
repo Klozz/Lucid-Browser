@@ -369,4 +369,10 @@
 <string name="browser">Navigateur</string>
 <string name="app_drawer">Liste d\'applications</string>
 <string name="home_screen">Page d\'acceuil</string>
+<string name="gesturerighttitle">Glisser vers la droite</string>
+<string name="gesturerightsummary">Sélectionner une action</string>
+    <string name="gesture_alert">Le geste a été paramétré mais les écrans doivent être réarrangés avant utilisation</string>
+<string name="select_screen">Sélectionner une nouvelle fenêtre</string>
+
+<string name="paste">Coller</string>
 </resources>
