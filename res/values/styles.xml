@@ -16,6 +16,9 @@
   	    <item name="android:actionMenuTextColor">#fff</item>
     </style>
     
+     <style name="BookmarksTheme" parent="@android:style/Theme.Holo.Light">
+    </style>
+    
 	<style name="AnimationPopup" parent="android:Animation">
 	    <item name="android:windowEnterAnimation">@anim/popup_enter</item>
 	    <item name="android:windowExitAnimation">@anim/popup_exit</item>

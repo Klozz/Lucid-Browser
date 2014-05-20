@@ -317,8 +317,9 @@ public class MainActivity extends BrowserHandler {
 			}
             break;
 		case R.id.browser_open_bookmarks:
-     	    msg.what = 3;
-            messageHandler.sendMessage(msg);
+     	    //msg.what = 3;
+            //messageHandler.sendMessage(msg);
+            startActivity(new Intent(ctxt,BookmarksActivity.class));
 			break;
 		case R.id.browser_set_home:
 			mPrefs.edit().putString("browserhome", WV.getUrl()).commit();
@@ -409,7 +410,7 @@ public class MainActivity extends BrowserHandler {
 		switch (v.getId()){
 		case R.id.bookmark_title:
 			WV.loadUrl(curURL);
-			dismissDialog();
+			((Activity) BookmarksActivity.activity).finish();
 			break;
 		case R.id.bookmark_delete:
 			int curItem=0;

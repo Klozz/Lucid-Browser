@@ -36,7 +36,7 @@
             android:layout_height="50dp"
             android:background="@drawable/button"
             android:onClick="copyURLButtonClicked"
-            android:text="@string/paste"
+            android:text="@android:string/paste"
             android:textColor="@android:color/white" />
         
     </LinearLayout>
