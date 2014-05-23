@@ -1,5 +1,6 @@
 package com.powerpoint45.lucidbrowser;
 
+import java.io.FileOutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -17,6 +18,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -40,6 +42,7 @@ import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 import android.webkit.WebViewDatabase;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -86,12 +89,9 @@ public class MainActivity extends BrowserHandler {
 		
 		bar                       = new RelativeLayout(this);
 		actionBar                 = getActionBar();
-		mainView                  = (DrawerLayout) inflater.inflate(R.layout.main, null);
-		contentView               = ((FrameLayout)mainView.findViewById(R.id.content_frame));
 		
 		
 		webLayout                 = (LinearLayout) inflater.inflate(R.layout.page_web, null);
-		browserListView           = (ListView) mainView.findViewById(R.id.right_drawer);
 		browserListViewAdapter    = new BrowserImageAdapter(this);
 		webWindows                = new Vector<CustomWebView>();
 		
@@ -105,6 +105,16 @@ public class MainActivity extends BrowserHandler {
 			assetHomePage = "file:///android_asset/home.html";
 		
 		Properties.update_preferences();
+		
+		if (Properties.sidebarProp.swapLayout)
+			mainView              = (DrawerLayout) inflater.inflate(R.layout.main_swapped, null);
+		else
+			mainView              = (DrawerLayout) inflater.inflate(R.layout.main, null);
+		
+		contentView               = ((FrameLayout)mainView.findViewById(R.id.content_frame));
+		
+		browserListView           = (ListView) mainView.findViewById(R.id.right_drawer);
+		
 		SetupLayouts.setuplayouts();
 		
 		Intent intent = getIntent();
@@ -193,7 +203,6 @@ public class MainActivity extends BrowserHandler {
 		
 	}
 	
-	
 	public static boolean isDownloadManagerAvailable(Context context) {
 	    try {
 	        Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -242,8 +251,9 @@ public class MainActivity extends BrowserHandler {
  		    public void run() {
  		    	mainView.closeDrawers();
  		    }
- 		}; 
- 		handler.postDelayed(r, 500);	
+ 		};
+ 		if (v.getId() != R.id.browser_bookmark)
+ 			handler.postDelayed(r, 500);	
 		
 		if (webWindows.size()==0){
 			webWindows.add(new CustomWebView(MainActivity.this,null,null));
@@ -295,23 +305,30 @@ public class MainActivity extends BrowserHandler {
 			}
 			if (isBook){
 				BI.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
-				if ((numBooks-1)!=markedBook){
-					ed.putString("bookmark"+markedBook,mPrefs.getString("bookmark"+(numBooks-1), "null"));
-				    ed.putString("bookmarktitle"+markedBook,mPrefs.getString("bookmarktitle"+(numBooks-1), "null"));
-				    ed.commit();
-				}
-				ed.remove("bookmark"+markedBook);
-			    ed.remove("bookmarktitle"+markedBook);
-			    ed.putInt("numbookmarkedpages",numBooks-1);
-			    ed.commit();
+				removeBookmark(markedBook);
 				
 			    if (BI!=null)
 	    			BI.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
 			}else{
+				try{
+					
+					Bitmap b = WV.getFavicon();
+					if (b.getRowBytes()>1){
+						URL url = new URL(WV.getUrl());
+						FileOutputStream out = new FileOutputStream(getApplicationInfo().dataDir+"/icons/" + url.getHost());
+						WV.getFavicon().compress(Bitmap.CompressFormat.PNG, 100, out);
+						out.flush();
+					    out.close();
+					}else{
+						
+					}
+				}catch(Exception e){e.printStackTrace();};
+				
 				ed.putString("bookmark"+numBooks,WV.getUrl());
 			    ed.putString("bookmarktitle"+numBooks,WV.getTitle());
 			    ed.putInt("numbookmarkedpages",numBooks+1);
 			    ed.commit();
+			    
 			    if (BI!=null)
 	    			BI.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
 			}
@@ -342,6 +359,18 @@ public class MainActivity extends BrowserHandler {
 			finish();
 			break;
 		}
+	}
+	
+	public void removeBookmark(int pos){
+		int numBooks=MainActivity.mPrefs.getInt("numbookmarkedpages", 0);
+		SharedPreferences.Editor ed = MainActivity.mPrefs.edit();
+		ed.putString("bookmark"+pos,MainActivity.mPrefs.getString("bookmark"+(numBooks-1), "null"));
+	    ed.putString("bookmarktitle"+pos,MainActivity.mPrefs.getString("bookmarktitle"+(numBooks-1), "null"));
+		
+	    ed.remove("bookmark"+numBooks);
+	    ed.remove("bookmarktitle"+numBooks);
+	    ed.putInt("numbookmarkedpages",numBooks-1);
+	    ed.commit();
 	}
 	
 	public void closeCurrentTab(View v){
@@ -404,41 +433,6 @@ public class MainActivity extends BrowserHandler {
 		browserListViewAdapter.notifyDataSetChanged();
 	}
 	
-	public void bookmarkActionClicked(View v){
-		WebView WV = (WebView) ((ViewGroup) webLayout.findViewById(R.id.webviewholder)).findViewById(R.id.browser_page);
-		String curURL = ((View) v.getParent()).getTag().toString();
-		switch (v.getId()){
-		case R.id.bookmark_title:
-			WV.loadUrl(curURL);
-			((Activity) BookmarksActivity.activity).finish();
-			break;
-		case R.id.bookmark_delete:
-			int curItem=0;
-			int numBooks=mPrefs.getInt("numbookmarkedpages", 0);
-			for (int I=0;I<numBooks;I++){
-				if (curURL.compareTo(mPrefs.getString("bookmark"+I, ""))==0){
-					curItem=I;
-					break;
-				}
-			}
-			SharedPreferences.Editor ed = mPrefs.edit();
-			ed.putString("bookmark"+curItem,mPrefs.getString("bookmark"+(numBooks-1), "null"));
-		    ed.putString("bookmarktitle"+curItem,mPrefs.getString("bookmarktitle"+(numBooks-1), "null"));
-			
-		    ed.remove("bookmark"+numBooks);
-		    ed.remove("bookmarktitle"+numBooks);
-		    ed.putInt("numbookmarkedpages",numBooks-1);
-		    ed.commit();
-			v.setVisibility(View.GONE);
-			if (numBooks-1 == 0){
-				 dismissDialog();
-			}
-			break;
-		}
-	}
-	
-	
-	
 	@Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -457,17 +451,22 @@ public class MainActivity extends BrowserHandler {
         				tabNumber=-1;
         				
         			if (tabNumber==-1){
-	    	    		webWindows.add(new CustomWebView(MainActivity.this,null,intent.getDataString()));
-	    	    		((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
-	    	    		((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(webWindows.size()-1));
-	    	    		((EditText) bar.findViewById(R.id.browser_searchbar)).setText(intent.getDataString());
-	    	    		browserListViewAdapter.notifyDataSetChanged();
+	    	    		openURLInNewTab(intent.getDataString());
         			}
         			
         		}
         }
 	}
 	
+	public static void openURLInNewTab(String url){
+		if (url!=null){
+			webWindows.add(new CustomWebView(MainActivity.activity,null,url));
+			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
+			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(webWindows.size()-1));
+			((EditText) bar.findViewById(R.id.browser_searchbar)).setText(url);
+			browserListViewAdapter.notifyDataSetChanged();
+		}
+	}
 	
 	public static void closeVideoViewIfOpen(){
 		try{
@@ -477,7 +476,6 @@ public class MainActivity extends BrowserHandler {
 					WV.getChromeClient().onHideCustomView();
 		}catch(Exception e){};
 	}
-	
 	
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
  	    // Confirm the view is a webview
@@ -516,7 +514,6 @@ public class MainActivity extends BrowserHandler {
  	        }
  	    }
  	}
-	
 	
 	//used in the web dialog popup /res/layout/web_menu_popup.xml
 	public void webviewActionClicked(View v){
@@ -647,25 +644,22 @@ public class MainActivity extends BrowserHandler {
         }
  };
  
- 
- 
  @Override
- public void onSaveInstanceState(Bundle savedInstanceState) {
+ 	public void onSaveInstanceState(Bundle savedInstanceState) {
 	 
     super.onSaveInstanceState(savedInstanceState);
     saveState();
  }
  
  @Override
- public void onStop(){
+ 	public void onStop(){
 	super.onStop();
 	saveState();
 	if (isFinishing())
 		clearAllTabsForExit();
  }
  
- 
- void saveState(){
+ 	void saveState(){
 	 SharedPreferences savedInstancePreferences = getSharedPreferences("state",0);
 	   CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
 	   int tabNumber = getTabNumber();
@@ -680,7 +674,7 @@ public class MainActivity extends BrowserHandler {
 	   savedInstancePreferences.edit().putInt("tabNumber", tabNumber).commit();
  }
  
- public static int getTabNumber(){
+ 	public static int getTabNumber(){
 	 int tabNumber = -1;
 	 CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
 	 if (WV!=null)
@@ -691,14 +685,14 @@ public class MainActivity extends BrowserHandler {
 	 return tabNumber;
  }
  
- void clearAllTabsForExit(){
+ 	void clearAllTabsForExit(){
 	 for (int i =0; i<webWindows.size();i++){
 		 webWindows.get(i).loadUrl("about:blank");
 	 }
 	 
  }
  
- public void copyURLButtonClicked(View v){
+ 	public void copyURLButtonClicked(View v){
  	ClipboardManager clipboard = (ClipboardManager)
  	        getSystemService(Context.CLIPBOARD_SERVICE);
  	
@@ -721,9 +715,4 @@ public class MainActivity extends BrowserHandler {
  	if (((EditText) bar.findViewById(R.id.browser_searchbar))!=null)
  		((EditText) bar.findViewById(R.id.browser_searchbar)).setFocusableInTouchMode(true);
  }
-
- 
- 
-
-
 }

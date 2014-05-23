@@ -336,7 +336,6 @@ public class SetupLayouts extends MainActivity {
 							return null;
 						}
 					}.execute();
-					return true;
 				}
 				return false;
 			}

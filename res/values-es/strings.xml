@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources> 
     
-    <string name="trans_zoomout">Zoom-Out</string>
+    <string name="trans_zoomout">Zoom out</string>
     <string name="trans_pagestack">Pila de páginas</string>
     <string name="trans_flipin">Voltear</string>
     <string name="trans_doorclose">Cerrar puerta</string>
@@ -174,7 +174,7 @@
     <string name="hide_appssummary">Oculta aplicaciones del cajón</string>
     
     <string name="resettitle">"Restaurar ajustes por defecto"</string>
-    <string name="resetsummary">"Restablecer todos los ajustes a sus valores por defecto"</string>
+    <string name="resetsummary">"Restablece todos los ajustes a sus valores por defecto"</string>
     
     <string name="backuptitle">"Backup"</string>
 <string name="backupsummary">"Copia de seguridad de datos y configuración"</string>
@@ -200,8 +200,8 @@
     <string name="enablefloatoptiontitle">Activar aplicaciones flotantes</string>
     <string name="enablefloatoptionsummary">En ROM que lo soporte puedes flotar una aplicación (mantén pulsado en ella para opciones)</string>
 
-<string name="showbackgroundonurlbartitle">Muestra telón de fondo en barra URL</string>
-<string name="showbackgroundonurlbarsummary">Agrega un telón de fondo a la barra URL</string>
+<string name="showbackgroundonurlbartitle">Mostrar color de fondo en barra URL</string>
+<string name="showbackgroundonurlbarsummary">Muestra color de fondo en barra URL</string>
 
 <string name="browsercompactmodetitle">Activar modo compacto</string>
 <string name="browsercompactmodesummary">Activa el diseño del navegador para terminales pequeñas</string>
@@ -323,7 +323,7 @@
 <string name="sidebar_switched_title">Cambia la ubicación de la barra lateral</string>
 <string name="sidebar_switched_summary">La barra lateral cambiará de lado en la pantalla</string>
 
-<string name="exit">Salida</string>
+<string name="exit">Salir</string>
 
 <string name="browserfullscreentitle">Navegador inmersivo</string>
 <string name="browserfullscreensummary">Elimina el marco inferior del navegador</string>
@@ -365,4 +365,14 @@
 <string name="select_screen">Selecciona una nueva pantalla</string>
 
 <string name="paste">Pegar</string>
+
+<string name="select_screen">Elige una nueva pantalla</string>
+
+<string name="close_tabs_on_exit_title">Cerrar pestañas al salir</string>
+<string name="close_tabs_on_exit_summary">Al salir del navegador se cierran las pestañas</string>
+<string name="edit">Editar</string>
+<string name="edit_bookmark">Editar marcadores</string>
+<string name="toggle_desktop_mode">Cambiar modo de escritorio</string>
+<string name="find_in_page">Encontrar en página</string>
+
 </resources>

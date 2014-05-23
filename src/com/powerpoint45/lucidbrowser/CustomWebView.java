@@ -25,6 +25,7 @@ import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
 import android.webkit.SslErrorHandler;
+import android.webkit.WebSettings;
 import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -91,6 +92,18 @@ public class CustomWebView extends WebView {
 		this.getSettings().setDisplayZoomControls(false);
 		this.getSettings().setUseWideViewPort(true);
 		this.getSettings().setSaveFormData(true);
+		
+		if (Properties.webpageProp.fontSize==0)
+			this.getSettings().setTextSize(WebSettings.TextSize.SMALLEST);
+		if (Properties.webpageProp.fontSize==1)
+			this.getSettings().setTextSize(WebSettings.TextSize.SMALLER);
+		if (Properties.webpageProp.fontSize==2)
+			this.getSettings().setTextSize(WebSettings.TextSize.NORMAL);
+		if (Properties.webpageProp.fontSize==3)
+			this.getSettings().setTextSize(WebSettings.TextSize.LARGER);
+		if (Properties.webpageProp.fontSize==4)
+			this.getSettings().setTextSize(WebSettings.TextSize.LARGEST);
+		
 		this.setLayoutParams(new RelativeLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 		this.setLayoutParams(new RelativeLayout.LayoutParams(
@@ -278,18 +291,18 @@ public class CustomWebView extends WebView {
 			}
 
 			@Override
-			public void onReceivedSslError(WebView view,
+	    public void onReceivedSslError(WebView view,
 					SslErrorHandler handler, SslError error) {
 
 				int errorCode = error.getPrimaryError();
 				System.out.println("SSL ERROR " + errorCode + " DETECTED");
 
 				sslCertificateErrorDialog(view, handler, error, errorCode);
-			}
+		}
 
 			@SuppressLint("NewApi")
 			// Is surpressed as the code will only be executed on the correct platform
-			private void sslCertificateErrorDialog(WebView view,
+		private void sslCertificateErrorDialog(WebView view,
 					final SslErrorHandler handler, SslError error, int errorCode)
 					throws NotFoundException {
 

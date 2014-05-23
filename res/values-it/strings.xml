@@ -343,4 +343,13 @@
 
 <string name="paste">Incolla</string>
 
+<string name="select_screen">Seleziona una nuova pagina</string>
+
+<string name="close_tabs_on_exit_title">Chiudi pagine all'uscita</string>
+<string name="close_tabs_on_exit_summary">Uscire dal browser chiude tutte le pagine</string>
+<string name="edit">Modifica</string>
+<string name="edit_bookmark">Modifica i Segnalibri</string>
+<string name="toggle_desktop_mode">Applica modalità Desktop</string>
+<string name="find_in_page">Trova nella Pagina</string>
+
 </resources>

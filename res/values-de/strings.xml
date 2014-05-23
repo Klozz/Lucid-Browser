@@ -358,7 +358,7 @@
 <string name="sslNotYetValidMessage" formatted="false">Die Website unter\n\n%1s\n\nnutzt ein noch nicht gültiges SSL Zertifikat. Es ist gültig ab %2s.</string>
 
 <string name="sslWebsiteWarning">Die Website ist möglicherweise nicht sicher und sollte mit Vorsicht genutzt werden.</string>
-<string name="sslProceedQuestion">sslProceedQuestion">Soll das Zertifikat akzeptiert werden?</string>
+<string name="sslProceedQuestion">Soll das Zertifikat akzeptiert werden?</string>
 
 <string name="browser">Browser</string>
 <string name="app_drawer">App Drawer</string>
@@ -371,6 +371,24 @@
 <string name="select_screen">Neuen Bildschirm wählen</string>
 
 <string name="paste">Einfügen</string> 
+
+<string name="close_tabs_on_exit_title">Tabs beim Beenden schließen</string>
+<string name="close_tabs_on_exit_summary">Beim Beenden des Browsers alle Tabs schließen</string>
+<string name="edit">Bearbeiten</string>
+<string name="edit_bookmark">Lesezeichen bearbeiten</string>
+<string name="toggle_desktop_mode">Desktop-Ansicht</string>
+<string name="find_in_page">Suchen</string>
+
+
+
+
+
+
+
+
+
+
+
 
 
 </resources>

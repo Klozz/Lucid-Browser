@@ -58,6 +58,22 @@ public class BrowserImageAdapter extends BaseAdapter{
             viewHolder.tabIcon = (ImageView)convertView.findViewById(R.id.tab_icon);
             viewHolder.closeButton = (ImageView)convertView.findViewById(R.id.close_tb_button);
             
+            if (Properties.sidebarProp.theme.compareTo("w")==0){
+            	viewHolder.tabIcon.setImageResource(R.drawable.ic_new_window_holo_light);
+				viewHolder.tabStatus.setTextColor(Color.BLACK);
+				viewHolder.closeButton.setColorFilter(Color.BLACK, Mode.MULTIPLY);
+			} 
+            else if (Properties.sidebarProp.theme.compareTo("b")==0)
+				viewHolder.tabIcon.setImageResource(R.drawable.ic_new_window_holo_dark);
+            else if (Properties.sidebarProp.theme.compareTo("c")==0){
+				int sidetextcolor = Properties.sidebarProp.sideBarTextColor;
+				viewHolder.tabStatus.setTextColor(sidetextcolor);
+				viewHolder.closeButton.setColorFilter(sidetextcolor, Mode.MULTIPLY);
+				Drawable newTab = viewHolder.tabIcon.getResources().getDrawable(R.drawable.ic_new_window_holo_dark);
+				viewHolder.tabIcon.setImageDrawable(newTab);
+				viewHolder.tabIcon.setColorFilter(sidetextcolor, Mode.MULTIPLY);
+			}
+            
             convertView.setTag(viewHolder);
         }
 		else
@@ -65,32 +81,12 @@ public class BrowserImageAdapter extends BaseAdapter{
 		viewHolder.closeButton.setTag(pos);
 		if (pos==MainActivity.webWindows.size()){
 			viewHolder.tabIcon.setVisibility(View.VISIBLE);
-			
-			if (Properties.sidebarProp.theme.compareTo("w")==0)
-				viewHolder.tabIcon.setImageResource(R.drawable.ic_new_window_holo_light);
-			else if (Properties.sidebarProp.theme.compareTo("b")==0)
-				viewHolder.tabIcon.setImageResource(R.drawable.ic_new_window_holo_dark);
-			else {
-				int sidetextcolor = Properties.sidebarProp.sideBarTextColor;	
-				Drawable newTab = viewHolder.tabIcon.getResources().getDrawable(R.drawable.ic_new_window_holo_dark);
-				viewHolder.tabIcon.setImageDrawable(newTab);
-				viewHolder.tabIcon.setColorFilter(sidetextcolor, Mode.MULTIPLY);
-			} ;
-			
-			
 			viewHolder.tabStatus.setText("");
 			viewHolder.closeButton.setVisibility(View.GONE);
 		}
 		else{
 			viewHolder.tabIcon.setVisibility(View.GONE);
-			if (Properties.sidebarProp.theme.compareTo("w")==0){
-				viewHolder.tabStatus.setTextColor(Color.BLACK);
-				viewHolder.closeButton.setColorFilter(Color.BLACK, Mode.MULTIPLY);
-			} else if (Properties.sidebarProp.theme.compareTo("c")==0){
-				int sidetextcolor = Properties.sidebarProp.sideBarTextColor;
-				viewHolder.tabStatus.setTextColor(sidetextcolor);
-				viewHolder.closeButton.setColorFilter(sidetextcolor, Mode.MULTIPLY);
-			}
+			viewHolder.closeButton.setVisibility(View.VISIBLE);
 			if (MainActivity.webWindows.get(pos).getUrl()!=null && MainActivity.webWindows.get(pos).getUrl().compareTo(MainActivity.assetHomePage)==0)
 				viewHolder.tabStatus.setText(MainActivity.activity.getResources().getString(R.string.home));
 			else

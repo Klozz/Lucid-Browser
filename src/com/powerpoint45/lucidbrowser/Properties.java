@@ -3,7 +3,6 @@ package com.powerpoint45.lucidbrowser;
 import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.ViewGroup.LayoutParams;
-import com.powerpoint45.lucidbrowser.R;
 
 
 public class Properties extends MainActivity {
@@ -23,12 +22,11 @@ public class Properties extends MainActivity {
 		static int SidebarIconPadding;
 		static int SidebarSize;
 		static int transparency;
-		static float zoom;
 		static String theme;
 		static boolean showLabel;
-		static boolean disable;
 		static int sideBarColor;
 		static int sideBarTextColor;
+		public static boolean swapLayout;
 	}
 	public static class webpageProp{
 		static boolean showBackdrop;
@@ -37,6 +35,7 @@ public class Properties extends MainActivity {
 		static boolean enableimages;
 		//static boolean enablejavascript; //uncomment if wanted by users
 		static boolean enablecookies;
+		static int     fontSize;
 	}
 
 	
@@ -48,6 +47,7 @@ public class Properties extends MainActivity {
 		//webpageProp.enablejavascript=MainActivity.mGlobalPrefs.getBoolean("enablejavascript", true);
 		//uncomment if wanted by users
 		webpageProp.enablecookies=MainActivity.mGlobalPrefs.getBoolean("enablecookies", true);
+		webpageProp.fontSize     =MainActivity.mGlobalPrefs.getInt("webfontsize", 2);
 
 		
 		int actionBarHeight = LayoutParams.MATCH_PARENT;//fallback size
@@ -76,14 +76,14 @@ public class Properties extends MainActivity {
         sidebarProp.sideBarTextColor=MainActivity.mGlobalPrefs.getInt           ("sidebartextcolor", Color.WHITE);
 		sidebarProp.showLabel=MainActivity.mGlobalPrefs.getBoolean              ("showfavoriteslabels", true);
 		sidebarProp.transparency=MainActivity.mGlobalPrefs.getInt               ("sidebartransparency" ,100);
+		sidebarProp.swapLayout     =MainActivity.mGlobalPrefs.getBoolean        ("swapLayout"          ,false);
 		sidebarProp.transparency= (254*sidebarProp.transparency)/100;
 		if (sidebarProp.showLabel)
 			sidebarProp.SidebarSize=numtodp(250);
 		else
 			sidebarProp.SidebarSize=sidebarProp.SidebarIconSize;
-		sidebarProp.zoom=       sidebarProp.zoom/100f;
-		sidebarProp.zoom=           MainActivity.mGlobalPrefs.getInt("sidebarscale" ,30);
-		sidebarProp.disable=    MainActivity.mGlobalPrefs.getBoolean("hidefavorites", false);
+		
+		
 		
 	}
 	

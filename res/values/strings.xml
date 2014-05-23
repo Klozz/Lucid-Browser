@@ -330,4 +330,18 @@
 
 <string name="paste">Paste</string>
 
+<string name="close_tabs_on_exit_title">Close Tabs on Exit</string>
+<string name="close_tabs_on_exit_summary">Exiting browser closes all tabs</string>
+<string name="edit">Edit</string>
+<string name="edit_bookmark">Edit Bookmark</string>
+<string name="toggle_desktop_mode">Toggle Desktop Mode</string>
+<string name="find_in_page">Find in Page</string>
+<string name="remove">Remove</string>
+
+<string name="font_size_title">Font Size</string>
+<string name="font_size_summary">Set the text font size</string>
+
+<string name="sidebar_switched_title">Switch sidebar location</string>
+<string name="sidebar_switched_summary">Sidebars will switch sides on the screen</string>
+
 </resources>

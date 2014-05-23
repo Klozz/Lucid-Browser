@@ -375,4 +375,12 @@
 <string name="select_screen">Sélectionner une nouvelle fenêtre</string>
 
 <string name="paste">Coller</string>
+
+<string name="close_tabs_on_exit_title">Fermer les onglets à la fermeture</string>
+<string name="close_tabs_on_exit_summary">Quitter le navigateur ferme tous les onglets ouverts</string>
+<string name="edit">Modifier</string>
+<string name="edit_bookmark">Modifier les favoris</string>
+<string name="toggle_desktop_mode">Voir version ordinateur</string>
+<string name="find_in_page">Rechercher dans la page</string>
+
 </resources>

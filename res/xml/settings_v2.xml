@@ -66,6 +66,11 @@
                 android:summary="@string/sidebartransparencysummary"
                 android:title="@string/sidebartransparencytitle"
                 custom:min="0" />
+            <CheckBoxPreference
+	            android:title="@string/sidebar_switched_title"
+	            android:key="swapLayout"
+	            android:summary="@string/sidebar_switched_summary"
+	            android:defaultValue="false"/>
         </PreferenceCategory>
     </PreferenceScreen>
     
@@ -92,6 +97,13 @@
                 android:key="enablecookies"
                 android:summary=""
                 android:title="@string/enablecookies" />
+            
+            <preferences.SeekBarPreference
+                android:defaultValue="2"
+                android:key="webfontsize"
+                android:max="4"
+                android:summary="@string/font_size_summary"
+                android:title="@string/font_size_title"/>
 
         </PreferenceCategory>
         
