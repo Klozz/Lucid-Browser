@@ -345,7 +345,7 @@
 
 <string name="select_screen">Seleziona una nuova pagina</string>
 
-<string name="close_tabs_on_exit_title">Chiudi pagine all'uscita</string>
+<string name="close_tabs_on_exit_title">Chiudi pagine all\'uscita</string>
 <string name="close_tabs_on_exit_summary">Uscire dal browser chiude tutte le pagine</string>
 <string name="edit">Modifica</string>
 <string name="edit_bookmark">Modifica i Segnalibri</string>
