@@ -122,48 +122,6 @@ public class MainActivity extends BrowserHandler {
 		browserListView           = (ListView) mainView.findViewById(R.id.right_drawer);
 		
 		
-		
-		Intent intent = getIntent();
-		SharedPreferences savedInstancePreferences = getSharedPreferences("state",0);
-		int numSavedTabs =savedInstancePreferences.getInt("numtabs", 0);
-		
-		if (numSavedTabs>0){
-			System.out.println("RESTORING STATE");
-			String [] urls = new String[numSavedTabs];
-			for (int I = 0;I<numSavedTabs;I++)
-				urls[I]=savedInstancePreferences.getString("URL"+I, "http://www.google.com/");
-			 
-			int tabNumber = savedInstancePreferences.getInt("tabNumber",0);
-			for (int I=0;I<urls.length;I++){
-				webWindows.add(new CustomWebView(MainActivity.this,null,urls[I]));
-				browserListViewAdapter.notifyDataSetChanged();
-			}
-			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(tabNumber));
-			savedInstancePreferences.edit().clear().commit();
-			savedInstancePreferences=null;
-		}
-		else{//If no InstanceState is found, just add a single page
-			if (intent.getAction()!=Intent.ACTION_WEB_SEARCH &&intent.getAction()!=Intent.ACTION_VIEW){//if page was requested from a different app, do not load home page
-				webWindows.add(new CustomWebView(MainActivity.this,null,null));
-				((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(0));
-				browserListViewAdapter.notifyDataSetChanged();
-			}
-		}
-		
-		//detect if app was opened from a different app to open a site
-        if (intent.getAction()==Intent.ACTION_WEB_SEARCH ||intent.getAction()==Intent.ACTION_VIEW){
-        	if (intent.getDataString()!=null){
-    	    	webWindows.add(new CustomWebView(MainActivity.this,null,intent.getDataString()));
-    	    	((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
-    	    	((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(webWindows.size()-1));
-    	    	((EditText) bar.findViewById(R.id.browser_searchbar)).setText(intent.getDataString());
-    	    	browserListViewAdapter.notifyDataSetChanged();
-        	}
-        }
-		
-		
-		
-		
 		if (Properties.appProp.fullscreen)
 			getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
@@ -210,7 +168,53 @@ public class MainActivity extends BrowserHandler {
 		        	StatusMargine=Properties.ActionbarSize;
 		    }
 		
+		
 		SetupLayouts.setuplayouts();
+		
+		Intent intent = getIntent();
+		SharedPreferences savedInstancePreferences = getSharedPreferences("state",0);
+		int numSavedTabs =savedInstancePreferences.getInt("numtabs", 0);
+		
+		if (numSavedTabs>0){
+			System.out.println("RESTORING STATE");
+			String [] urls = new String[numSavedTabs];
+			for (int I = 0;I<numSavedTabs;I++)
+				urls[I]=savedInstancePreferences.getString("URL"+I, "http://www.google.com/");
+			 
+			int tabNumber = savedInstancePreferences.getInt("tabNumber",0);
+			for (int I=0;I<urls.length;I++){
+				webWindows.add(new CustomWebView(MainActivity.this,null,urls[I]));
+				browserListViewAdapter.notifyDataSetChanged();
+			}
+			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(tabNumber));
+			savedInstancePreferences.edit().clear().commit();
+			savedInstancePreferences=null;
+		}
+		else{//If no InstanceState is found, just add a single page
+			if (intent.getAction()!=Intent.ACTION_WEB_SEARCH &&intent.getAction()!=Intent.ACTION_VIEW){//if page was requested from a different app, do not load home page
+				webWindows.add(new CustomWebView(MainActivity.this,null,null));
+				((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(0));
+				browserListViewAdapter.notifyDataSetChanged();
+			}
+		}
+		
+		//detect if app was opened from a different app to open a site
+        if (intent.getAction()==Intent.ACTION_WEB_SEARCH ||intent.getAction()==Intent.ACTION_VIEW){
+        	if (intent.getDataString()!=null){
+    	    	webWindows.add(new CustomWebView(MainActivity.this,null,intent.getDataString()));
+    	    	((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
+    	    	((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(webWindows.size()-1));
+    	    	((EditText) bar.findViewById(R.id.browser_searchbar)).setText(intent.getDataString());
+    	    	browserListViewAdapter.notifyDataSetChanged();
+        	}
+        }
+		
+		
+		
+		
+		
+		
+		
 		
 		if (Properties.appProp.systemPersistent){
 			Intent notificationIntent = new Intent(this, MainActivity.class);  
