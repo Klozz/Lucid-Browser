@@ -12,9 +12,9 @@ public class Properties extends MainActivity {
 		static int actionBarColor;
 		public static int primaryIntColor;
 		static int urlBarColor;
-		static boolean fullscreen = false;
-		static boolean transparentNav = true;
-		static boolean TransparentStatus = false;
+		static boolean fullscreen;
+		static boolean transparentNav;
+		static boolean TransparentStatus;
 		static boolean systemPersistent;
 	}
 	public static class sidebarProp{
@@ -32,6 +32,7 @@ public class Properties extends MainActivity {
 		static boolean showBackdrop;
 		static boolean useDesktopView;
 		static boolean clearonexit;
+		static boolean closetabsonexit;
 		static boolean enableimages;
 		//static boolean enablejavascript; //uncomment if wanted by users
 		static boolean enablecookies;
@@ -46,13 +47,13 @@ public class Properties extends MainActivity {
 		webpageProp.enableimages=MainActivity.mGlobalPrefs.getBoolean("enableimages", true);
 		//webpageProp.enablejavascript=MainActivity.mGlobalPrefs.getBoolean("enablejavascript", true);
 		//uncomment if wanted by users
-		webpageProp.enablecookies=MainActivity.mGlobalPrefs.getBoolean("enablecookies", true);
-		webpageProp.fontSize     =MainActivity.mGlobalPrefs.getInt("webfontsize", 2);
-
+		webpageProp.enablecookies=    MainActivity.mGlobalPrefs.getBoolean("enablecookies"  ,true);
+		webpageProp.fontSize     =    MainActivity.mGlobalPrefs.getInt    ("webfontsize"    , 2);
+		webpageProp.closetabsonexit = MainActivity.mGlobalPrefs.getBoolean("closetabsonexit", false);
 		
 		int actionBarHeight = LayoutParams.MATCH_PARENT;//fallback size
 		TypedValue tv = new TypedValue();
-		if (MainActivity.ctxt.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
+		if (MainActivity.activity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
 		{
 		    actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,MainActivity.activity.getResources().getDisplayMetrics());
 		}
@@ -62,7 +63,7 @@ public class Properties extends MainActivity {
 		appProp.actionBarTransparency=MainActivity.mGlobalPrefs.getInt("actionbartransparency",90);
 		appProp.actionBarTransparency = (255*appProp.actionBarTransparency)/100;
 		appProp.fullscreen=MainActivity.mGlobalPrefs.getBoolean       ("fullscreen"           ,false);
-		appProp.transparentNav=MainActivity.mGlobalPrefs.getBoolean   ("transparentnav"       ,true);
+		appProp.transparentNav=MainActivity.mGlobalPrefs.getBoolean   ("transparentnav"       ,false);
 		appProp.TransparentStatus=MainActivity.mGlobalPrefs.getBoolean("transparentstatus"    ,true);
 		appProp.systemPersistent=MainActivity.mGlobalPrefs.getBoolean ("systempersistent"      ,false);
 		appProp.primaryIntColor=MainActivity.mGlobalPrefs.getInt      ("textcolor",Color.BLACK);

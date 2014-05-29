@@ -375,4 +375,7 @@
 <string name="toggle_desktop_mode">Cambiar modo de escritorio</string>
 <string name="find_in_page">Encontrar en página</string>
 
+<string name="confirm_exit_text">Seguro quieres salir?</string>
+<string name="please_wait">Por favor espere...</string>
+
 </resources>

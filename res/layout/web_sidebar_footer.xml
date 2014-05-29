@@ -69,6 +69,18 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <TextView
+        android:id="@+id/browser_toggle_desktop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:clickable="true"
+        android:fontFamily="sans-serif-light"
+        android:onClick="browserActionClicked"
+        android:padding="10dp"
+        android:text="@string/toggle_desktop_mode"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <TextView
         android:id="@+id/browser_exit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

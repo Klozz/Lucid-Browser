@@ -1,5 +1,6 @@
 package com.powerpoint45.lucidbrowser;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -8,12 +9,14 @@ import java.util.Vector;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -21,6 +24,7 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -42,7 +46,6 @@ import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 import android.webkit.WebViewDatabase;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -72,6 +75,9 @@ public class MainActivity extends BrowserHandler {
 	public static ListView            browserListView;
 	public static BrowserImageAdapter browserListViewAdapter;
 	static Vector <CustomWebView>     webWindows;
+	
+	static public int NavMargine;   //used in CustomWebView
+	public static int StatusMargine;//used in SetupLayouts
 	
 	static Dialog dialog;
 	
@@ -115,7 +121,7 @@ public class MainActivity extends BrowserHandler {
 		
 		browserListView           = (ListView) mainView.findViewById(R.id.right_drawer);
 		
-		SetupLayouts.setuplayouts();
+		
 		
 		Intent intent = getIntent();
 		SharedPreferences savedInstancePreferences = getSharedPreferences("state",0);
@@ -161,6 +167,50 @@ public class MainActivity extends BrowserHandler {
 		if (Properties.appProp.fullscreen)
 			getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
+		int id = getResources().getIdentifier("config_enableTranslucentDecor", "bool", "android");
+		
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+			if (Properties.appProp.transparentNav || Properties.appProp.TransparentStatus)
+				if (id == 0) {//transparency is not supported
+					Properties.appProp.transparentNav   =false;
+					Properties.appProp.TransparentStatus=false;
+				}
+		
+		Tools tools = new Tools();
+		SystemBarTintManager tintManager = new SystemBarTintManager(activity);
+		
+		if (Properties.appProp.transparentNav || Properties.appProp.TransparentStatus)
+			if (id != 0) {
+ 		        if (Properties.appProp.transparentNav)
+		        	getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		        if (Properties.appProp.TransparentStatus)
+		        	getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+		        if (Properties.appProp.fullscreen && Properties.appProp.transparentNav){
+		        	if (tools.hasSoftNavigation(activity))
+		        		NavMargine= tools.getNavBarHeight(getResources());
+		        }else if (Properties.appProp.fullscreen){
+		        	StatusMargine=Properties.ActionbarSize;
+		        }else if (Properties.appProp.transparentNav){
+		        	if (tools.hasSoftNavigation(activity))
+		        		NavMargine= tools.getNavBarHeight(getResources());
+		        	StatusMargine=Properties.ActionbarSize+tools.getStatusBarHeight(getResources());
+		        }else
+		        	StatusMargine=Properties.ActionbarSize+tools.getStatusBarHeight(getResources());
+		        if (Properties.appProp.TransparentStatus){
+		        	tintManager = new SystemBarTintManager(this);
+		        	tintManager.setStatusBarTintEnabled(true);
+		        	tintManager.setStatusBarTintColor(Properties.appProp.actionBarColor);
+		        	tintManager.setTintAlpha(((float)Properties.appProp.actionBarTransparency/255));
+		        	if (Properties.appProp.fullscreen)
+		        		tintManager.setTintAlpha(0.0f);
+		        	
+		        }
+		        
+		        if (Properties.appProp.TransparentStatus&&Properties.appProp.fullscreen)
+		        	StatusMargine=Properties.ActionbarSize;
+		    }
+		
+		SetupLayouts.setuplayouts();
 		
 		if (Properties.appProp.systemPersistent){
 			Intent notificationIntent = new Intent(this, MainActivity.class);  
@@ -242,7 +292,7 @@ public class MainActivity extends BrowserHandler {
 		else if (q.startsWith("about:")||q.startsWith("file:"))
 			WV.loadUrl(q);
 		else
-			WV.loadUrl("http://www.google.com/#q="+q);
+			WV.loadUrl("http://www.google.com/#q="+q.replace(" ", "+"));
 	}
 	
 	public void browserActionClicked(View v){
@@ -314,6 +364,7 @@ public class MainActivity extends BrowserHandler {
 					
 					Bitmap b = WV.getFavicon();
 					if (b.getRowBytes()>1){
+						new File(getApplicationInfo().dataDir+"/icons/").mkdirs();
 						URL url = new URL(WV.getUrl());
 						FileOutputStream out = new FileOutputStream(getApplicationInfo().dataDir+"/icons/" + url.getHost());
 						WV.getFavicon().compress(Bitmap.CompressFormat.PNG, 100, out);
@@ -357,6 +408,23 @@ public class MainActivity extends BrowserHandler {
 				clearTraces();
 			}
 			finish();
+			break;
+		case R.id.browser_toggle_desktop:
+			mGlobalPrefs.edit().putBoolean("usedesktopview", !Properties.webpageProp.useDesktopView).commit();
+			Properties.webpageProp.useDesktopView = !Properties.webpageProp.useDesktopView;
+			
+			for (int I = 0;I<webWindows.size();I++){
+					if (Properties.webpageProp.useDesktopView) {
+						webWindows.get(I).getSettings().setUserAgentString(
+								webWindows.get(I).createUserAgentString("desktop"));
+						webWindows.get(I).getSettings().setLoadWithOverviewMode(true);
+					} else {
+						webWindows.get(I).getSettings().setUserAgentString(
+								webWindows.get(I).createUserAgentString("mobile"));
+						webWindows.get(I).getSettings().setLoadWithOverviewMode(false);
+					}
+				webWindows.get(I).reload();
+			}
 			break;
 		}
 	}
@@ -532,7 +600,7 @@ public class MainActivity extends BrowserHandler {
 			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
 			webWindows.get(webWindows.size()-1).loadUrl(((LinearLayout) v.getParent()).getTag().toString());
 			((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(webWindows.size()-1));
-			((EditText) bar.findViewById(R.id.browser_searchbar)).setText("...");
+			((EditText) bar.findViewById(R.id.browser_searchbar)).setText("");
 			browserListViewAdapter.notifyDataSetChanged();
 			break;
 		case R.id.copyurl:
@@ -573,7 +641,21 @@ public class MainActivity extends BrowserHandler {
 				if (Properties.webpageProp.clearonexit){
 					clearTraces();
 				}
-				finish();
+				
+				AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.activity);
+		        builder.setMessage(R.string.confirm_exit_text)
+		               .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+		                   public void onClick(DialogInterface dialog, int id) {
+		                       finish();
+		                   }
+		               })
+		               .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+		                   public void onClick(DialogInterface dialog, int id) {
+		                   }
+		               });
+		        Dialog d = builder.create();
+		        d.show();
+				
 			}
 				return true;
         }
@@ -661,17 +743,22 @@ public class MainActivity extends BrowserHandler {
  
  	void saveState(){
 	 SharedPreferences savedInstancePreferences = getSharedPreferences("state",0);
-	   CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
-	   int tabNumber = getTabNumber();
-	   savedInstancePreferences.edit().putInt("numtabs", webWindows.size()).commit();
-	   
-	   if (WV!=null)
-		   for (int I=0;I<webWindows.size();I++){
-			   savedInstancePreferences.edit().putString("URL"+I, webWindows.get(I).getUrl()).commit();
-		   }
-	   if (tabNumber==-1)
-		   tabNumber = 0;
-	   savedInstancePreferences.edit().putInt("tabNumber", tabNumber).commit();
+	 if (Properties.webpageProp.closetabsonexit && isFinishing()){
+		 savedInstancePreferences.edit().putInt("numtabs", 0).commit();
+	 }
+	 else{
+		   CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
+		   int tabNumber = getTabNumber();
+		   savedInstancePreferences.edit().putInt("numtabs", webWindows.size()).commit();
+		   
+		   if (WV!=null)
+			   for (int I=0;I<webWindows.size();I++){
+				   savedInstancePreferences.edit().putString("URL"+I, webWindows.get(I).getUrl()).commit();
+			   }
+		   if (tabNumber==-1)
+			   tabNumber = 0;
+		   savedInstancePreferences.edit().putInt("tabNumber", tabNumber).commit();
+	 }
  }
  
  	public static int getTabNumber(){
@@ -688,8 +775,7 @@ public class MainActivity extends BrowserHandler {
  	void clearAllTabsForExit(){
 	 for (int i =0; i<webWindows.size();i++){
 		 webWindows.get(i).loadUrl("about:blank");
-	 }
-	 
+	 } 
  }
  
  	public void copyURLButtonClicked(View v){

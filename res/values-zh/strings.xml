@@ -344,4 +344,6 @@
 
 <string name="paste">粘贴</string>
 
+<string name="confirm_exit_text">确定要退出？</string>
+
 </resources>

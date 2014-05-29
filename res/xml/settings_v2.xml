@@ -6,12 +6,25 @@
         android:key="mainsettings"
         android:title="@string/mainsettingstitle" >
         
-        <PreferenceCategory android:title="@string/cat_title_appearance" >
+        <PreferenceCategory android:title="@string/cat_title_appearance"
+            android:key="mainsettings_appearance" >
             <CheckBoxPreference
                 android:defaultValue="false"
                 android:key="fullscreen"
                 android:summary="@string/fullscreensummary"
                 android:title="@string/fullscreentitle" />
+            
+            <CheckBoxPreference
+	            android:title="@string/transparentnavtitle"
+	            android:key="transparentnav"
+	            android:summary="@string/transparentnavsummary"
+	            android:defaultValue="false" />
+            
+        	<CheckBoxPreference
+	            android:title="@string/transparentstatustitle"
+	            android:key="transparentstatus"
+	            android:summary="@string/transparentstatussummary"
+	            android:defaultValue="true" />
         </PreferenceCategory>
         
         <PreferenceCategory android:title="@string/cat_title_actionbar" >
@@ -32,6 +45,7 @@
                 android:summary="@string/actionbartransparencysummary"
                 android:title="@string/actionbartransparencytitle"
                 custom:min="0" />
+            
         </PreferenceCategory>
         
     </PreferenceScreen>
@@ -98,13 +112,6 @@
                 android:summary=""
                 android:title="@string/enablecookies" />
             
-            <preferences.SeekBarPreference
-                android:defaultValue="2"
-                android:key="webfontsize"
-                android:max="4"
-                android:summary="@string/font_size_summary"
-                android:title="@string/font_size_title"/>
-
         </PreferenceCategory>
         
         
@@ -127,6 +134,13 @@
                 android:key="usedesktopview"
                 android:summary="@string/desktopviewsummary"
                 android:title="@string/desktopviewtitle" />
+            
+            <preferences.SeekBarPreference
+                android:defaultValue="2"
+                android:key="webfontsize"
+                android:max="4"
+                android:summary="@string/font_size_summary"
+                android:title="@string/font_size_title"/>
         </PreferenceCategory>
         
         <PreferenceCategory android:title="@string/cat_title_tools" >
@@ -145,6 +159,12 @@
                 android:key="clearonexit"
                 android:summary="@string/clearonexitsummary"
                 android:title="@string/clearonexittitle" />
+            
+            <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="closetabsonexit"
+                android:summary="@string/close_tabs_on_exit_summary"
+                android:title="@string/close_tabs_on_exit_title" />
 
             </PreferenceCategory>
     </PreferenceScreen>

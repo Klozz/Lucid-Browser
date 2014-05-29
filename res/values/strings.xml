@@ -344,4 +344,6 @@
 <string name="sidebar_switched_title">Switch sidebar location</string>
 <string name="sidebar_switched_summary">Sidebars will switch sides on the screen</string>
 
+<string name="confirm_exit_text">Are you sure you want to exit?</string>
+
 </resources>

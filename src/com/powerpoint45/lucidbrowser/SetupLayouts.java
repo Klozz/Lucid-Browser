@@ -58,6 +58,8 @@ public class SetupLayouts extends MainActivity {
 					.setTextColor(Color.BLACK);
 			((TextView) LL.findViewById(R.id.browser_settings))
 					.setTextColor(Color.BLACK);
+			((TextView) LL.findViewById(R.id.browser_toggle_desktop))
+			.setTextColor(Color.BLACK);
 			((TextView) LL.findViewById(R.id.browser_exit))
 				.setTextColor(Color.BLACK);
 		} else if (Properties.sidebarProp.theme.compareTo("c") == 0) {
@@ -73,6 +75,8 @@ public class SetupLayouts extends MainActivity {
 					.setTextColor(sidebarTextColor);
 			((TextView) LL.findViewById(R.id.browser_settings))
 					.setTextColor(sidebarTextColor);
+			((TextView) LL.findViewById(R.id.browser_toggle_desktop))
+			.setTextColor(sidebarTextColor);
 			((TextView) LL.findViewById(R.id.browser_exit))
 					.setTextColor(sidebarTextColor);
 
@@ -112,7 +116,7 @@ public class SetupLayouts extends MainActivity {
 							((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(pos));
 						}
 					if (((EditText) bar.findViewById(R.id.browser_searchbar))!=null)
-						((EditText) bar.findViewById(R.id.browser_searchbar)).setText("...");
+						((EditText) bar.findViewById(R.id.browser_searchbar)).setText("");
 					
 				}
 				else{
@@ -148,14 +152,22 @@ public class SetupLayouts extends MainActivity {
 					if (webWindows.get(pos).getUrl()!=null)
 						((EditText) bar.findViewById(R.id.browser_searchbar)).setText(webWindows.get(pos).getUrl().replace("http://", "").replace("https://", ""));
 					else
-						((EditText) bar.findViewById(R.id.browser_searchbar)).setText("...");
+						((EditText) bar.findViewById(R.id.browser_searchbar)).setText("");
 				}
 				MainActivity.browserListViewAdapter.notifyDataSetChanged();
 			}
 		   });
-		// browserListView.setPadding(0, 0, 0, NavMargine+StatusMargine);
-		// browserListView.setY(StatusMargine);
-
+		
+		
+		//Padding and adjustments start-----
+		//enabling transparent statusbar or navbar messes with padding so this will fix it
+		if (Properties.appProp.transparentNav || Properties.appProp.TransparentStatus){
+			browserListView.setPadding(0, 0, 0, NavMargine+StatusMargine);
+			browserListView.setY(StatusMargine);			
+		    MainActivity.webLayout.setPadding(0, MainActivity.StatusMargine, 0, 0);
+		}
+		//Padding and adjustments end-----
+		
 		mainView.setDrawerListener(new DrawerListener() {
 
 			@Override
@@ -336,6 +348,7 @@ public class SetupLayouts extends MainActivity {
 							return null;
 						}
 					}.execute();
+					return true;
 				}
 				return false;
 			}

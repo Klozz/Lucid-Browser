@@ -51,11 +51,11 @@ public class CustomWebView extends WebView {
 
 		if (Properties.webpageProp.useDesktopView) {
 			this.getSettings().setUserAgentString(
-					createUserAgentString(context, "desktop"));
+					createUserAgentString( "desktop"));
 			this.getSettings().setLoadWithOverviewMode(true);
 		} else {
 			this.getSettings().setUserAgentString(
-					createUserAgentString(context, "mobile"));
+					createUserAgentString("mobile"));
 			this.getSettings().setLoadWithOverviewMode(false);
 		}
 
@@ -86,6 +86,7 @@ public class CustomWebView extends WebView {
 			this.getSettings().setLoadsImagesAutomatically(true);
 		}
 
+		this.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 		this.getSettings().setPluginState(PluginState.ON);
 		this.getSettings().setDomStorageEnabled(true);
 		this.getSettings().setBuiltInZoomControls(true);
@@ -168,7 +169,6 @@ public class CustomWebView extends WebView {
 					MainActivity.activity.startActivity(intent);
 					return true;
 				}
-
 				return false;
 			}
 
@@ -193,8 +193,13 @@ public class CustomWebView extends WebView {
 			}
 
 			public void onPageFinished(WebView view, String url) {
+				if (Properties.appProp.transparentNav)
+		        	CustomWebView.this.loadUrl("javascript:(function() { " +  
+								 "document.body.style.paddingBottom='+"+MainActivity.NavMargine+"px';"+
+								 "document.querySelector('footer').style.paddingBottom='"+MainActivity.NavMargine+"px';"+
+								 "document.getElementById('footer').style.paddingBottom='"+MainActivity.NavMargine+"px';"+
+			                    "})()");
 
-				// do your stuff here
 				if (PB == null)
 					PB = (ProgressBar) MainActivity.webLayout
 							.findViewById(R.id.webpgbar);
@@ -291,18 +296,18 @@ public class CustomWebView extends WebView {
 			}
 
 			@Override
-	    public void onReceivedSslError(WebView view,
+			public void onReceivedSslError(WebView view,
 					SslErrorHandler handler, SslError error) {
 
 				int errorCode = error.getPrimaryError();
 				System.out.println("SSL ERROR " + errorCode + " DETECTED");
 
 				sslCertificateErrorDialog(view, handler, error, errorCode);
-		}
+			}
 
 			@SuppressLint("NewApi")
 			// Is surpressed as the code will only be executed on the correct platform
-		private void sslCertificateErrorDialog(WebView view,
+			private void sslCertificateErrorDialog(WebView view,
 					final SslErrorHandler handler, SslError error, int errorCode)
 					throws NotFoundException {
 
@@ -456,7 +461,7 @@ public class CustomWebView extends WebView {
 		return videoPlaying;
 	}
 
-	private String createUserAgentString(Context application, String mode) {
+	String createUserAgentString(String mode) {
 		String ua = "";
 
 		// TODO Test with different user agents

@@ -352,4 +352,6 @@
 <string name="toggle_desktop_mode">Applica modalità Desktop</string>
 <string name="find_in_page">Trova nella Pagina</string>
 
+<string name="confirm_exit_text">Sei sicuro di voler uscire?</string>
+
 </resources>

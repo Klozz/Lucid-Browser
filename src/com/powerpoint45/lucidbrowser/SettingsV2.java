@@ -1,20 +1,22 @@
 package com.powerpoint45.lucidbrowser;
 
 import java.io.File;
+
 import preferences.ColorPickerPreference;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.widget.Toast;
-import com.powerpoint45.lucidbrowser.R;
 
 public class SettingsV2 extends PreferenceActivity {
 	SharedPreferences globalPref;
@@ -202,21 +204,25 @@ public class SettingsV2 extends PreferenceActivity {
 						return true;
 					}
 				});
+		
 
-		// if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) { //
-		// Translucent available
-		int id = getResources().getIdentifier("config_enableTranslucentDecor",
-				"bool", "android");
-		if (id == 0) {
-			try {
-				PreferenceScreen mCategory = (PreferenceScreen) findPreference("mainsettings");
-				mCategory
-						.removePreference(((Preference) findPreference("transparentnav")));
-				mCategory
-						.removePreference(((Preference) findPreference("transparentstatus")));
-			} catch (Exception e) {
+		
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+			// Check if translucent is available
+			PreferenceCategory mCategory = (PreferenceCategory) findPreference("mainsettings_appearance");
+			int id = getResources().getIdentifier("config_enableTranslucentDecor",
+					"bool", "android");
+			if (id == 0) {
+				try {
+					//PreferenceScreen mCategory = (PreferenceScreen) findPreference("mainsettings");
+					mCategory
+							.removePreference(((Preference) findPreference("transparentnav")));
+					mCategory
+							.removePreference(((Preference) findPreference("transparentstatus")));
+				} catch (Exception e) {
+				}
+				;
 			}
-			;
 		}
 
 	}

@@ -379,11 +379,8 @@
 <string name="toggle_desktop_mode">Desktop-Ansicht</string>
 <string name="find_in_page">Suchen</string>
 
-
-
-
-
-
+<string name="confirm_exit_text">Soll die Anwendung wirklich beendet werden?</string>
+<string name="please_wait">Bitte warten...</string>
 
 
 
