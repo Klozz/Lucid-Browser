@@ -64,7 +64,7 @@
                 android:layout_centerVertical="true"
                 android:fontFamily="sans-serif-light"
                 android:imeOptions="actionGo"
-                android:inputType="textNoSuggestions"
+                android:inputType="textUri"
                 android:longClickable="true"
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
