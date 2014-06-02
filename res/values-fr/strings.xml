@@ -375,12 +375,16 @@
 <string name="select_screen">Sélectionner une nouvelle fenêtre</string>
 
 <string name="paste">Coller</string>
-
 <string name="close_tabs_on_exit_title">Fermer les onglets à la fermeture</string>
 <string name="close_tabs_on_exit_summary">Quitter le navigateur ferme tous les onglets ouverts</string>
 <string name="edit">Modifier</string>
 <string name="edit_bookmark">Modifier les favoris</string>
 <string name="toggle_desktop_mode">Voir version ordinateur</string>
 <string name="find_in_page">Rechercher dans la page</string>
+<string name="confirm_exit_text">Êtes vous sûre de vouloir quitter?</string>
+<string name="please_wait">Veuillez patienter...</string>
+<string name="exit_confirmation_title">Confirmation de sortie</string>
+<string name="exit_confirmation_summary">Cocher pour activer une confirmation de sortie</string>
+
 
 </resources>

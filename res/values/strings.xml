@@ -346,4 +346,7 @@
 
 <string name="confirm_exit_text">Are you sure you want to exit?</string>
 
+<string name="exit_confirmation_title">Exit Confirmation</string>
+<string name="exit_confirmation_summary">Check to enable an exit confirmation</string>
+
 </resources>

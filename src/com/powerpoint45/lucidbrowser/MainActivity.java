@@ -457,7 +457,7 @@ public class MainActivity extends BrowserHandler {
 			if ((pos-1)>=0){
 				((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
 				((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(pos-1));
-				if (((TextView) bar.findViewById(R.id.browser_searchbar))!=null)
+				if (((TextView) bar.findViewById(R.id.browser_searchbar))!=null && webWindows.get(pos-1).getUrl()!=null)
 					((TextView) bar.findViewById(R.id.browser_searchbar)).setText(webWindows.get(pos-1).getUrl().replace("http://", "").replace("https://", ""));
 				if (webWindows.get(pos-1).getProgress()<100){
 					PB.setVisibility(View.VISIBLE);
@@ -646,6 +646,7 @@ public class MainActivity extends BrowserHandler {
 					clearTraces();
 				}
 				
+				if (Properties.webpageProp.exitconfirmation){
 				AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.activity);
 		        builder.setMessage(R.string.confirm_exit_text)
 		               .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -659,6 +660,9 @@ public class MainActivity extends BrowserHandler {
 		               });
 		        Dialog d = builder.create();
 		        d.show();
+				}else{
+					finish();
+				}
 				
 			}
 				return true;

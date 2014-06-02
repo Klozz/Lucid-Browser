@@ -378,4 +378,6 @@
 <string name="confirm_exit_text">Seguro quieres salir?</string>
 <string name="please_wait">Por favor espere...</string>
 
+<string name="exit_confirmation_title">Confirmar salida</string>
+<string name="exit_confirmation_summary">Activar para confirmar salida</string>
 </resources>

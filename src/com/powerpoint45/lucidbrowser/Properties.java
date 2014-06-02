@@ -34,6 +34,7 @@ public class Properties extends MainActivity {
 		static boolean clearonexit;
 		static boolean closetabsonexit;
 		static boolean enableimages;
+		static boolean exitconfirmation;
 		//static boolean enablejavascript; //uncomment if wanted by users
 		static boolean enablecookies;
 		static int     fontSize;
@@ -50,6 +51,7 @@ public class Properties extends MainActivity {
 		webpageProp.enablecookies=    MainActivity.mGlobalPrefs.getBoolean("enablecookies"  ,true);
 		webpageProp.fontSize     =    MainActivity.mGlobalPrefs.getInt    ("webfontsize"    , 2);
 		webpageProp.closetabsonexit = MainActivity.mGlobalPrefs.getBoolean("closetabsonexit", false);
+		webpageProp.exitconfirmation=MainActivity.mGlobalPrefs.getBoolean("exitconfirmation", false);
 		
 		int actionBarHeight = LayoutParams.MATCH_PARENT;//fallback size
 		TypedValue tv = new TypedValue();
@@ -73,7 +75,7 @@ public class Properties extends MainActivity {
 		sidebarProp.SidebarIconSize=numtodp(MainActivity.mGlobalPrefs.getInt    ("sidebariconsize"  ,80));
 		sidebarProp.SidebarIconPadding=numtodp(MainActivity.mGlobalPrefs.getInt ("sidebariconpadding",10));
 		sidebarProp.theme=MainActivity.mGlobalPrefs.getString                   ("sidebartheme", "b");
-		sidebarProp.sideBarColor=MainActivity.mGlobalPrefs.getInt               ("sidebarcolor",Color.BLACK);
+		sidebarProp.sideBarColor=MainActivity.mGlobalPrefs.getInt               ("sidebarcolor"    , Color.BLACK);
         sidebarProp.sideBarTextColor=MainActivity.mGlobalPrefs.getInt           ("sidebartextcolor", Color.WHITE);
 		sidebarProp.showLabel=MainActivity.mGlobalPrefs.getBoolean              ("showfavoriteslabels", true);
 		sidebarProp.transparency=MainActivity.mGlobalPrefs.getInt               ("sidebartransparency" ,100);

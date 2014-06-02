@@ -382,10 +382,8 @@
 <string name="confirm_exit_text">Soll die Anwendung wirklich beendet werden?</string>
 <string name="please_wait">Bitte warten...</string>
 
-
-
-
-
+<string name="exit_confirmation_title">Beenden bestätigen</string>
+<string name="exit_confirmation_summary">Beenden der App bestätigen</string>
 
 
 </resources>
