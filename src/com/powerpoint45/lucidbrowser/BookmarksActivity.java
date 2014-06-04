@@ -34,7 +34,7 @@ import android.widget.ListView;
 public class BookmarksActivity extends Activity{
 
 	ListView bookmarksListView;
-	public static Context activity;
+	public static Context activity; 
 	Dialog dialog;
 	Dialog editDialog;
 	

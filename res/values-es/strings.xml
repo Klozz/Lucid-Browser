@@ -362,7 +362,7 @@
 <string name="gesturerighttitle">Swipe hacia derecha</string>
 <string name="gesturerightsummary">Elegir acción al hacer swipe hacia derecha</string>
     <string name="gesture_alert">El gesto fue establecido pero las pantallas deben ser reordenadas para su uso</string>
-<string name="select_screen">Selecciona una nueva pantalla</string>
+
 
 <string name="paste">Pegar</string>
 

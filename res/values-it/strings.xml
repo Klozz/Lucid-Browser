@@ -353,11 +353,9 @@
 <string name="find_in_page">Trova nella Pagina</string>
 
 <string name="confirm_exit_text">Sei sicuro di voler uscire?</string>
-
-<string name="confirm_exit_text">Sei sicuro di voler uscire?</string>
 <string name="please_wait">Per favore aspetta...</string>
 
 <string name="exit_confirmation_title">Conferma Uscita</string>
-<string name="exit_confirmation_summary">Seleziona per abilitare una conferma all'uscita</string>
+<string name="exit_confirmation_summary">Seleziona per abilitare una conferma all\'uscita</string>
 
 </resources>
