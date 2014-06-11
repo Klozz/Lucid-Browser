@@ -25,6 +25,12 @@
 	            android:key="transparentstatus"
 	            android:summary="@string/transparentstatussummary"
 	            android:defaultValue="true" />
+        	
+        	<CheckBoxPreference
+	            android:title="@string/holoDarkTitle"
+	            android:key="holodark"
+	            android:summary="@string/holoDarkSummary"
+	            android:defaultValue="false" />
         </PreferenceCategory>
         
         <PreferenceCategory android:title="@string/cat_title_actionbar" >

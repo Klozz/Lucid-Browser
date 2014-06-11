@@ -40,6 +40,11 @@ public class BookmarksActivity extends Activity{
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (Properties.appProp.holoDark){
+			setTheme(android.R.style.Theme_Holo);		
+		} else {
+			// uses light theme
+		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.bookmarks);
 		activity = this;

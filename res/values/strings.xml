@@ -349,4 +349,7 @@
 <string name="exit_confirmation_title">Exit Confirmation</string>
 <string name="exit_confirmation_summary">Check to enable an exit confirmation</string>
 
+<string name="holoDarkTitle">Use dark Theme</string>
+<string name="holoDarkSummary">Check to use a dark theme in settings and bookmarks (Will restart settings to apply theme)</string>
+
 </resources>

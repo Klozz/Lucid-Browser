@@ -36,7 +36,15 @@ public class BookmarksListAdapter extends BaseAdapter {
 	@Override
 	public View getView(int arg0, View arg1, ViewGroup arg2) {
 		// TODO Auto-generated method stub
-		RelativeLayout RL = (RelativeLayout) MainActivity.inflater.inflate(R.layout.bookmark_item, null);
+		int bookmarkStyle;
+
+		if (Properties.appProp.holoDark){
+			bookmarkStyle = R.layout.bookmark_item_dark;
+		} else {
+			bookmarkStyle = R.layout.bookmark_item;			
+		}
+		
+		RelativeLayout RL = (RelativeLayout) MainActivity.inflater.inflate(bookmarkStyle, null);
 		((TextView) RL.findViewById(R.id.bookmark_title)).setText(MainActivity.mPrefs.getString("bookmarktitle"+arg0, "null"));
 		if (MainActivity.mPrefs.getString("bookmark"+arg0, "null").compareTo(MainActivity.assetHomePage)==0)
 			((TextView) RL.findViewById(R.id.bookmark_url_title)).setText("about:home");
