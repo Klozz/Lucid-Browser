@@ -78,12 +78,34 @@ public class SettingsV2 extends PreferenceActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+		
 		globalPref = PreferenceManager
 				.getDefaultSharedPreferences(SettingsV2.this);
+		
+		boolean useDark = globalPref.getBoolean("holodark", false);
+		
+		if (useDark){
+			setTheme(android.R.style.Theme_Holo);		
+		} else {
+			// uses light theme
+		}
+		
+		super.onCreate(savedInstanceState);
 		MainActivity.activity = this;
 		addPreferencesFromResource(R.xml.settings_v2);
 
+		((Preference) findPreference("holodark"))
+		.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			public boolean onPreferenceClick(Preference preference) {
+				
+				Intent intent = getIntent();
+				intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+				finish();
+				startActivity(intent);
+				return false;
+			}
+		});
+		
 		((Preference) findPreference("reset"))
 				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 					public boolean onPreferenceClick(Preference preference) {

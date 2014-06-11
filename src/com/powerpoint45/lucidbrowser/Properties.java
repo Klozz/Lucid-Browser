@@ -16,6 +16,7 @@ public class Properties extends MainActivity {
 		static boolean transparentNav;
 		static boolean TransparentStatus;
 		static boolean systemPersistent;
+		static boolean holoDark;
 	}
 	public static class sidebarProp{
 		static int SidebarIconSize;
@@ -67,7 +68,8 @@ public class Properties extends MainActivity {
 		appProp.fullscreen=MainActivity.mGlobalPrefs.getBoolean       ("fullscreen"           ,false);
 		appProp.transparentNav=MainActivity.mGlobalPrefs.getBoolean   ("transparentnav"       ,false);
 		appProp.TransparentStatus=MainActivity.mGlobalPrefs.getBoolean("transparentstatus"    ,true);
-		appProp.systemPersistent=MainActivity.mGlobalPrefs.getBoolean ("systempersistent"      ,false);
+		appProp.systemPersistent=MainActivity.mGlobalPrefs.getBoolean ("systempersistent"     ,false);
+		appProp.holoDark=MainActivity.mGlobalPrefs.getBoolean         ("holodark"             ,false);
 		appProp.primaryIntColor=MainActivity.mGlobalPrefs.getInt      ("textcolor",Color.BLACK);
 		appProp.actionBarColor=MainActivity.mGlobalPrefs.getInt       ("actionbarcolor", MainActivity.activity.getResources().getColor(R.color.urlback));
 		appProp.urlBarColor=MainActivity.mGlobalPrefs.getInt          ("urlbarcolor", MainActivity.activity.getResources().getColor(R.color.urlfront));
