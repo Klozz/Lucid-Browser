@@ -168,6 +168,13 @@ public class CustomWebView extends WebView {
 					intent.putExtra("tabNumber", MainActivity.getTabNumber());
 					MainActivity.activity.startActivity(intent);
 					return true;
+				}else if (url.startsWith("tel:")) {
+
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri
+							.parse(url));
+					intent.putExtra("tabNumber", MainActivity.getTabNumber());
+					MainActivity.activity.startActivity(intent);
+					return true;
 				}
 				return false;
 			}

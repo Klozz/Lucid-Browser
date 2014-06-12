@@ -2,10 +2,11 @@ package com.powerpoint45.lucidbrowser;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.PorterDuff.Mode;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -60,7 +61,10 @@ public class BookmarksListAdapter extends BaseAdapter {
 		
 		if (url!=null && url.getHost().compareTo("")!=0 && url.getPath().compareTo(MainActivity.assetHomePage)!=0 && new File(BookmarksActivity.activity.getApplicationInfo().dataDir+"/icons/"+ url.getHost()).exists())
 			((ImageView) RL.findViewById(R.id.bookmark_icon)).setImageBitmap(BitmapFactory.decodeFile(BookmarksActivity.activity.getApplicationInfo().dataDir+"/icons/"+ url.getHost()));
-		
+		else{
+			if (!Properties.appProp.holoDark)
+				((ImageView) RL.findViewById(R.id.bookmark_icon)).setColorFilter(Color.BLACK,Mode.MULTIPLY);
+		}
 		RL.setTag(MainActivity.mPrefs.getString("bookmark"+arg0, "www.google.com"));
 		return RL;
 	}
