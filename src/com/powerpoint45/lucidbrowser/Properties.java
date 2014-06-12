@@ -7,6 +7,9 @@ import android.view.ViewGroup.LayoutParams;
 
 public class Properties extends MainActivity {
 	public static int ActionbarSize=0; //used for getting the actual actionbar size + anny padding
+	public static class controls{
+		static boolean navBarHidden;
+	}
 	public static class appProp{
 		public static int actionBarTransparency;
 		static int actionBarColor;

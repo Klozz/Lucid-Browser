@@ -497,4 +497,29 @@ public class CustomWebView extends WebView {
 		return chromeClient;
 	}
 
+	@SuppressLint("InlinedApi")
+	@Override
+	protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+		if (Properties.appProp.transparentNav){
+			if ((getContentHeight() -(t+getHeight()))<Properties.numtodp(30)){
+				if (Properties.controls.navBarHidden==false){
+					View decorView = MainActivity.activity.getWindow().getDecorView();
+					decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+	                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+	                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+	                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+					Properties.controls.navBarHidden=true;
+				}
+			}else{
+				View decorView = MainActivity.activity.getWindow().getDecorView();
+				decorView.setSystemUiVisibility(
+			            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+			            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+			            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+				Properties.controls.navBarHidden=false;
+			}
+		}
+		super.onScrollChanged(l, t, oldl, oldt);
+	}
+
 }
