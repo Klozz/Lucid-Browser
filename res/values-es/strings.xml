@@ -380,4 +380,21 @@
 
 <string name="exit_confirmation_title">Confirmar salida</string>
 <string name="exit_confirmation_summary">Activar para confirmar salida</string>
+    <string name="widgetpaddingtitle">Marco de Widget</string>
+    <string name="widgetpaddingsummary">Ajuste el marco alrededor del Widget</string>
+    <string name="widgetpaddingmessage">Elija el marco del Widget:</string>
+
+<string name="hide_actionbar_title">Ocultar barra de acción</string>
+<string name="hide_actionbar_summary">Oculta la barra de acción al deslizar la página</string>
+
+<string name="folder_color_title">Color de carpeta</string>
+<string name="folder_color_summary">Elige el color del interior de las carpetas</string>
+
+<string name="folder_style_title">Estilo de carpetas</string>
+<string name="folder_style_summary">Elige un estilo para ícono de carpetas</string>
+<string name="action_shortcut">Lanza atajo</string>
+
+<string name="holoDarkTitle">Usar tema oscuro</string>
+<string name="holoDarkSummary">Selecciona para usar un tema oscuro en ajustes y marcadores (Se reiniciara para aplicar el tema)</string>
+
 </resources>

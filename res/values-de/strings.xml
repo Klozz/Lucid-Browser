@@ -303,9 +303,9 @@
 
 <string name="sidebar_custom">Benutzerdefiniert</string>
 <string name="sidebarcolortitle">Farbe der Seitenleiste</string>
-<string name="sidebarcolorsummary">Seitenleiste farb inhalt</string>
+<string name="sidebarcolorsummary"></string>
 <string name="sidebartextcolortitle">Textfarbe der Seitenleiste</string>
-<string name="sidebartextcolorsummary">Sietenleiste textfarb inhalt</string>
+<string name="sidebartextcolorsummary"></string>
 
 <string name="desktopviewtitle">Desktop-Ansicht</string>
 <string name="desktopviewsummary">Webseiten wie ein Desktop-Browser darstellen</string>
@@ -380,12 +380,40 @@
 <string name="find_in_page">Suchen</string>
 
 <string name="confirm_exit_text">Soll die Anwendung wirklich beendet werden?</string>
-<string name="please_wait">Bitte warten&#8230;</string>
+<string name="please_wait">Bitte warten...</string>
 
 <string name="exit_confirmation_title">Beenden bestätigen</string>
 <string name="exit_confirmation_summary">Beenden der App bestätigen</string>
 
+    <string name="widgetpaddingtitle">Widget-Abstand</string>
+    <string name="widgetpaddingsummary">Abstand des Widgets zur Gitterzelle festlegen</string>
+    <string name="widgetpaddingmessage">Widget-Abstand auswählen:</string>
+
 <string name="holoDarkTitle">Dunkles Thema verwenden</string>
 <string name="holoDarkSummary">Dunkles Thema für Einstellungen und Lesezeichen verwenden</string>
+
+<string name="hide_actionbar_title">Aktionsleiste verbergen</string>
+<string name="hide_actionbar_summary">Aktionsleiste beim nach unten Scrollen verbergen</string>
+
+<string name="folder_color_title">Ordnerfarbe</string>
+<string name="folder_color_summary">Hintergrundfarbe eines Ordners wählen</string>
+
+<string name="folder_style_title">Ordner-Stil</string>
+<string name="folder_style_summary">Stil des Ordnersymbols wählen</string>
+<string name="action_shortcut">Verknüpfung starten</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </resources>

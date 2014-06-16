@@ -385,6 +385,23 @@
 <string name="please_wait">Veuillez patienter...</string>
 <string name="exit_confirmation_title">Confirmation de sortie</string>
 <string name="exit_confirmation_summary">Cocher pour activer une confirmation de sortie</string>
+    <string name="widgetpaddingtitle">Espacement Widgets</string>
+    <string name="widgetpaddingsummary">Régler l\'espacement autour des Widgets</string>
+    <string name="widgetpaddingmessage">Sélectionner l\'espacement du Widget:</string>
+
+<string name="hide_actionbar_title">Cacher Barre d\'action</string>
+<string name="hide_actionbar_summary">Cacher barre d\'action pendant défilement bas</string>
+
+<string name="folder_color_title">Couleur du Dossier</string>
+<string name="folder_color_summary">Choisir la couleur de l\'intérieur du dossier</string>
+
+<string name="folder_style_title">Style du Dossier</string>
+<string name="folder_style_summary">Choisir icône pour le dossier</string>
+<string name="action_shortcut">Lancer Raccourci</string>
+<string name="action_lock_screen">Eteindre l\'écran</string>
+
+<string name="holoDarkTitle">Utiliser Thème Noir</string>
+<string name="holoDarkSummary">Thème Noir dans les Favoris et paramètres</string>
 
 
 </resources>

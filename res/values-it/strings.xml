@@ -358,4 +358,22 @@
 <string name="exit_confirmation_title">Conferma Uscita</string>
 <string name="exit_confirmation_summary">Seleziona per abilitare una conferma all\'uscita</string>
 
+    <string name="widgetpaddingtitle">Widget Padding</string>
+    <string name="widgetpaddingsummary">Imposta il padding intorno ai Widgets</string>
+    <string name="widgetpaddingmessage">Seleziona il padding del Widget:</string>
+
+<string name="holoDarkTitle">Usa Tema Scuro</string>
+<string name="holoDarkSummary">Usa un tema scuro nelle impostazioni e nei segnalibri (riavvierá le impostazioni per applicare il tema)</string>
+
+<string name="hide_actionbar_title">Nascondi ActionBar</string>
+<string name="hide_actionbar_summary">nascondi la actionbar quando scrolli la pagina verso il basso</string>
+
+<string name="folder_color_title">Colore Cartella</string>
+<string name="folder_color_summary">Seleziona il colore all\'interno delle cartelle</string>
+
+<string name="folder_style_title">Stile Cartelle</string>
+<string name="folder_style_summary">scegli uno stile per l\'icona delle cartelle</string>
+<string name="action_shortcut">Lancia Shortcut</string>
+<string name="action_lock_screen">Spegni Schermo</string>
+
 </resources>
