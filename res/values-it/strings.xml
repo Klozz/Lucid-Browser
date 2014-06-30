@@ -376,4 +376,14 @@
 <string name="action_shortcut">Lancia Shortcut</string>
 <string name="action_lock_screen">Spegni Schermo</string>
 
+<string name="drawer_style_title">Stile Drawer</string>
+<string name="drawer_style_summary">seleziona uno stile per il drawer</string>
+<string name="grid">Griglia</string>
+<string name="list">Lista</string>
+
+<string name="apply">Applica</string>
+<string name="processing">Processing icon theme</string>
+
+
+
 </resources>

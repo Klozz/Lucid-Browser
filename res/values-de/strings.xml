@@ -402,13 +402,13 @@
 <string name="folder_style_summary">Stil des Ordnersymbols wählen</string>
 <string name="action_shortcut">Verknüpfung starten</string>
 
+<string name="drawer_style_title">Drawer-Stil</string>
+<string name="drawer_style_summary">Stil des App Drawers wählen</string>
+<string name="grid">Gitter</string>
+<string name="list">Liste</string>
 
-
-
-
-
-
-
+<string name="apply">Anwenden</string>
+<string name="processing">Symbolthema wird übernommen</string>
 
 
 

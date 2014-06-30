@@ -70,7 +70,7 @@
             android:layout_height="match_parent"
             android:paddingRight="4dp" >
 
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/browser_searchbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -86,7 +86,7 @@
                 android:singleLine="true"
                 android:textColor="@android:color/black"
                 android:textCursorDrawable="@null" >
-            </EditText>
+            </AutoCompleteTextView>
 
             <ImageButton
                 android:id="@+id/browser_bookmark"

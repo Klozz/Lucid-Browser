@@ -1,11 +1,25 @@
 package com.powerpoint45.lucidbrowser;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Vector;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -24,6 +38,7 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -46,6 +61,10 @@ import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 import android.webkit.WebViewDatabase;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -75,9 +94,9 @@ public class MainActivity extends BrowserHandler {
 	public static ListView            browserListView;
 	public static BrowserImageAdapter browserListViewAdapter;
 	static Vector <CustomWebView>     webWindows;
-	
 	static public int NavMargine;   //used in CustomWebView
 	public static int StatusMargine;//used in SetupLayouts
+	List<String> responses;
 	
 	static Dialog dialog;
 	
@@ -96,6 +115,8 @@ public class MainActivity extends BrowserHandler {
 		bar                       = new RelativeLayout(this);
 		actionBar                 = getActionBar();
 		
+		responses    = new Vector<String>(0);
+
 		
 		webLayout                 = (LinearLayout) inflater.inflate(R.layout.page_web, null);
 		browserListViewAdapter    = new BrowserImageAdapter(this);
@@ -109,6 +130,8 @@ public class MainActivity extends BrowserHandler {
 			assetHomePage = "file:///android_asset/home_small.html";
 		else
 			assetHomePage = "file:///android_asset/home.html";
+		
+		
 		
 		Properties.update_preferences();
 		
@@ -158,7 +181,6 @@ public class MainActivity extends BrowserHandler {
 		        	tintManager = new SystemBarTintManager(this);
 		        	tintManager.setStatusBarTintEnabled(true);
 		        	tintManager.setStatusBarTintColor(Properties.appProp.actionBarColor);
-		        	tintManager.setTintAlpha(((float)Properties.appProp.actionBarTransparency/255));
 		        	if (Properties.appProp.fullscreen)
 		        		tintManager.setTintAlpha(0.0f);
 		        	
@@ -242,6 +264,8 @@ public class MainActivity extends BrowserHandler {
 					((TextView) bar.findViewById(R.id.browser_searchbar)).setText(getResources().getString(R.string.urlbardefault));
 					MainActivity.browserListViewAdapter.notifyDataSetChanged();
 				}
+				
+				new RetrieveSearchTask().execute(s.toString());
 			}
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
@@ -255,6 +279,62 @@ public class MainActivity extends BrowserHandler {
 		setContentView(mainView);
 
 		
+	}
+	
+	class RetrieveSearchTask extends AsyncTask<String, Void, String> {
+		
+	    protected String doInBackground(String... term) {
+	    	
+	    	
+	    	HttpClient httpclient = new DefaultHttpClient();
+	        HttpResponse response;
+	        String responseString = null;
+	        try {
+	            response = httpclient.execute(new HttpGet("http://suggestqueries.google.com/complete/search?client=firefox&q="+URLEncoder.encode(term[0], "utf-8")));
+	            StatusLine statusLine = response.getStatusLine();
+	            if(statusLine.getStatusCode() == HttpStatus.SC_OK){
+	                ByteArrayOutputStream out = new ByteArrayOutputStream();
+	                response.getEntity().writeTo(out);
+	                out.close();
+	                responseString = out.toString();
+	            } else{
+	                //Closes the connection.
+	                response.getEntity().getContent().close();
+	                throw new IOException(statusLine.getReasonPhrase());
+	            }
+	        } catch (ClientProtocolException e) {
+	            //TODO Handle problems..
+	        } catch (IOException e) {
+	            //TODO Handle problems..
+	        }
+	        return responseString;
+	    }
+
+	    protected void onPostExecute(String feed) {
+	    	try {
+	    		if (feed!=null){
+		        	JSONArray jArray = new JSONArray(feed).getJSONArray(1);
+		        	
+		        	
+		        	responses.clear();
+		        	for (int i=0; i< jArray.length(); i++){
+		        		System.out.println("RESPONSE"+i+jArray.getString(i));
+		        		responses.add(jArray.getString(i));
+		        	}
+		        	
+		        	ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.activity,
+		                    android.R.layout.simple_dropdown_item_1line, responses);
+		    		
+		        	((AutoCompleteTextView) bar.findViewById(R.id.browser_searchbar)).setAdapter(adapter);
+		        	
+		        	
+	    		}
+	        	
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
 	}
 	
 	public static boolean isDownloadManagerAvailable(Context context) {
@@ -296,7 +376,12 @@ public class MainActivity extends BrowserHandler {
 		else if (q.startsWith("about:")||q.startsWith("file:"))
 			WV.loadUrl(q);
 		else
-			WV.loadUrl("http://www.google.com/#q="+q.replace(" ", "+"));
+			try {
+				WV.loadUrl("http://www.google.com/#q="+URLEncoder.encode(q, "utf-8"));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	public void browserActionClicked(View v){
@@ -451,57 +536,59 @@ public class MainActivity extends BrowserHandler {
 		ImageButton BookmarkButton = (ImageButton) MainActivity.bar.findViewById(R.id.browser_bookmark);
 		ImageButton refreshButton = (ImageButton) MainActivity.bar.findViewById(R.id.browser_refresh);
 		
-		webWindows.get(pos).loadUrl("about:blank");
-		
-		if (webLayout.findViewById(R.id.browser_page)==webWindows.get(pos)){
-			if ((pos-1)>=0){
-				((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
-				((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(pos-1));
-				if (((TextView) bar.findViewById(R.id.browser_searchbar))!=null && webWindows.get(pos-1).getUrl()!=null)
-					((TextView) bar.findViewById(R.id.browser_searchbar)).setText(webWindows.get(pos-1).getUrl().replace("http://", "").replace("https://", ""));
-				if (webWindows.get(pos-1).getProgress()<100){
-					PB.setVisibility(View.VISIBLE);
-					refreshButton.setImageResource(R.drawable.btn_toolbar_stop_loading_normal);
+		if ((pos)<=(webWindows.size()-1)){
+			webWindows.get(pos).loadUrl("about:blank");
+			
+			if (webLayout.findViewById(R.id.browser_page)==webWindows.get(pos)){
+				if ((pos-1)>=0){
+					((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
+					((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(pos-1));
+					if (((TextView) bar.findViewById(R.id.browser_searchbar))!=null && webWindows.get(pos-1).getUrl()!=null)
+						((TextView) bar.findViewById(R.id.browser_searchbar)).setText(webWindows.get(pos-1).getUrl().replace("http://", "").replace("https://", ""));
+					if (webWindows.get(pos-1).getProgress()<100){
+						PB.setVisibility(View.VISIBLE);
+						refreshButton.setImageResource(R.drawable.btn_toolbar_stop_loading_normal);
+					}
+					else{
+						PB.setVisibility(View.INVISIBLE);
+						refreshButton.setImageResource(R.drawable.btn_toolbar_reload_normal);
+					}
+					System.out.println("CLOSED"+ webWindows.get(pos-1).getProgress());
+					
+					
+					int numBooks=MainActivity.mPrefs.getInt("numbookmarkedpages", 0);
+					boolean isBook = false;
+					for (int i=0;i<numBooks;i++){
+						if (webWindows.get(pos-1)!=null)
+							if (webWindows.get(pos-1).getUrl()!=null)
+			    				if (MainActivity.mPrefs.getString("bookmark"+i, "").compareTo(webWindows.get(pos-1).getUrl())==0){
+			    					BookmarkButton.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
+			    					isBook=true;
+			    					break;
+			    				}
+					}
+					if (!isBook){
+						BookmarkButton.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
+					}
+					
 				}
 				else{
+					((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
+					if (((TextView) bar.findViewById(R.id.browser_searchbar))!=null)
+						((TextView) bar.findViewById(R.id.browser_searchbar)).setText("");
+					ImageView IV = new ImageView(ctxt);
+					IV.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+					IV.setScaleType(ImageView.ScaleType.CENTER);
+					IV.setImageResource(R.drawable.web_logo);
+					((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(IV);
 					PB.setVisibility(View.INVISIBLE);
+					BookmarkButton.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
 					refreshButton.setImageResource(R.drawable.btn_toolbar_reload_normal);
 				}
-				System.out.println("CLOSED"+ webWindows.get(pos-1).getProgress());
-				
-				
-				int numBooks=MainActivity.mPrefs.getInt("numbookmarkedpages", 0);
-				boolean isBook = false;
-				for (int i=0;i<numBooks;i++){
-					if (webWindows.get(pos-1)!=null)
-						if (webWindows.get(pos-1).getUrl()!=null)
-		    				if (MainActivity.mPrefs.getString("bookmark"+i, "").compareTo(webWindows.get(pos-1).getUrl())==0){
-		    					BookmarkButton.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
-		    					isBook=true;
-		    					break;
-		    				}
-				}
-				if (!isBook){
-					BookmarkButton.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
-				}
-				
 			}
-			else{
-				((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
-				if (((TextView) bar.findViewById(R.id.browser_searchbar))!=null)
-					((TextView) bar.findViewById(R.id.browser_searchbar)).setText("");
-				ImageView IV = new ImageView(ctxt);
-				IV.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
-				IV.setScaleType(ImageView.ScaleType.CENTER);
-				IV.setImageResource(R.drawable.web_logo);
-				((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(IV);
-				PB.setVisibility(View.INVISIBLE);
-				BookmarkButton.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
-				refreshButton.setImageResource(R.drawable.btn_toolbar_reload_normal);
-			}
+			
+			webWindows.remove(pos);
 		}
-		
-		webWindows.remove(pos);
 		browserListViewAdapter.notifyDataSetChanged();
 	}
 	

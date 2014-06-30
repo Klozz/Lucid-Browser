@@ -165,18 +165,18 @@ public class SettingsV2 extends PreferenceActivity {
 		 * sidebartextcolor when sidebartheme = b or sidebartheme = w Add
 		 * sidebar color settings when c (custom) is selected)
 		 */
-
+		
+		PreferenceScreen preferenceScreen = getPreferenceScreen();
+		sideColor = (ColorPickerPreference) preferenceScreen
+				.findPreference("sidebarcolor");
+		sideTextColor = (ColorPickerPreference) preferenceScreen
+				.findPreference("sidebartextcolor");
+		
 		if (firstStart) {
 			String sidebarTheme = globalPref.getString("sidebartheme", "b");
 			if (!sidebarTheme.equals("c")) {
 
-				PreferenceScreen preferenceScreen = getPreferenceScreen();
-
-				sideColor = (ColorPickerPreference) preferenceScreen
-						.findPreference("sidebarcolor");
-				sideTextColor = (ColorPickerPreference) preferenceScreen
-						.findPreference("sidebartextcolor");
-
+				
 				((PreferenceGroup) findPreference("sideappearance"))
 						.removePreference(sideColor);
 				((PreferenceGroup) findPreference("sideappearance"))

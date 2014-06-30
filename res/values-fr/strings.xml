@@ -403,5 +403,23 @@
 <string name="holoDarkTitle">Utiliser Thème Noir</string>
 <string name="holoDarkSummary">Thème Noir dans les Favoris et paramètres</string>
 
+<string name="drawer_style_title">Style du Drawer</string>
+<string name="drawer_style_summary">Choisir un style pour le Drawer</string>
+<string name="grid">Grid</string>
+<string name="list">Liste</string>
+
+<string name="apply">Appliquer</string>
+<string name="processing">Changement du thème d\'icône</string>
+
+
+
+
+
+
+
+
+
+
+
 
 </resources>

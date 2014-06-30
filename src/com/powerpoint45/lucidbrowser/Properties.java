@@ -11,7 +11,6 @@ public class Properties extends MainActivity {
 		static boolean navBarHidden;
 	}
 	public static class appProp{
-		public static int actionBarTransparency;
 		static int actionBarColor;
 		public static int primaryIntColor;
 		static int urlBarColor;
@@ -25,7 +24,6 @@ public class Properties extends MainActivity {
 		static int SidebarIconSize;
 		static int SidebarIconPadding;
 		static int SidebarSize;
-		static int transparency;
 		static String theme;
 		static boolean showLabel;
 		static int sideBarColor;
@@ -66,8 +64,6 @@ public class Properties extends MainActivity {
 		
 		ActionbarSize= actionBarHeight;
 
-		appProp.actionBarTransparency=MainActivity.mGlobalPrefs.getInt("actionbartransparency",90);
-		appProp.actionBarTransparency = (255*appProp.actionBarTransparency)/100;
 		appProp.fullscreen=MainActivity.mGlobalPrefs.getBoolean       ("fullscreen"           ,false);
 		appProp.transparentNav=MainActivity.mGlobalPrefs.getBoolean   ("transparentnav"       ,false);
 		appProp.TransparentStatus=MainActivity.mGlobalPrefs.getBoolean("transparentstatus"    ,true);
@@ -83,14 +79,17 @@ public class Properties extends MainActivity {
 		sidebarProp.sideBarColor=MainActivity.mGlobalPrefs.getInt               ("sidebarcolor"    , Color.BLACK);
         sidebarProp.sideBarTextColor=MainActivity.mGlobalPrefs.getInt           ("sidebartextcolor", Color.WHITE);
 		sidebarProp.showLabel=MainActivity.mGlobalPrefs.getBoolean              ("showfavoriteslabels", true);
-		sidebarProp.transparency=MainActivity.mGlobalPrefs.getInt               ("sidebartransparency" ,100);
 		sidebarProp.swapLayout     =MainActivity.mGlobalPrefs.getBoolean        ("swapLayout"          ,false);
-		sidebarProp.transparency= (254*sidebarProp.transparency)/100;
 		if (sidebarProp.showLabel)
 			sidebarProp.SidebarSize=numtodp(250);
 		else
 			sidebarProp.SidebarSize=sidebarProp.SidebarIconSize;
 		
+		float alpha= (sidebarProp.sideBarColor >> 24) & 0xFF;
+		
+		if (alpha>254f){
+			sidebarProp.sideBarColor = SetupLayouts.addTransparencyToColor(254,sidebarProp.sideBarColor);
+		}
 		
 		
 	}

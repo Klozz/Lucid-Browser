@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -40,7 +41,6 @@ public class SetupLayouts extends MainActivity {
 		bar.setFocusable(true);
 		bar.setFocusableInTouchMode(true);
 		bar.setBackgroundColor(Properties.appProp.actionBarColor);
-		bar.getBackground().setAlpha(Properties.appProp.actionBarTransparency);
 		setUpActionBar();
 		actionBar.setCustomView(bar);
 		actionBar.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -87,16 +87,15 @@ public class SetupLayouts extends MainActivity {
 
 		if (Properties.sidebarProp.theme.compareTo("b") == 0) {
 			browserListView.setBackgroundColor(Color.argb(
-					Properties.sidebarProp.transparency, 17, 17, 17));
+					254, 17, 17, 17));
 		} else if (Properties.sidebarProp.theme.compareTo("w") == 0) {
 			browserListView.setBackgroundColor(Color.argb(
-					Properties.sidebarProp.transparency, 255, 255, 255));
+					254, 255, 255, 255));
 			activity.setContentView(R.layout.browser_item);
 
 			
 		} else {
-			int sideBarColor = SetupLayouts.addTransparencyToColor(Properties.sidebarProp.transparency, Properties.sidebarProp.sideBarColor);
-           browserListView.setBackgroundColor(sideBarColor);
+           browserListView.setBackgroundColor(Properties.sidebarProp.sideBarColor);
 		}
 
 		browserListView.setOnItemClickListener(new OnItemClickListener() {
@@ -106,6 +105,9 @@ public class SetupLayouts extends MainActivity {
 				
 				ImageButton BookmarkButton = (ImageButton) MainActivity.bar.findViewById(R.id.browser_bookmark);
 				ImageButton refreshButton = (ImageButton) MainActivity.bar.findViewById(R.id.browser_refresh);
+				
+				if (((EditText) bar.findViewById(R.id.browser_searchbar))!=null)
+					((EditText) bar.findViewById(R.id.browser_searchbar)).clearFocus();
 				
 				if (pos==webWindows.size()){
 					mainView.closeDrawer(browserListView);
@@ -237,15 +239,10 @@ public class SetupLayouts extends MainActivity {
 		if (Properties.webpageProp.showBackdrop) {
 			// ShowBackdrop is active -> Set chosen backdrop color (with
 			// opacity)
-
-			int actionbarTransparency = Properties.appProp.actionBarTransparency;
-			int backdropColor = Properties.appProp.urlBarColor;
-
+			
 			// Apply color filter on backdrop with a little more opacity to make
 			// it always visible
-			urlBarBackdrop.setColorFilter(
-					addTransparencyToColor(actionbarTransparency + 65,
-							backdropColor), Mode.SRC);
+			urlBarBackdrop.setColorFilter(Properties.appProp.urlBarColor, Mode.SRC);
 		} else {
 			// ShowBackdrop is inactive -> make backdrop invisible
 			urlBarBackdrop.setColorFilter(Color.TRANSPARENT, Mode.CLEAR);
@@ -267,10 +264,14 @@ public class SetupLayouts extends MainActivity {
 		((EditText) browserBar.findViewById(R.id.browser_searchbar))
 				.setTextColor(Properties.appProp.primaryIntColor);
 
-		final EditText ET = ((EditText) browserBar
+		final AutoCompleteTextView ET = ((AutoCompleteTextView) browserBar
 				.findViewById(R.id.browser_searchbar));
 		ET.setScrollContainer(true);
+		
+		ET.setDropDownAnchor(R.id.address_bar);
+    	ET.setDropDownWidth(LayoutParams.MATCH_PARENT);
 
+    	ET.setThreshold(0);
 		ET.setOnLongClickListener(new OnLongClickListener() {
 			
 			@Override
@@ -341,6 +342,7 @@ public class SetupLayouts extends MainActivity {
 							super.onPostExecute(result);
 							imm.hideSoftInputFromWindow(ET.getWindowToken(), 0);
 							browserSearch();
+							ET.clearFocus();
 						}
 
 						@Override
@@ -351,6 +353,29 @@ public class SetupLayouts extends MainActivity {
 					return true;
 				}
 				return false;
+			}
+		});
+		
+		ET.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				new AsyncTask<Void, Void, Void>() {
+					@Override
+					protected void onPostExecute(Void result) {
+						super.onPostExecute(result);
+						final EditText ET = ((AutoCompleteTextView) bar.findViewById(R.id.browser_searchbar));
+						imm.hideSoftInputFromWindow(ET.getWindowToken(), 0);
+						browserSearch();
+						ET.clearFocus();
+					}
+
+					@Override
+					protected Void doInBackground(Void... params) {
+						return null;
+					}
+				}.execute();
 			}
 		});
 

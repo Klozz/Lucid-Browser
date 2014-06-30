@@ -44,13 +44,6 @@
                 android:key="textcolor"
                 android:summary="@string/textcolorsummary"
                 android:title="@string/textcolortitle" />
-            <preferences.SeekBarPreference
-                android:defaultValue="90"
-                android:key="actionbartransparency"
-                android:max="100"
-                android:summary="@string/actionbartransparencysummary"
-                android:title="@string/actionbartransparencytitle"
-                custom:min="0" />
             
         </PreferenceCategory>
         
@@ -79,13 +72,6 @@
                 android:summary="@string/sidebartextcolorsummary"
                 android:title="@string/sidebartextcolortitle" />
 
-            <preferences.SeekBarPreference
-                android:defaultValue="100"
-                android:key="sidebartransparency"
-                android:max="100"
-                android:summary="@string/sidebartransparencysummary"
-                android:title="@string/sidebartransparencytitle"
-                custom:min="0" />
             <CheckBoxPreference
 	            android:title="@string/sidebar_switched_title"
 	            android:key="swapLayout"

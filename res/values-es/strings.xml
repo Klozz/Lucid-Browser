@@ -397,4 +397,13 @@
 <string name="holoDarkTitle">Usar tema oscuro</string>
 <string name="holoDarkSummary">Selecciona para usar un tema oscuro en ajustes y marcadores (Se reiniciara para aplicar el tema)</string>
 
+<string name="drawer_style_title">Estilo de cajón de aplicaciones</string>
+<string name="drawer_style_summary">Elije estilo de cajón de aplicaciones</string>
+<string name="grid">Grilla</string>
+<string name="list">Lista</string>
+
+<string name="apply">Aplicar</string>
+<string name="processing">Procesando temas de iconos</string>
+
+
 </resources>
