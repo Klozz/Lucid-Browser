@@ -56,6 +56,8 @@ public class SetupLayouts extends MainActivity {
 					.setTextColor(Color.BLACK);
 			((TextView) LL.findViewById(R.id.browser_set_home))
 					.setTextColor(Color.BLACK);
+			((TextView) LL.findViewById(R.id.browser_find_on_page))
+					.setTextColor(Color.BLACK);
 			((TextView) LL.findViewById(R.id.browser_settings))
 					.setTextColor(Color.BLACK);
 			((TextView) LL.findViewById(R.id.browser_toggle_desktop))
@@ -73,6 +75,8 @@ public class SetupLayouts extends MainActivity {
 					.setTextColor(sidebarTextColor);
 			((TextView) LL.findViewById(R.id.browser_set_home))
 					.setTextColor(sidebarTextColor);
+			((TextView) LL.findViewById(R.id.browser_find_on_page))
+				.setTextColor(sidebarTextColor);
 			((TextView) LL.findViewById(R.id.browser_settings))
 					.setTextColor(sidebarTextColor);
 			((TextView) LL.findViewById(R.id.browser_toggle_desktop))

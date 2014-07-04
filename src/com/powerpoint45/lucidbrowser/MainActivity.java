@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -37,7 +36,10 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -53,6 +55,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
@@ -61,16 +64,16 @@ import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 import android.webkit.WebViewDatabase;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -97,6 +100,8 @@ public class MainActivity extends BrowserHandler {
 	static public int NavMargine;   //used in CustomWebView
 	public static int StatusMargine;//used in SetupLayouts
 	List<String> responses;
+	SuggestionsArrayAdapter<String> suggestionsAdapter;
+	SystemBarTintManager tintManager;
 	
 	static Dialog dialog;
 	
@@ -158,7 +163,7 @@ public class MainActivity extends BrowserHandler {
 				}
 		
 		Tools tools = new Tools();
-		SystemBarTintManager tintManager = new SystemBarTintManager(activity);
+		tintManager = new SystemBarTintManager(activity);
 		
 		if (Properties.appProp.transparentNav || Properties.appProp.TransparentStatus)
 			if (id != 0) {
@@ -278,35 +283,53 @@ public class MainActivity extends BrowserHandler {
 		contentView.addView(webLayout);
 		setContentView(mainView);
 
+		View decorView = getWindow().getDecorView();
+
+		decorView.setOnSystemUiVisibilityChangeListener
+		        (new View.OnSystemUiVisibilityChangeListener() {
+		    @Override
+		    public void onSystemUiVisibilityChange(int visibility) {
+		        if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
+		        	if (tintManager!=null && Properties.appProp.TransparentStatus)
+		        		tintManager.setStatusBarTintEnabled(true);
+		        	Properties.appProp.fullscreen = true;
+		        } else {
+		        	if (tintManager!=null && Properties.appProp.TransparentStatus)
+		        		tintManager.setStatusBarTintEnabled(false);
+		        	Properties.appProp.fullscreen = false;
+		        }
+		    }
+		});
 		
 	}
 	
 	class RetrieveSearchTask extends AsyncTask<String, Void, String> {
 		
 	    protected String doInBackground(String... term) {
+	    	String responseString = null;
 	    	
-	    	
-	    	HttpClient httpclient = new DefaultHttpClient();
-	        HttpResponse response;
-	        String responseString = null;
-	        try {
-	            response = httpclient.execute(new HttpGet("http://suggestqueries.google.com/complete/search?client=firefox&q="+URLEncoder.encode(term[0], "utf-8")));
-	            StatusLine statusLine = response.getStatusLine();
-	            if(statusLine.getStatusCode() == HttpStatus.SC_OK){
-	                ByteArrayOutputStream out = new ByteArrayOutputStream();
-	                response.getEntity().writeTo(out);
-	                out.close();
-	                responseString = out.toString();
-	            } else{
-	                //Closes the connection.
-	                response.getEntity().getContent().close();
-	                throw new IOException(statusLine.getReasonPhrase());
-	            }
-	        } catch (ClientProtocolException e) {
-	            //TODO Handle problems..
-	        } catch (IOException e) {
-	            //TODO Handle problems..
-	        }
+	    	if (!term[0].equals(getResources().getString(R.string.urlbardefault))){
+		    	HttpClient httpclient = new DefaultHttpClient();
+		        HttpResponse response;
+		        try {
+		            response = httpclient.execute(new HttpGet("http://suggestqueries.google.com/complete/search?client=firefox&q="+URLEncoder.encode(term[0], "utf-8")));
+		            StatusLine statusLine = response.getStatusLine();
+		            if(statusLine.getStatusCode() == HttpStatus.SC_OK){
+		                ByteArrayOutputStream out = new ByteArrayOutputStream();
+		                response.getEntity().writeTo(out);
+		                out.close();
+		                responseString = out.toString();
+		            } else{
+		                //Closes the connection.
+		                response.getEntity().getContent().close();
+		                throw new IOException(statusLine.getReasonPhrase());
+		            }
+		        } catch (ClientProtocolException e) {
+		            //TODO Handle problems..
+		        } catch (IOException e) {
+		            //TODO Handle problems..
+		        }
+	    	}
 	        return responseString;
 	    }
 
@@ -322,12 +345,16 @@ public class MainActivity extends BrowserHandler {
 		        		responses.add(jArray.getString(i));
 		        	}
 		        	
-		        	ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.activity,
+		        	if (suggestionsAdapter==null){
+		        		suggestionsAdapter = new SuggestionsArrayAdapter<String>(MainActivity.activity,
 		                    android.R.layout.simple_dropdown_item_1line, responses);
-		    		
-		        	((AutoCompleteTextView) bar.findViewById(R.id.browser_searchbar)).setAdapter(adapter);
+		        		((AutoCompleteTextView) bar.findViewById(R.id.browser_searchbar)).setAdapter(suggestionsAdapter);
+		        	}
+		        	else
+		        		suggestionsAdapter.notifyDataSetChanged();
 		        	
 		        	
+		
 	    		}
 	        	
 			} catch (JSONException e) {
@@ -376,12 +403,7 @@ public class MainActivity extends BrowserHandler {
 		else if (q.startsWith("about:")||q.startsWith("file:"))
 			WV.loadUrl(q);
 		else
-			try {
-				WV.loadUrl("http://www.google.com/#q="+URLEncoder.encode(q, "utf-8"));
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			WV.loadUrl("http://www.google.com/search?q="+q.replace(" ", "+"));
 	}
 	
 	public void browserActionClicked(View v){
@@ -401,7 +423,7 @@ public class MainActivity extends BrowserHandler {
 		}
 		
 		Message msg = new Message();
-		CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
+		final CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
 		switch (v.getId()){
 		case R.id.browser_home:
 			WV.loadUrl(mPrefs.getString("browserhome", assetHomePage));
@@ -473,9 +495,74 @@ public class MainActivity extends BrowserHandler {
 	    			BI.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
 			}
             break;
+		case R.id.browser_find_on_page:
+			RelativeLayout findView = (RelativeLayout) inflater.inflate(R.layout.find_on_page, null);
+			findView.getBackground().setColorFilter(Properties.appProp.actionBarColor | 0xFF000000, Mode.MULTIPLY);
+			
+			int textColor = Color.rgb(255-Color.red(Properties.appProp.actionBarColor),
+                    255-Color.green(Properties.appProp.actionBarColor),
+                    255-Color.blue(Properties.appProp.actionBarColor));
+			
+			((EditText)findView.findViewById(R.id.find_input)).setTextColor(textColor);
+			((Button)findView.findViewById(R.id.find_back)).setTextColor(textColor);
+			((Button)findView.findViewById(R.id.find_forward)).setTextColor(textColor);
+			
+			((Button)findView.findViewById(R.id.find_back)).setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					WV.findNext(false);
+				}
+			});
+			
+			((Button)findView.findViewById(R.id.find_forward)).setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					WV.findNext(true);
+				}
+			});
+			
+			((EditText)findView.findViewById(R.id.find_input)).addTextChangedListener(new TextWatcher() {
+				
+				@Override
+				public void onTextChanged(CharSequence s, int start, int before, int count) {
+					WV.findAll(s.toString());	
+				}
+				
+				@Override
+				public void beforeTextChanged(CharSequence s, int start, int count,
+						int after) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void afterTextChanged(Editable s) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			
+			PopupWindow pw = new PopupWindow(
+					findView, 
+				       android.widget.RelativeLayout.LayoutParams.WRAP_CONTENT, 
+				       android.widget.RelativeLayout.LayoutParams.WRAP_CONTENT, 
+				       true);
+				    // The code below assumes that the root container has an id called 'main'
+			pw.setFocusable(true);
+			pw.setBackgroundDrawable(new ColorDrawable());
+			pw.setOnDismissListener(new OnDismissListener() {
+				
+				@Override
+				public void onDismiss() {
+					WV.findAll("");
+				}
+			});
+			pw.showAsDropDown(bar, Properties.numtodp(5), 0);
+            //WV.findAllAsync(find);
+			break;
 		case R.id.browser_open_bookmarks:
-     	    //msg.what = 3;
-            //messageHandler.sendMessage(msg);
             startActivity(new Intent(ctxt,BookmarksActivity.class));
 			break;
 		case R.id.browser_set_home:

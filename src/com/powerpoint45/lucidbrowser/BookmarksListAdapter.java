@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.FrameLayout.LayoutParams;
 
 public class BookmarksListAdapter extends BaseAdapter {
 	URL url;
@@ -46,6 +47,7 @@ public class BookmarksListAdapter extends BaseAdapter {
 		}
 		
 		RelativeLayout RL = (RelativeLayout) MainActivity.inflater.inflate(bookmarkStyle, null);
+		
 		((TextView) RL.findViewById(R.id.bookmark_title)).setText(MainActivity.mPrefs.getString("bookmarktitle"+arg0, "null"));
 		if (MainActivity.mPrefs.getString("bookmark"+arg0, "null").compareTo(MainActivity.assetHomePage)==0)
 			((TextView) RL.findViewById(R.id.bookmark_url_title)).setText("about:home");
