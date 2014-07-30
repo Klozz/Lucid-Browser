@@ -1,5 +1,7 @@
 package com.powerpoint45.lucidbrowser;
 
+import java.util.Vector;
+
 import android.app.ActionBar;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -270,6 +272,11 @@ public class SetupLayouts extends MainActivity {
 
 		final AutoCompleteTextView ET = ((AutoCompleteTextView) browserBar
 				.findViewById(R.id.browser_searchbar));
+		
+		responses    = new Vector<String>(0);
+		suggestionsAdapter        = new BrowserBarAdapter(activity, 0, responses);
+		
+		ET.setAdapter(suggestionsAdapter);
 		ET.setScrollContainer(true);
 		
 		ET.setDropDownAnchor(R.id.address_bar);
@@ -340,6 +347,7 @@ public class SetupLayouts extends MainActivity {
 				// If the event is a key-down event on the "enter" button
 				if ((event.getAction() == KeyEvent.ACTION_DOWN)
 						&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
+					System.out.println("key press");
 					new AsyncTask<Void, Void, Void>() {
 						@Override
 						protected void onPostExecute(Void result) {
@@ -384,5 +392,69 @@ public class SetupLayouts extends MainActivity {
 		});
 
 		bar.addView(browserBar);
+	}
+	
+	static public void setUpFindBar() {
+		bar.removeAllViews();
+
+		View finderBar = (RelativeLayout) inflater.inflate(
+				R.layout.browser_bar_find_mode, null);
+
+		ImageView finderBackdrop = (ImageView) finderBar
+				.findViewById(R.id.backdrop);
+
+		RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(
+				LayoutParams.MATCH_PARENT, Properties.numtodp(3));
+		relativeParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+		// URL bar backdrop color
+		// ----------------------------------------------
+		if (Properties.webpageProp.showBackdrop) {
+			// ShowBackdrop is active -> Set chosen backdrop color (with
+			// opacity)
+
+			// Apply color filter on backdrop with a little more opacity to make
+			// it always visible
+			finderBackdrop.setColorFilter(Properties.appProp.urlBarColor, Mode.SRC);
+			((EditText) finderBar.findViewById(R.id.find_searchbar)).getBackground().setAlpha(0);
+		} else {
+			// ShowBackdrop is inactive -> make backdrop invisible but show underlining
+			finderBackdrop.setColorFilter(Color.TRANSPARENT, Mode.CLEAR);
+			((EditText) finderBar.findViewById(R.id.find_searchbar)).getBackground()
+			.setColorFilter(Properties.appProp.primaryIntColor, Mode.SRC_ATOP);
+			((EditText) finderBar.findViewById(R.id.find_searchbar)).getBackground().setAlpha(255);
+
+
+		}
+
+		// Paint the buttons and text with the user selected color
+		((ImageButton) finderBar.findViewById(R.id.find_back))
+				.setColorFilter(Properties.appProp.primaryIntColor,
+						Mode.MULTIPLY);
+		((ImageButton) finderBar.findViewById(R.id.find_forward))
+				.setColorFilter(Properties.appProp.primaryIntColor,
+						Mode.MULTIPLY);
+		((ImageButton) finderBar.findViewById(R.id.find_exit))
+				.setColorFilter(Properties.appProp.primaryIntColor,
+						Mode.MULTIPLY);
+		((EditText) finderBar.findViewById(R.id.find_searchbar))
+				.setTextColor(Properties.appProp.primaryIntColor);
+
+		bar.addView(finderBar);
+	}
+
+	static public void dismissFindBar(){
+		setUpActionBar();
+
+		CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
+		WV.clearMatches();
+
+		if (WV.getUrl()!=null && WV.getUrl().startsWith("file:///android_asset/")){
+			((TextView) bar.findViewById(R.id.browser_searchbar)).setText(activity.getResources().getString(R.string.urlbardefault));					
+		} else if (WV.getUrl()!=null){
+			((EditText) bar.findViewById(R.id.browser_searchbar)).setText(WV.getUrl().replace("http://", "").replace("https://", ""));					
+		} else {
+			((EditText) bar.findViewById(R.id.browser_searchbar)).setText("");
+		}
 	}
 }

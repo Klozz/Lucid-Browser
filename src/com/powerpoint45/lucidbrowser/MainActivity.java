@@ -1,24 +1,11 @@
 package com.powerpoint45.lucidbrowser;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.List;
 import java.util.Vector;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -36,11 +23,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -99,8 +83,8 @@ public class MainActivity extends BrowserHandler {
 	static Vector <CustomWebView>     webWindows;
 	static public int NavMargine;   //used in CustomWebView
 	public static int StatusMargine;//used in SetupLayouts
-	List<String> responses;
-	SuggestionsArrayAdapter<String> suggestionsAdapter;
+	public static List<String> responses;
+	static BrowserBarAdapter suggestionsAdapter;
 	SystemBarTintManager tintManager;
 	
 	static Dialog dialog;
@@ -120,12 +104,11 @@ public class MainActivity extends BrowserHandler {
 		bar                       = new RelativeLayout(this);
 		actionBar                 = getActionBar();
 		
-		responses    = new Vector<String>(0);
-
 		
 		webLayout                 = (LinearLayout) inflater.inflate(R.layout.page_web, null);
 		browserListViewAdapter    = new BrowserImageAdapter(this);
 		webWindows                = new Vector<CustomWebView>();
+		
 		
 		Point screenSize = new Point();
 		screenSize.x=getWindow().getWindowManager().getDefaultDisplay().getWidth();
@@ -262,24 +245,7 @@ public class MainActivity extends BrowserHandler {
 		
 		
 		
-		((TextView) bar.findViewById(R.id.browser_searchbar)).addTextChangedListener(new TextWatcher() {
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				if (s.toString().compareTo(assetHomePage)==0){
-					((TextView) bar.findViewById(R.id.browser_searchbar)).setText(getResources().getString(R.string.urlbardefault));
-					MainActivity.browserListViewAdapter.notifyDataSetChanged();
-				}
-				
-				new RetrieveSearchTask().execute(s.toString());
-			}
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-			}
-			@Override
-			public void afterTextChanged(Editable s) {
-			}
-		});
+		
 		contentView.addView(webLayout);
 		setContentView(mainView);
 
@@ -303,66 +269,6 @@ public class MainActivity extends BrowserHandler {
 		
 	}
 	
-	class RetrieveSearchTask extends AsyncTask<String, Void, String> {
-		
-	    protected String doInBackground(String... term) {
-	    	String responseString = null;
-	    	
-	    	if (!term[0].equals(getResources().getString(R.string.urlbardefault))){
-		    	HttpClient httpclient = new DefaultHttpClient();
-		        HttpResponse response;
-		        try {
-		            response = httpclient.execute(new HttpGet("http://suggestqueries.google.com/complete/search?client=firefox&q="+URLEncoder.encode(term[0], "utf-8")));
-		            StatusLine statusLine = response.getStatusLine();
-		            if(statusLine.getStatusCode() == HttpStatus.SC_OK){
-		                ByteArrayOutputStream out = new ByteArrayOutputStream();
-		                response.getEntity().writeTo(out);
-		                out.close();
-		                responseString = out.toString();
-		            } else{
-		                //Closes the connection.
-		                response.getEntity().getContent().close();
-		                throw new IOException(statusLine.getReasonPhrase());
-		            }
-		        } catch (ClientProtocolException e) {
-		            //TODO Handle problems..
-		        } catch (IOException e) {
-		            //TODO Handle problems..
-		        }
-	    	}
-	        return responseString;
-	    }
-
-	    protected void onPostExecute(String feed) {
-	    	try {
-	    		if (feed!=null){
-		        	JSONArray jArray = new JSONArray(feed).getJSONArray(1);
-		        	
-		        	
-		        	responses.clear();
-		        	for (int i=0; i< jArray.length(); i++){
-		        		System.out.println("RESPONSE"+i+jArray.getString(i));
-		        		responses.add(jArray.getString(i));
-		        	}
-		        	
-		        	if (suggestionsAdapter==null){
-		        		suggestionsAdapter = new SuggestionsArrayAdapter<String>(MainActivity.activity,
-		                    android.R.layout.simple_dropdown_item_1line, responses);
-		        		((AutoCompleteTextView) bar.findViewById(R.id.browser_searchbar)).setAdapter(suggestionsAdapter);
-		        	}
-		        	else
-		        		suggestionsAdapter.notifyDataSetChanged();
-		        	
-		        	
-		
-	    		}
-	        	
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	    }
-	}
 	
 	public static boolean isDownloadManagerAvailable(Context context) {
 	    try {
@@ -496,71 +402,14 @@ public class MainActivity extends BrowserHandler {
 			}
             break;
 		case R.id.browser_find_on_page:
-			RelativeLayout findView = (RelativeLayout) inflater.inflate(R.layout.find_on_page, null);
-			findView.getBackground().setColorFilter(Properties.appProp.actionBarColor | 0xFF000000, Mode.MULTIPLY);
-			
-			int textColor = Color.rgb(255-Color.red(Properties.appProp.actionBarColor),
-                    255-Color.green(Properties.appProp.actionBarColor),
-                    255-Color.blue(Properties.appProp.actionBarColor));
-			
-			((EditText)findView.findViewById(R.id.find_input)).setTextColor(textColor);
-			((Button)findView.findViewById(R.id.find_back)).setTextColor(textColor);
-			((Button)findView.findViewById(R.id.find_forward)).setTextColor(textColor);
-			
-			((Button)findView.findViewById(R.id.find_back)).setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					WV.findNext(false);
-				}
-			});
-			
-			((Button)findView.findViewById(R.id.find_forward)).setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					WV.findNext(true);
-				}
-			});
-			
-			((EditText)findView.findViewById(R.id.find_input)).addTextChangedListener(new TextWatcher() {
-				
-				@Override
-				public void onTextChanged(CharSequence s, int start, int before, int count) {
-					WV.findAll(s.toString());	
-				}
-				
-				@Override
-				public void beforeTextChanged(CharSequence s, int start, int count,
-						int after) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void afterTextChanged(Editable s) {
-					// TODO Auto-generated method stub
-					
-				}
-			});
-			
-			PopupWindow pw = new PopupWindow(
-					findView, 
-				       android.widget.RelativeLayout.LayoutParams.WRAP_CONTENT, 
-				       android.widget.RelativeLayout.LayoutParams.WRAP_CONTENT, 
-				       true);
-				    // The code below assumes that the root container has an id called 'main'
-			pw.setFocusable(true);
-			pw.setBackgroundDrawable(new ColorDrawable());
-			pw.setOnDismissListener(new OnDismissListener() {
-				
-				@Override
-				public void onDismiss() {
-					WV.findAll("");
-				}
-			});
-			pw.showAsDropDown(bar, Properties.numtodp(5), 0);
-            //WV.findAllAsync(find);
+			SetupLayouts.setUpFindBar();
+			setUpFindBarListeners();
+			suggestionsAdapter = null;
+			// Focus on Find Bar
+			TextView findText = (TextView) bar.findViewById(R.id.find_searchbar);
+			findText.requestFocus();
+			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.showSoftInput(findText, InputMethodManager.SHOW_IMPLICIT);
 			break;
 		case R.id.browser_open_bookmarks:
             startActivity(new Intent(ctxt,BookmarksActivity.class));
@@ -580,10 +429,7 @@ public class MainActivity extends BrowserHandler {
 			android.os.Process.killProcess(android.os.Process.myPid());
 			break;
 		case R.id.browser_exit:
-			if (Properties.webpageProp.clearonexit){
-				clearTraces();
-			}
-			finish();
+			doExiting();
 			break;
 		case R.id.browser_toggle_desktop:
 			mGlobalPrefs.edit().putBoolean("usedesktopview", !Properties.webpageProp.useDesktopView).commit();
@@ -603,6 +449,88 @@ public class MainActivity extends BrowserHandler {
 			}
 			break;
 		}
+	}
+	
+	private void setUpFindBarListeners() {
+
+		final CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
+
+		// Setup Button Listeners
+		((ImageView)bar.findViewById(R.id.find_exit)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				SetupLayouts.dismissFindBar();
+			}
+		});	
+
+		((ImageView)bar.findViewById(R.id.find_back)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				WV.findNext(false);
+			}
+		});
+
+		((ImageView)bar.findViewById(R.id.find_forward)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				WV.findNext(true);
+			}
+		});
+
+		((EditText)bar.findViewById(R.id.find_searchbar)).addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				WV.findAll(s.toString());
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+	}
+	
+	private void exitBrowser(){
+		if (Properties.webpageProp.clearonexit){
+			clearTraces();
+		}
+		finish();
+	}
+
+	private void doExiting() {
+		if (Properties.webpageProp.exitconfirmation){
+			exitBrowserWithConfirmation();
+		} else {
+			exitBrowser();
+		}
+	}
+	
+	private void exitBrowserWithConfirmation() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.activity);
+		builder.setMessage(R.string.confirm_exit_text)
+		       .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		        	   exitBrowser();
+		           }
+		       })
+		       .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		           }
+		       });
+		Dialog d = builder.create();
+		d.show();
 	}
 	
 	public void removeBookmark(int pos){
@@ -804,40 +732,26 @@ public class MainActivity extends BrowserHandler {
 			return true;
         }
 		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-			CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
+			//Finder is active, close it then
+			 if (bar.findViewById(R.id.finder)!=null){
+			    SetupLayouts.dismissFindBar();
+			 	return true;
+			 }else{
 			
-			if (WV!=null){
-				if(WV.canGoBack())
-	            {
-	            	if (!MainActivity.mainView.isDrawerOpen(MainActivity.browserListView))
-	            		WV.goBack();
-	                return true;
-	            }
-			}
-			if ((WV!=null && WV.canGoBack()==false) || webWindows.size()==0){
-				// TODO Works fine now, but unless page isn't reloaded, user won't notice cleared cookies
-				if (Properties.webpageProp.clearonexit){
-					clearTraces();
-				}
+				CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
 				
-				if (Properties.webpageProp.exitconfirmation){
-				AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.activity);
-		        builder.setMessage(R.string.confirm_exit_text)
-		               .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-		                   public void onClick(DialogInterface dialog, int id) {
-		                       finish();
-		                   }
-		               })
-		               .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-		                   public void onClick(DialogInterface dialog, int id) {
-		                   }
-		               });
-		        Dialog d = builder.create();
-		        d.show();
-				}else{
-					finish();
+				if (WV!=null){
+					if(WV.canGoBack())
+		            {
+		            	if (!MainActivity.mainView.isDrawerOpen(MainActivity.browserListView))
+		            		WV.goBack();
+		                return true;
+		            }
 				}
-				
+				if ((WV!=null && WV.canGoBack()==false) || webWindows.size()==0){
+					doExiting();
+					
+				}
 			}
 				return true;
         }
