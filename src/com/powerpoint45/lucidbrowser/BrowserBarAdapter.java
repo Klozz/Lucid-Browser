@@ -1,9 +1,9 @@
 package com.powerpoint45.lucidbrowser;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Locale;
 import java.util.Vector;
 
 import org.apache.http.HttpResponse;
@@ -64,7 +64,11 @@ public class BrowserBarAdapter extends ArrayAdapter<String> {
     		    	HttpClient httpclient = new DefaultHttpClient();
     		        HttpResponse response;
     		        try {
-    		            response = httpclient.execute(new HttpGet("http://suggestqueries.google.com/complete/search?client=firefox&q="+URLEncoder.encode(constraint.toString(), "utf-8")));
+    		        	String url = String.format("https://www.google.com/complete/search?hl=%s&client=firefox&q=%s",
+    		        			Locale.getDefault().getCountry(),
+    		        			URLEncoder.encode(constraint.toString(), "utf-8"));
+    		        	
+    		            response = httpclient.execute(new HttpGet(url));
     		            StatusLine statusLine = response.getStatusLine();
     		            if(statusLine.getStatusCode() == HttpStatus.SC_OK){
     		                responseString = EntityUtils.toString(response.getEntity(), "UTF-8");
