@@ -410,9 +410,15 @@
 <string name="apply">Anwenden</string>
 <string name="processing">Symbolthema wird übernommen</string>
 
-<string name="remove_browsing_traces">Browserspuren entfernen...</string>
+<string name="no_icons">Thema enthält keine Symbole</string>
+<string name="pick_icon">Symbol wählen</string>
+<string name="gallery">Galerie</string>
+<string name="restart_launcher">Launcher neustarten</string>
 
-
+<string name="remove_browsing_traces">Browserspuren entfernen&#8230;</string>
+<string name="disable_suggestions_title">Suchvorschläge deaktivieren</string>
+<string name="search_hidden_apps_title">Verborgene Apps finden</string>
+<string name="search_hidden_apps_summary">Verborgene Apps bei der Suche im Drawer einbeziehen</string>
 
 
 

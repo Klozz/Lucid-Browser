@@ -1,9 +1,9 @@
 package com.powerpoint45.lucidbrowser;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Locale;
 import java.util.Vector;
 
 import org.apache.http.HttpResponse;
@@ -22,29 +22,11 @@ import android.widget.Filter;
 
 public class BrowserBarAdapter extends ArrayAdapter<String> {
     private List<String> suggestions;
-    private int viewResourceId;
 
     public BrowserBarAdapter(Context context, int viewResourceId, List<String> items) {
         super(context, R.layout.browser_bar_suggestion_item);
         this.suggestions =new Vector<String>();
     }
-
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//        View v = convertView;
-//        if (v == null) {
-//            LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            v = vi.inflate(viewResourceId, null);
-//        }
-//        String customer = items.get(position);
-//        if (customer != null) {
-//            TextView customerNameLabel = (TextView) v.findViewById(R.id.customerNameLabel);
-//            if (customerNameLabel != null) {
-////              Log.i(MY_DEBUG_TAG, "getView Customer Name:"+customer.getName());
-//                customerNameLabel.setText(customer.getName());
-//            }
-//        }
-//        return v;
-//    }
 
     @Override
     public Filter getFilter() {
@@ -64,7 +46,11 @@ public class BrowserBarAdapter extends ArrayAdapter<String> {
     		    	HttpClient httpclient = new DefaultHttpClient();
     		        HttpResponse response;
     		        try {
-    		            response = httpclient.execute(new HttpGet("http://suggestqueries.google.com/complete/search?client=firefox&q="+URLEncoder.encode(constraint.toString(), "utf-8")));
+    		        	String url = String.format("https://www.google.com/complete/search?hl=%s&client=firefox&q=%s",
+    		        			Locale.getDefault().getCountry(),
+    		        			URLEncoder.encode(constraint.toString(), "utf-8"));
+    		        	
+    		            response = httpclient.execute(new HttpGet(url));
     		            StatusLine statusLine = response.getStatusLine();
     		            if(statusLine.getStatusCode() == HttpStatus.SC_OK){
     		                responseString = EntityUtils.toString(response.getEntity(), "UTF-8");

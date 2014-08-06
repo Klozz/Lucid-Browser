@@ -405,5 +405,10 @@
 <string name="apply">Aplicar</string>
 <string name="processing">Procesando temas de iconos</string>
 
+<string name="no_icons">El tema no contiene íconos</string>
+<string name="pick_icon">Selecciona ícono</string>
+<string name="gallery">Galería</string>
+<string name="restart_launcher">Reiniciar launcher</string>
+
 
 </resources>

@@ -384,6 +384,9 @@
 <string name="apply">Applica</string>
 <string name="processing">Processing icon theme</string>
 
-
+<string name="no_icons">il tema non contiene icone</string>
+<string name="pick_icon">Scegli Icona</string>
+<string name="gallery">Galleria</string>
+<string name="restart_launcher">Riavvia Launcher</string>
 
 </resources>
