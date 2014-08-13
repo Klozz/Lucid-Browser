@@ -73,7 +73,6 @@ public class BrowserBarAdapter extends ArrayAdapter<String> {
 		        	
 		        	
 		        	for (int i=0; i< jArray.length(); i++){
-		        		System.out.println("RESPONSE"+i+jArray.getString(i));
 		        		suggestions.add(jArray.getString(i));
 		        	}
 	    	    	

@@ -355,6 +355,8 @@
 <string name="remove_browsing_traces">Remove browser traces&#8230;</string>
 
 <string name="disable_suggestions_title">Disable search suggestions</string>
-<string name="disable_suggestions_summary"></string>
+
+<string name="disable_ads">Disable Ads</string>
+
 
 </resources>

@@ -147,7 +147,6 @@
             <CheckBoxPreference
                 android:defaultValue="false"
                 android:key="disablesuggestions"
-                android:summary="@string/disable_suggestions_summary"
                 android:title="@string/disable_suggestions_title" />
             <CheckBoxPreference
                 android:defaultValue="false"
@@ -174,6 +173,10 @@
                 android:key="systempersistent"
                 android:summary="@string/persistentsummary"
                 android:title="@string/persistenttitle" />
+            <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="disableads"
+                android:title="@string/disable_ads" />
         </PreferenceCategory>
     </PreferenceScreen>
 
@@ -186,5 +189,7 @@
             android:action="android.intent.action.VIEW"
             android:data="http://play.google.com/store/apps/details?id=com.powerpoint45.launcherpro" />
     </Preference>
+
+
 
 </PreferenceScreen>

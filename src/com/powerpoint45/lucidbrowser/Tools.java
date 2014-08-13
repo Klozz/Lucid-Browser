@@ -16,7 +16,10 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup.LayoutParams;
 
 public class Tools {
 
@@ -223,14 +226,14 @@ public class Tools {
 	
 	
 	@SuppressLint("NewApi")
-	   public boolean hasSoftNavigation(Context context)
+	   public static boolean hasSoftNavigation(Context context)
 	   {
 		   if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH){
 		        return !ViewConfiguration.get(context).hasPermanentMenuKey();
 		    }
 		    return true;
 	   }
-	public int getStatusBarHeight(Resources res) {
+	public static int getStatusBarHeight(Resources res) {
         int result = 0;
         int resourceId = res.getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
@@ -238,7 +241,7 @@ public class Tools {
         } 
         return result;
   } 
-  public int getNavBarHeight(Resources res){
+  public static int getNavBarHeight(Resources res){
 	   int resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android");
 	   if (resourceId > 0) {
 	       return res.getDimensionPixelSize(resourceId);
@@ -251,6 +254,44 @@ public class Tools {
           return -1;
       }
       return px / context.getResources().getDisplayMetrics().density;
+  }
+  
+  public static int getStatusMargine(){
+	  int margine =0;
+		int id = MainActivity.activity.getResources().getIdentifier("config_enableTranslucentDecor", "bool", "android");
+		if (Properties.appProp.transparentNav || Properties.appProp.TransparentStatus)
+			if (id != 0) {
+		        if (Properties.appProp.fullscreen && Properties.appProp.transparentNav){
+		        	//do nothing
+		        	Log.d("LB", "1");
+		        }else if (Properties.appProp.fullscreen){
+		        	margine=Properties.ActionbarSize;
+		        	Log.d("LB", "2");
+		        }else if (Properties.appProp.transparentNav){
+		        	Log.d("LB", "3");
+		        	margine=Properties.ActionbarSize+Tools.getStatusBarHeight(MainActivity.activity.getResources());
+		        }else{
+		        	Log.d("LB", "4");
+		        	margine=Properties.ActionbarSize+Tools.getStatusBarHeight(MainActivity.activity.getResources());
+		        }
+
+		        if (Properties.appProp.TransparentStatus&&Properties.appProp.fullscreen){
+		        	Log.d("LB", "5");
+		        	margine=Properties.ActionbarSize;
+		        }
+		    }
+		return margine;
+	}
+  
+  public static int getActionBarSize(){
+	  int actionBarHeight = LayoutParams.MATCH_PARENT;//fallback size
+		TypedValue tv = new TypedValue();
+		if (MainActivity.activity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
+		{
+		    actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,MainActivity.activity.getResources().getDisplayMetrics());
+		}
+		
+		return actionBarHeight;
   }
 
   

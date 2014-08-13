@@ -420,6 +420,14 @@
 <string name="search_hidden_apps_title">Verborgene Apps finden</string>
 <string name="search_hidden_apps_summary">Verborgene Apps bei der Suche im Drawer einbeziehen</string>
 
+<string name="history">Verlauf</string>
+<string name="disable_ads">Werbung deaktivieren</string>
+<string name="action_openrecents">Anwendungsverlauf öffnen</string>
+<string name="action_opennotificationpanel">Benachrichtigungsleiste öffnen</string>
+
+
+
+
 
 
 </resources>

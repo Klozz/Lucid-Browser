@@ -16,6 +16,7 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.view.View;
 import android.widget.Toast;
 
 public class SettingsV2 extends PreferenceActivity {
@@ -92,8 +93,27 @@ public class SettingsV2 extends PreferenceActivity {
 		
 		super.onCreate(savedInstanceState);
 		MainActivity.activity = this;
+		setContentView(R.layout.preferences_layout);
 		addPreferencesFromResource(R.xml.settings_v2);
-
+		
+		if (globalPref.getBoolean("disableads", false)){
+			findViewById(R.id.adPreference1).setVisibility(View.GONE);
+			getPreferenceScreen().removePreference((Preference) findPreference("pro"));
+		}
+	 
+		((Preference) findPreference("disableads"))
+		.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			public boolean onPreferenceClick(Preference preference) {
+				
+				if (globalPref.getBoolean("disableads", false)){
+					findViewById(R.id.adPreference1).setVisibility(View.GONE);
+					getPreferenceScreen().removePreference((Preference) findPreference("pro"));
+				}
+				return false;
+			}
+		});
+		
+		
 		((Preference) findPreference("holodark"))
 		.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			public boolean onPreferenceClick(Preference preference) {

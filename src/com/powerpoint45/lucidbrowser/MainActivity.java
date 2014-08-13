@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
@@ -33,6 +34,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -80,7 +82,7 @@ public class MainActivity extends BrowserHandler {
 	public static int StatusMargine;//used in SetupLayouts
 	public static List<String> responses;
 	static BrowserBarAdapter suggestionsAdapter;
-	SystemBarTintManager tintManager;
+	static SystemBarTintManager tintManager;
 	
 	static Dialog dialog;
 	
@@ -140,7 +142,6 @@ public class MainActivity extends BrowserHandler {
 					Properties.appProp.TransparentStatus=false;
 				}
 		
-		Tools tools = new Tools();
 		tintManager = new SystemBarTintManager(activity);
 		
 		if (Properties.appProp.transparentNav || Properties.appProp.TransparentStatus)
@@ -150,16 +151,13 @@ public class MainActivity extends BrowserHandler {
 		        if (Properties.appProp.TransparentStatus)
 		        	getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 		        if (Properties.appProp.fullscreen && Properties.appProp.transparentNav){
-		        	if (tools.hasSoftNavigation(activity))
-		        		NavMargine= tools.getNavBarHeight(getResources());
-		        }else if (Properties.appProp.fullscreen){
-		        	StatusMargine=Properties.ActionbarSize;
+		        	if (Tools.hasSoftNavigation(activity))
+		        		NavMargine= Tools.getNavBarHeight(getResources());
 		        }else if (Properties.appProp.transparentNav){
-		        	if (tools.hasSoftNavigation(activity))
-		        		NavMargine= tools.getNavBarHeight(getResources());
-		        	StatusMargine=Properties.ActionbarSize+tools.getStatusBarHeight(getResources());
-		        }else
-		        	StatusMargine=Properties.ActionbarSize+tools.getStatusBarHeight(getResources());
+		        	if (Tools.hasSoftNavigation(activity))
+		        		NavMargine= Tools.getNavBarHeight(getResources());
+		        }
+		        
 		        if (Properties.appProp.TransparentStatus){
 		        	tintManager = new SystemBarTintManager(this);
 		        	tintManager.setStatusBarTintEnabled(true);
@@ -168,10 +166,9 @@ public class MainActivity extends BrowserHandler {
 		        		tintManager.setTintAlpha(0.0f);
 		        	
 		        }
-		        
-		        if (Properties.appProp.TransparentStatus&&Properties.appProp.fullscreen)
-		        	StatusMargine=Properties.ActionbarSize;
-		    }
+		   }
+		
+		StatusMargine = Tools.getStatusMargine();
 		
 		
 		SetupLayouts.setuplayouts();
@@ -253,11 +250,11 @@ public class MainActivity extends BrowserHandler {
 		        if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
 		        	if (tintManager!=null && Properties.appProp.TransparentStatus)
 		        		tintManager.setStatusBarTintEnabled(true);
-		        	Properties.appProp.fullscreen = true;
+		        	//Properties.appProp.fullscreen = true;
 		        } else {
 		        	if (tintManager!=null && Properties.appProp.TransparentStatus)
 		        		tintManager.setStatusBarTintEnabled(false);
-		        	Properties.appProp.fullscreen = false;
+		        	//Properties.appProp.fullscreen = false;
 		        }
 		    }
 		});
@@ -816,6 +813,26 @@ public class MainActivity extends BrowserHandler {
             }
         }
  };
+ 
+ @Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	  super.onConfigurationChanged(newConfig);
+	  if (Properties.appProp.transparentNav || Properties.appProp.TransparentStatus){
+		 
+
+		  CustomWebView WV = (CustomWebView) webLayout.findViewById(R.id.browser_page);
+		  if (WV!=null && WV.isVideoPlaying()){
+			  Log.d("LB", "do nothing");
+		  }else{
+			  Properties.ActionbarSize= Tools.getActionBarSize();
+			  StatusMargine = Tools.getStatusMargine();
+			  Log.d("LB", "SM"+StatusMargine+"  "+"ABS"+Properties.ActionbarSize);
+			  browserListView.setPadding(0, 0, 0, NavMargine+StatusMargine);
+			  browserListView.setY(StatusMargine);			
+			  MainActivity.webLayout.setPadding(0, MainActivity.StatusMargine, 0, 0);
+		  }
+		}
+	}
  
  @Override
  	public void onSaveInstanceState(Bundle savedInstanceState) {
