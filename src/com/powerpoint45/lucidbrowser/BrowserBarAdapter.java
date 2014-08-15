@@ -91,7 +91,7 @@ public class BrowserBarAdapter extends ArrayAdapter<String> {
 		        	
 		        	
 		        	for (int i=0; i< jArray.length(); i++){
-		        		System.out.println("RESPONSE"+i+jArray.getString(i));
+		        		//System.out.println("RESPONSE"+i+jArray.getString(i));
 		        		suggestions.add(jArray.getString(i));
 		        	}
 	    	    	
@@ -116,7 +116,7 @@ public class BrowserBarAdapter extends ArrayAdapter<String> {
 	            if(results != null && results.count > 0) {
 	                clear();
 	                for (String c : filteredList) {
-	                	System.out.println("SUGGEST" + c);
+	                	//System.out.println("SUGGEST" + c);
 	                    add(c);
 	                }
 	                notifyDataSetChanged();

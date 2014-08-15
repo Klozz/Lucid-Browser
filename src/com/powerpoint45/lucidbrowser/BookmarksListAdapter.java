@@ -1,8 +1,7 @@
 package com.powerpoint45.lucidbrowser;
 
-import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -13,14 +12,20 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.FrameLayout.LayoutParams;
+import bookmarkModel.Bookmark;
+import bookmarkModel.BookmarkFolder;
 
 public class BookmarksListAdapter extends BaseAdapter {
 	URL url;
+	List<Bookmark> bookmarks = BookmarksActivity.bookmarksMgr.displayedFolder.getContainedBookmarks();
+	
+	public void setBookmarkList(List<Bookmark> newBookmarkList){
+		this.bookmarks = newBookmarkList;
+	}
+	
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
-		return MainActivity.mPrefs.getInt("numbookmarkedpages", 0);
+		return bookmarks.size();
 	}
 
 	@Override
@@ -37,37 +42,36 @@ public class BookmarksListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int arg0, View arg1, ViewGroup arg2) {
-		// TODO Auto-generated method stub
-		int bookmarkStyle;
+		RelativeLayout RL = (RelativeLayout) MainActivity.inflater.inflate(
+				R.layout.bookmark_item, null);
 
-		if (Properties.appProp.holoDark){
-			bookmarkStyle = R.layout.bookmark_item_dark;
+		if (Properties.appProp.holoDark) {
+			((TextView)(RL.findViewById(R.id.bookmark_title))).setTextColor(Color.WHITE);
+			((TextView)(RL.findViewById(R.id.bookmark_url_title))).setTextColor(Color.WHITE);
 		} else {
-			bookmarkStyle = R.layout.bookmark_item;			
+		// Use sight theme
 		}
 		
-		RelativeLayout RL = (RelativeLayout) MainActivity.inflater.inflate(bookmarkStyle, null);
+		Bookmark bookmark = bookmarks.get(arg0);
+		String bookmarkTitle = bookmark.getDisplayName();
+		String bookmarkURL = bookmark.getUrl();
 		
-		((TextView) RL.findViewById(R.id.bookmark_title)).setText(MainActivity.mPrefs.getString("bookmarktitle"+arg0, "null"));
-		if (MainActivity.mPrefs.getString("bookmark"+arg0, "null").compareTo(MainActivity.assetHomePage)==0)
+		((TextView) RL.findViewById(R.id.bookmark_title)).setText(bookmarkTitle);
+		
+		if (bookmarkURL.compareTo(MainActivity.assetHomePage)==0)
 			((TextView) RL.findViewById(R.id.bookmark_url_title)).setText("about:home");
 		else
-			((TextView) RL.findViewById(R.id.bookmark_url_title)).setText(MainActivity.mPrefs.getString("bookmark"+arg0, "null"));
+			((TextView) RL.findViewById(R.id.bookmark_url_title)).setText(bookmarkURL);
 		
+		//Try to set Favicon
 		try {
-			url = new URL(MainActivity.mPrefs.getString("bookmark"+arg0, ""));
-		} catch (MalformedURLException e) {
+			((ImageView) RL.findViewById(R.id.bookmark_icon)).setImageBitmap(BitmapFactory.decodeFile(bookmark.getPathToFavicon()));
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		if (url!=null && url.getHost().compareTo("")!=0 && url.getPath().compareTo(MainActivity.assetHomePage)!=0 && new File(BookmarksActivity.activity.getApplicationInfo().dataDir+"/icons/"+ url.getHost()).exists())
-			((ImageView) RL.findViewById(R.id.bookmark_icon)).setImageBitmap(BitmapFactory.decodeFile(BookmarksActivity.activity.getApplicationInfo().dataDir+"/icons/"+ url.getHost()));
-		else{
-			if (!Properties.appProp.holoDark)
-				((ImageView) RL.findViewById(R.id.bookmark_icon)).setColorFilter(Color.BLACK,Mode.MULTIPLY);
-		}
-		RL.setTag(MainActivity.mPrefs.getString("bookmark"+arg0, "www.google.com"));
+		RL.setTag(bookmark);
 		return RL;
 	}
 

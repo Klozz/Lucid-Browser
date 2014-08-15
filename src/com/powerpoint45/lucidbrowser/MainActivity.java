@@ -24,7 +24,6 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -48,20 +47,18 @@ import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 import android.webkit.WebViewDatabase;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.PopupWindow.OnDismissListener;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import bookmarkModel.Bookmark;
+import bookmarkModel.BookmarksManager;
 
 public class MainActivity extends BrowserHandler {
 	public static Activity           activity;
@@ -94,6 +91,7 @@ public class MainActivity extends BrowserHandler {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		activity     = this;
 		ctxt         = getApplicationContext();
 		mPrefs       = getSharedPreferences("pref",0);
@@ -104,12 +102,25 @@ public class MainActivity extends BrowserHandler {
 		bar                       = new RelativeLayout(this);
 		actionBar                 = getActionBar();
 		
-		
 		webLayout                 = (LinearLayout) inflater.inflate(R.layout.page_web, null);
 		browserListViewAdapter    = new BrowserImageAdapter(this);
 		webWindows                = new Vector<CustomWebView>();
 		
-		
+		//Initialize BookmarksManager
+		if (BookmarksActivity.bookmarksMgr ==  null){
+			BookmarksManager loadedBookmarksMgr = BookmarksManager.loadBookmarksManager();
+			if (loadedBookmarksMgr == null){
+				System.out.println("CAN'T LOAD BOOKMARKS MGR. MADE NEW ONE");
+				BookmarksActivity.bookmarksMgr = new BookmarksManager();
+			} else {
+				System.out.println("LOADED BOOKMARKS MGR!");
+				BookmarksActivity.bookmarksMgr = loadedBookmarksMgr;
+			}
+		} else {
+			System.out.println("ITS NOT NULL!!");
+		}
+
+		// Main Activity
 		Point screenSize = new Point();
 		screenSize.x=getWindow().getWindowManager().getDefaultDisplay().getWidth();
 		screenSize.y=getWindow().getWindowManager().getDefaultDisplay().getHeight();
@@ -118,8 +129,6 @@ public class MainActivity extends BrowserHandler {
 			assetHomePage = "file:///android_asset/home_small.html";
 		else
 			assetHomePage = "file:///android_asset/home.html";
-		
-		
 		
 		Properties.update_preferences();
 		
@@ -219,13 +228,6 @@ public class MainActivity extends BrowserHandler {
         	}
         }
 		
-		
-		
-		
-		
-		
-		
-		
 		if (Properties.appProp.systemPersistent){
 			Intent notificationIntent = new Intent(this, MainActivity.class);  
 			PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,   
@@ -242,9 +244,6 @@ public class MainActivity extends BrowserHandler {
 			    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 			mNotificationManager.notify(1, mBuilder.build());
 		}
-		
-		
-		
 		
 		contentView.addView(webLayout);
 		setContentView(mainView);
@@ -312,6 +311,12 @@ public class MainActivity extends BrowserHandler {
 			WV.loadUrl("http://www.google.com/search?q="+q.replace(" ", "+"));
 	}
 	
+	@Override
+	public void onPause(){
+		BookmarksActivity.bookmarksMgr.saveBookmarksManager();
+		super.onPause();
+	}
+	
 	public void browserActionClicked(View v){
 		Handler handler=new Handler();
  		Runnable r=new Runnable(){
@@ -355,50 +360,43 @@ public class MainActivity extends BrowserHandler {
 				WV.reload();
 			break;
 		case R.id.browser_bookmark:
-			SharedPreferences.Editor ed = mPrefs.edit();
 			ImageButton BI = (ImageButton) MainActivity.bar.findViewById(R.id.browser_bookmark);
-			int numBooks=MainActivity.mPrefs.getInt("numbookmarkedpages", 0);
-			boolean isBook = false;
-			int markedBook = 0;
-			for (int i=0;i<numBooks;i++){
-				if (WV!=null)
-					if (WV.getUrl()!=null)
-	    				if (MainActivity.mPrefs.getString("bookmark"+i, "").compareTo(WV.getUrl())==0){
-	    					BI.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
-	    					isBook=true;
-	    					markedBook = i;
-	    					break;
-	    				}
-			}
-			if (isBook){
-				BI.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
-				removeBookmark(markedBook);
+			
+			// Find out if already a bookmark
+			String url = WV.getUrl();
+			if (WV!=null && url!=null){
+				String bookmarkName = BookmarksActivity.bookmarksMgr.root.containsBookmarkDeep(WV.getUrl());
 				
-			    if (BI!=null)
-	    			BI.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
-			}else{
-				try{
-					
-					Bitmap b = WV.getFavicon();
-					if (b.getRowBytes()>1){
-						new File(getApplicationInfo().dataDir+"/icons/").mkdirs();
-						URL url = new URL(WV.getUrl());
-						FileOutputStream out = new FileOutputStream(getApplicationInfo().dataDir+"/icons/" + url.getHost());
-						WV.getFavicon().compress(Bitmap.CompressFormat.PNG, 100, out);
-						out.flush();
-					    out.close();
-					}else{
-						
-					}
-				}catch(Exception e){e.printStackTrace();};
-				
-				ed.putString("bookmark"+numBooks,WV.getUrl());
-			    ed.putString("bookmarktitle"+numBooks,WV.getTitle());
-			    ed.putInt("numbookmarkedpages",numBooks+1);
-			    ed.commit();
-			    
-			    if (BI!=null)
-	    			BI.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
+				if (bookmarkName != null){
+					BookmarksActivity.bookmarksMgr.root.removeBookmarkDeep(bookmarkName);
+					BI.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
+					System.out.println("BOOKMARK REMOVED!!");
+				} else {
+					Bookmark newBookmark = new Bookmark(url,WV.getTitle());
+
+					try{
+						Bitmap b = WV.getFavicon();
+						if (b.getRowBytes()>1){
+							new File(getApplicationInfo().dataDir+"/icons/").mkdirs();
+							URL wvURL = new URL(url);
+							String pathToFavicon = getApplicationInfo().dataDir+"/icons/" + wvURL.getHost();
+							FileOutputStream out = new FileOutputStream(pathToFavicon);
+							WV.getFavicon().compress(Bitmap.CompressFormat.PNG, 100, out);
+							out.flush();
+							out.close();
+							newBookmark.setPathToFavicon(pathToFavicon);
+						}else{
+
+						}
+					}catch(Exception e){
+						e.printStackTrace();
+					};
+
+					BookmarksActivity.bookmarksMgr.root.addBookmark(newBookmark);
+					BI.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
+					System.out.println("BOOKMARK SET!!");
+				}
+
 			}
             break;
 		case R.id.browser_find_on_page:
@@ -500,6 +498,16 @@ public class MainActivity extends BrowserHandler {
 
 			}
 		});
+		
+		((EditText)bar.findViewById(R.id.find_searchbar)).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mainView.closeDrawers();
+			}
+		});
+		
+		
 	}
 	
 	private void exitBrowser(){
@@ -533,18 +541,6 @@ public class MainActivity extends BrowserHandler {
 		d.show();
 	}
 	
-	public void removeBookmark(int pos){
-		int numBooks=MainActivity.mPrefs.getInt("numbookmarkedpages", 0);
-		SharedPreferences.Editor ed = MainActivity.mPrefs.edit();
-		ed.putString("bookmark"+pos,MainActivity.mPrefs.getString("bookmark"+(numBooks-1), "null"));
-	    ed.putString("bookmarktitle"+pos,MainActivity.mPrefs.getString("bookmarktitle"+(numBooks-1), "null"));
-		
-	    ed.remove("bookmark"+numBooks);
-	    ed.remove("bookmarktitle"+numBooks);
-	    ed.putInt("numbookmarkedpages",numBooks-1);
-	    ed.commit();
-	}
-	
 	public void closeCurrentTab(View v){
 		int pos = (Integer) v.getTag();
 		ProgressBar PB = (ProgressBar) MainActivity.webLayout.findViewById(R.id.webpgbar);
@@ -570,22 +566,17 @@ public class MainActivity extends BrowserHandler {
 					}
 					System.out.println("CLOSED"+ webWindows.get(pos-1).getProgress());
 					
-					
-					int numBooks=MainActivity.mPrefs.getInt("numbookmarkedpages", 0);
-					boolean isBook = false;
-					for (int i=0;i<numBooks;i++){
-						if (webWindows.get(pos-1)!=null)
-							if (webWindows.get(pos-1).getUrl()!=null)
-			    				if (MainActivity.mPrefs.getString("bookmark"+i, "").compareTo(webWindows.get(pos-1).getUrl())==0){
-			    					BookmarkButton.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
-			    					isBook=true;
-			    					break;
-			    				}
+					// Find out if already a bookmark
+					String bookmarkName = null;
+					if (webWindows.get(pos-1)!=null && webWindows.get(pos-1).getUrl()!=null){
+						bookmarkName = BookmarksActivity.bookmarksMgr.root.containsBookmarkDeep(webWindows.get(pos-1).getUrl());
 					}
-					if (!isBook){
+					
+					if (bookmarkName!=null){
+						BookmarkButton.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
+					} else {
 						BookmarkButton.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
 					}
-					
 				}
 				else{
 					((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
@@ -802,22 +793,6 @@ public class MainActivity extends BrowserHandler {
         	if (msg.what == 1) {//toast
                 String message = (String)msg.obj;
                 Toast.makeText(activity, message , Toast.LENGTH_LONG).show();
-            }
-            if (msg.what == 3) {//bookmark dialog
-            	dialog = new Dialog(activity);
-				dialog.setTitle(R.string.bookmarks);
-				int numBooks=MainActivity.mPrefs.getInt("numbookmarkedpages", 0);
-				
-				if (numBooks==0){
-					RelativeLayout noBooks = (RelativeLayout) MainActivity.inflater.inflate(R.layout.empty_bookmarks_item, null);					
-					dialog.setContentView(noBooks);
-				} else {
-					ListView lv = new ListView(activity);
-					lv.setAdapter(new BookmarksListAdapter());
-					dialog.setContentView(lv);					
-				}
-				
-				dialog.show();
             }
         }
  };
