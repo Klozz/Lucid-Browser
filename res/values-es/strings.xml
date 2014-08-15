@@ -405,5 +405,21 @@
 <string name="apply">Aplicar</string>
 <string name="processing">Procesando temas de iconos</string>
 
+<string name="no_icons">El tema no contiene íconos</string>
+<string name="pick_icon">Selecciona ícono</string>
+<string name="gallery">Galería</string>
+<string name="restart_launcher">Reiniciar launcher</string>
+
+<string name="play_store">Play Store</string>
+<string name="disable_suggestions_title">Desactiva sugerencia en búsqueda</string>
+<string name="search_hidden_apps_title">Busca aplicaciones ocultas</string>
+<string name="search_hidden_apps_summary">Muestra aplicaciones ocultas cuando se busca</string>
+<string name="remove_browsing_traces">Borrar huellas del navegador&#8230;</string>
+<string name="history">Historial</string>
+<string name="disable_ads">Desactivar anuncios</string>
+<string name="action_openrecents">Abrir recientes</string>
+<string name="action_opennotificationpanel">Abrir panel de notificaciones</string>
+
+
 
 </resources>

@@ -7,6 +7,7 @@ import java.util.Date;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.DownloadManager;
 import android.app.DownloadManager.Request;
 import android.content.Context;
@@ -20,6 +21,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
@@ -43,7 +45,7 @@ public class CustomWebView extends WebView {
 	public CustomWebView(Context context, AttributeSet set, String url) {
 		super(context, set);
 		this.setId(R.id.browser_page);
-		setLayerType(View.LAYER_TYPE_HARDWARE, null);
+		//setLayerType(View.LAYER_TYPE_HARDWARE, null);
 		if (url == null)
 			this.loadUrl(MainActivity.mPrefs.getString("browserhome",
 					MainActivity.assetHomePage));
@@ -52,7 +54,7 @@ public class CustomWebView extends WebView {
 
 		if (Properties.webpageProp.useDesktopView) {
 			this.getSettings().setUserAgentString(
-					createUserAgentString( "desktop"));
+					createUserAgentString("desktop"));
 			this.getSettings().setLoadWithOverviewMode(true);
 		} else {
 			this.getSettings().setUserAgentString(
@@ -87,7 +89,6 @@ public class CustomWebView extends WebView {
 			this.getSettings().setLoadsImagesAutomatically(true);
 		}
 
-		this.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 		this.getSettings().setPluginState(PluginState.ON);
 		this.getSettings().setDomStorageEnabled(true);
 		this.getSettings().setBuiltInZoomControls(true);
@@ -108,8 +109,7 @@ public class CustomWebView extends WebView {
 		
 		this.setLayoutParams(new RelativeLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-		this.setLayoutParams(new RelativeLayout.LayoutParams(
-				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+		
 		((Activity) MainActivity.activity).registerForContextMenu(this);
 		this.setWebViewClient(new WebViewClient() {
 			@Override
@@ -122,6 +122,7 @@ public class CustomWebView extends WebView {
 							.parse(url));
 					intent.putExtra("tabNumber", MainActivity.getTabNumber());
 					MainActivity.activity.startActivity(intent);
+					System.out.println("Play Store!!");
 					return true;
 				}
 
@@ -169,13 +170,19 @@ public class CustomWebView extends WebView {
 					intent.putExtra("tabNumber", MainActivity.getTabNumber());
 					MainActivity.activity.startActivity(intent);
 					return true;
-				}else if (url.startsWith("tel:")) {
+				}
+				else if (url.startsWith("tel:")) {
 
 					Intent intent = new Intent(Intent.ACTION_VIEW, Uri
 							.parse(url));
 					intent.putExtra("tabNumber", MainActivity.getTabNumber());
 					MainActivity.activity.startActivity(intent);
 					return true;
+				}
+				else if (url.startsWith("rtsp://")) {
+				    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+				    MainActivity.activity.startActivity(intent);
+				    return true;
 				}
 				return false;
 			}
@@ -199,15 +206,10 @@ public class CustomWebView extends WebView {
 					IB.setImageResource(R.drawable.btn_toolbar_stop_loading_normal);
 				}
 			}
-
+			
+			
+			@Override
 			public void onPageFinished(WebView view, String url) {
-				if (Properties.appProp.transparentNav)
-		        	CustomWebView.this.loadUrl("javascript:(function() { " +  
-								 "document.body.style.paddingBottom='+"+MainActivity.NavMargine+"px';"+
-								 "document.querySelector('footer').style.paddingBottom='"+MainActivity.NavMargine+"px';"+
-								 "document.getElementById('footer').style.paddingBottom='"+MainActivity.NavMargine+"px';"+
-			                    "})()");
-
 				if (PB == null)
 					PB = (ProgressBar) MainActivity.webLayout
 							.findViewById(R.id.webpgbar);
@@ -271,7 +273,8 @@ public class CustomWebView extends WebView {
 														.replace("http://", "")
 														.replace("https://", ""));
 								}
-					PB.setVisibility(ProgressBar.INVISIBLE);
+					if (PB!=null)
+						PB.setVisibility(ProgressBar.INVISIBLE);
 
 					ImageButton IB = (ImageButton) MainActivity.bar
 							.findViewById(R.id.browser_refresh);
@@ -297,7 +300,7 @@ public class CustomWebView extends WebView {
 				}
 
 			}
-
+			
 			@Override
 			public void onReceivedSslError(WebView view,
 					SslErrorHandler handler, SslError error) {
@@ -307,7 +310,7 @@ public class CustomWebView extends WebView {
 
 				sslCertificateErrorDialog(view, handler, error, errorCode);
 			}
-
+			
 			@SuppressLint("NewApi")
 			// Is surpressed as the code will only be executed on the correct platform
 			private void sslCertificateErrorDialog(WebView view,
@@ -402,15 +405,16 @@ public class CustomWebView extends WebView {
 
 									}
 								});
-
-				MainActivity.dialog = builder.create();
-				MainActivity.dialog.setCancelable(false);
-				MainActivity.dialog.setCanceledOnTouchOutside(false);
-				MainActivity.dialog.show();
+				Dialog dialog;
+				dialog = builder.create();
+				dialog.setCancelable(false);
+				dialog.setCanceledOnTouchOutside(false);
+				dialog.show();
 
 			}
-
 		});
+		
+		
 
 		chromeClient = new VideoEnabledWebChromeClient(this);
 		this.setWebChromeClient(chromeClient);
@@ -464,23 +468,22 @@ public class CustomWebView extends WebView {
 		return videoPlaying;
 	}
 
-	String createUserAgentString(String mode) {
+	public String createUserAgentString(String mode) {
 		String ua = "";
 
 		// TODO Test with different user agents
-		// Stopped mimicking Chrome to be better safe than sorry
+		// For now copied Chrome user agents and adapt them to the user's device
 		if (mode.equals("mobile")) {
 
 			ua = "Mozilla/5.0 (" + System.getProperty("os.name", "Linux")
 					+ "; Android " + Build.VERSION.RELEASE + "; " + Build.MODEL
 					+ "; Build/" + Build.ID
 					+ ") AppleWebKit/537.36 (KHTML, like Gecko) "
-					+ "Chrome/30.0.0.0 Mobile Safari/537.36";
-			// + "Chrome/34.0.1847.114 Mobile Safari/537.36";
-
+					+ "Chrome/34.0.1847.114 Mobile Safari/537.36";
+			Log.d("LB", "MOBILE");
 		} else if (mode.equals("desktop")) {
-			ua = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.0.0 Mobile Safari/537.36";
-
+			ua = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36";
+			Log.d("LB", "DESK");
 		}
 		return ua;
 	}

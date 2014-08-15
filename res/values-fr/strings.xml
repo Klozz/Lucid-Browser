@@ -411,6 +411,18 @@
 <string name="apply">Appliquer</string>
 <string name="processing">Changement du thème d\'icône</string>
 
+<string name="disable_suggestions_title">Désactiver les suggestions de recherche</string>
+<string name="search_hidden_apps_title">Chercher Applis cachées</string>
+<string name="search_hidden_apps_summary">Afficher les Apps cachées pendant la recherche</string>
+<string name="remove_browsing_traces">Enlever les traces du browser&#8230;</string>
+
+<string name="play_store">Play Store</string>
+
+<string name="no_icons">Le thème ne contient pas d\'icône</string>
+<string name="pick_icon">Choisir Icone</string>
+<string name="gallery">Gallery</string>
+<string name="restart_launcher">Redémarrer le Launcher</string>
+
 
 
 

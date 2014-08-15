@@ -57,13 +57,14 @@ public class VideoEnabledWebChromeClient extends WebChromeClient implements OnPr
     public void onProgressChanged(WebView view, int progress) 
     {	
     	CustomWebView WV = (CustomWebView) MainActivity.webLayout.findViewById(R.id.browser_page);
-        
-        if (WV==this.activityNonVideoView){//check if this webview is being currently shown/used
-	    	if (PB==null)
-				PB = (ProgressBar) MainActivity.webLayout.findViewById(R.id.webpgbar);
-		    if (PB!=null)
-		        PB.setProgress(progress);
-        }
+    	if (WV!=null){
+    		if (WV==activityNonVideoView){
+		    	if (PB==null)
+					PB = (ProgressBar) MainActivity.webLayout.findViewById(R.id.webpgbar);
+			    if (PB!=null)
+			        PB.setProgress(progress);
+    		}
+    	}
     }
     
     
@@ -85,12 +86,31 @@ public class VideoEnabledWebChromeClient extends WebChromeClient implements OnPr
     {
         this.toggledFullscreenCallback = callback;
     }
+    
+    public void showActionBar(){
+    	MainActivity.actionBar.show();
+    	Properties.ActionbarSize= Tools.getActionBarSize();
+		MainActivity.StatusMargine = Tools.getStatusMargine();
+    	MainActivity.browserListView.setPadding(0, 0, 0, MainActivity.NavMargine+MainActivity.StatusMargine);
+    	MainActivity.browserListView.setY(MainActivity.StatusMargine);			
+		MainActivity.webLayout.setPadding(0, MainActivity.StatusMargine, 0, 0);
+		if (MainActivity.tintManager!=null && Properties.appProp.TransparentStatus)
+    		MainActivity.tintManager.setStatusBarAlpha(1.0f);
+    }
+    
+    public void hideActionBar(){
+    	MainActivity.actionBar.hide();
+    	MainActivity.webLayout.setPadding(0, 0, 0, 0);
+    	if (MainActivity.tintManager!=null && Properties.appProp.TransparentStatus)
+    		MainActivity.tintManager.setStatusBarAlpha(0);
+    }
 
     @Override
     public void onShowCustomView(View view, CustomViewCallback callback)
     {
         if (view instanceof FrameLayout)
         {
+        	hideActionBar();
             // A video wants to be shown
             FrameLayout frameLayout = (FrameLayout) view;
             View focusedChild = frameLayout.getFocusedChild();
@@ -171,7 +191,7 @@ public class VideoEnabledWebChromeClient extends WebChromeClient implements OnPr
         // This method must be manually called on back key press (from this class' onBackPressed() method).
 
         if (isVideoFullscreen)
-        {
+        {	showActionBar();
         	activityNonVideoView.setVideoPlaying(false);
             // Hide the video view, remove it, and show the non-video view
         	ViewGroup activityVideoView = ((ViewGroup) MainActivity.webLayout.findViewById(R.id.webviewholder));

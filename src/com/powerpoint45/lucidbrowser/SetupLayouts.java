@@ -14,6 +14,7 @@ import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
@@ -108,6 +109,9 @@ public class SetupLayouts extends MainActivity {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,long arg3) {
+				
+				if (bar.findViewById(R.id.finder)!=null)
+					SetupLayouts.dismissFindBar();
 				
 				ImageButton BookmarkButton = (ImageButton) MainActivity.bar.findViewById(R.id.browser_bookmark);
 				ImageButton refreshButton = (ImageButton) MainActivity.bar.findViewById(R.id.browser_refresh);
@@ -207,7 +211,9 @@ public class SetupLayouts extends MainActivity {
 		});
 
 	}
-
+	
+	
+	
 	static public int addTransparencyToColor(int alpha, int color) {
 		int[] colorARGB = new int[4];
 

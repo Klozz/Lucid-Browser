@@ -57,14 +57,7 @@ public class Properties extends MainActivity {
 		webpageProp.closetabsonexit = MainActivity.mGlobalPrefs.getBoolean("closetabsonexit", false);
 		webpageProp.exitconfirmation=MainActivity.mGlobalPrefs.getBoolean("exitconfirmation", false);
 		
-		int actionBarHeight = LayoutParams.MATCH_PARENT;//fallback size
-		TypedValue tv = new TypedValue();
-		if (MainActivity.activity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
-		{
-		    actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,MainActivity.activity.getResources().getDisplayMetrics());
-		}
-		
-		ActionbarSize= actionBarHeight;
+		ActionbarSize= Tools.getActionBarSize();
 
 		appProp.fullscreen=MainActivity.mGlobalPrefs.getBoolean       ("fullscreen"           ,false);
 		appProp.transparentNav=MainActivity.mGlobalPrefs.getBoolean   ("transparentnav"       ,false);

@@ -22,29 +22,11 @@ import android.widget.Filter;
 
 public class BrowserBarAdapter extends ArrayAdapter<String> {
     private List<String> suggestions;
-    private int viewResourceId;
 
     public BrowserBarAdapter(Context context, int viewResourceId, List<String> items) {
         super(context, R.layout.browser_bar_suggestion_item);
         this.suggestions =new Vector<String>();
     }
-
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//        View v = convertView;
-//        if (v == null) {
-//            LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            v = vi.inflate(viewResourceId, null);
-//        }
-//        String customer = items.get(position);
-//        if (customer != null) {
-//            TextView customerNameLabel = (TextView) v.findViewById(R.id.customerNameLabel);
-//            if (customerNameLabel != null) {
-////              Log.i(MY_DEBUG_TAG, "getView Customer Name:"+customer.getName());
-//                customerNameLabel.setText(customer.getName());
-//            }
-//        }
-//        return v;
-//    }
 
     @Override
     public Filter getFilter() {
@@ -91,7 +73,6 @@ public class BrowserBarAdapter extends ArrayAdapter<String> {
 		        	
 		        	
 		        	for (int i=0; i< jArray.length(); i++){
-		        		//System.out.println("RESPONSE"+i+jArray.getString(i));
 		        		suggestions.add(jArray.getString(i));
 		        	}
 	    	    	
