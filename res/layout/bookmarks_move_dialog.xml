@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="5000dp"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/current_location"
@@ -16,16 +16,16 @@
         android:paddingRight="10dp"
         android:singleLine="true"
         android:text="/"
-        android:textAppearance="?android:attr/listSeparatorTextViewStyle" />
+        android:textAppearance="?android:attr/listSeparatorTextViewStyle"
+        android:textColor="@color/gray"/>
 
     <RelativeLayout
         android:id="@+id/folder_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:onClick="goToParentFolder"
         android:layout_below="@+id/current_location"
-        android:visibility="gone">
+        android:clickable="true"
+        android:visibility="gone" >
 
         <TextView
             android:id="@+id/bookmark_title"
@@ -36,11 +36,12 @@
             android:background="@drawable/button"
             android:fontFamily="sans-serif-light"
             android:gravity="center|left"
-            android:text=".."
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:singleLine="true"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text=".."
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/gray"/>
 
         <ImageView
             android:id="@+id/bookmark_icon"
@@ -58,15 +59,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/folder_back"
-        android:gravity="center_horizontal"/>
+        android:gravity="center_horizontal" />
 
-    <ListView
-        android:id="@+id/bookmarks_list"
+    <Button
+        android:id="@+id/btn_move_here"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/bookmarksfolder_list"
-        android:gravity="center_horizontal" >
-    </ListView>
-    
+        android:layout_alignBottom="@+id/book"
+        android:layout_alignWithParentIfMissing="true"
+        android:text="MOVE HERE" />
 
 </RelativeLayout>

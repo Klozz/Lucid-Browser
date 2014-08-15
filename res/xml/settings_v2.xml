@@ -88,8 +88,12 @@
                 android:defaultValue="true"
                 android:key="enablejavascript"
                 android:summary=""
+<<<<<<< HEAD
+                android:title="@string/enablejavascript" />
+=======
                 android:title="@string/enablejavascript" />
 
+>>>>>>> refs/remotes/powerpointLB/master
             -->
 
             <CheckBoxPreference

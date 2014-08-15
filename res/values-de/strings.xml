@@ -425,9 +425,10 @@
 <string name="action_openrecents">Anwendungsverlauf öffnen</string>
 <string name="action_opennotificationpanel">Benachrichtigungsleiste öffnen</string>
 
-
-
-
-
+<string name="add_bookmark_folder">Neuen Ordner hinzufügen</string>
+<string name="add_bookmark_folder_hint">Name des Ordners eingeben&#8230;</string>
+<string name="edit_bookmark_folder">Ordner bearbeiten</string>
+<string name="remove_bookmark_folder_confirm">Soll der Ordner wirklich entfernt werden? Der Inhalt des Ordners wird ebenfalls entfernt.</string>
+<string name="bookmark_move">Verschieben</string>
 
 </resources>

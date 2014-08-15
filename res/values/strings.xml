@@ -353,10 +353,13 @@
 <string name="holoDarkSummary">Check to use a dark theme in settings and bookmarks (Will restart settings to apply theme)</string>
 
 <string name="remove_browsing_traces">Remove browser traces&#8230;</string>
-
 <string name="disable_suggestions_title">Disable search suggestions</string>
-
 <string name="disable_ads">Disable Ads</string>
 
+<string name="add_bookmark_folder">Add new Folder</string>
+<string name="add_bookmark_folder_hint">Enter name of new Folder&#8230;</string>
+<string name="edit_bookmark_folder">Edit Bookmark Folder</string>
+<string name="remove_bookmark_folder_confirm">Do you really want to remove this folder? The content of it will be deleted too.</string>
+<string name="bookmark_move">Move</string>
 
 </resources>

@@ -285,22 +285,17 @@ public class CustomWebView extends WebView {
 					ImageButton BI = (ImageButton) MainActivity.bar
 							.findViewById(R.id.browser_bookmark);
 					if (BI != null) {
-						int numBooks = MainActivity.mPrefs.getInt(
-								"numbookmarkedpages", 0);
-						boolean isBook = false;
-						for (int i = 0; i < numBooks; i++) {
-							if (CustomWebView.this != null)
-								if (CustomWebView.this.getUrl() != null)
-									if (MainActivity.mPrefs.getString(
-											"bookmark" + i, "").compareTo(
-											CustomWebView.this.getUrl()) == 0) {
-										BI.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
-										isBook = true;
-										break;
-									}
+						
+						String bookmarkName = null;
+						if (CustomWebView.this != null && CustomWebView.this.getUrl() != null){
+							bookmarkName = BookmarksActivity.bookmarksMgr.root.containsBookmarkDeep(CustomWebView.this.getUrl());
 						}
-						if (!isBook)
+						
+						if (bookmarkName != null){
+							BI.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
+						} else {
 							BI.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
+						}
 					}
 				}
 
