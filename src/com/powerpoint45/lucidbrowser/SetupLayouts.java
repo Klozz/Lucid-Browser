@@ -145,23 +145,27 @@ public class SetupLayouts extends MainActivity {
 						}
 					}
 					
-					ImageButton BI = (ImageButton) MainActivity.bar.findViewById(R.id.browser_bookmark);
+
 		    		String bookmarkName = null;
 		    		
 		    		if (webWindows.get(pos)!=null)
 						if (webWindows.get(pos).getUrl()!=null)
 							bookmarkName = BookmarksActivity.bookmarksMgr.root.containsBookmarkDeep(webWindows.get(pos).getUrl());
 					
-		    		if (BI!=null){
+		    		if (BookmarkButton!=null){
 		    			if (bookmarkName!=null)
-							BI.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
+		    				BookmarkButton.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
 		    			else
-		    				BI.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
+		    				BookmarkButton.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
 		    		}
 					
 					
-					if (webWindows.get(pos).getUrl()!=null)
-						((EditText) bar.findViewById(R.id.browser_searchbar)).setText(webWindows.get(pos).getUrl().replace("http://", "").replace("https://", ""));
+					if (webWindows.get(pos).getUrl()!=null){
+						if (webWindows.get(pos).getUrl().equals(MainActivity.assetHomePage))
+							((EditText) bar.findViewById(R.id.browser_searchbar)).setText(MainActivity.ctxt.getResources().getString(R.string.urlbardefault));
+						else
+							((EditText) bar.findViewById(R.id.browser_searchbar)).setText(webWindows.get(pos).getUrl().replace("http://", "").replace("https://", ""));
+					}
 					else
 						((EditText) bar.findViewById(R.id.browser_searchbar)).setText("");
 				}
