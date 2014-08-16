@@ -14,7 +14,7 @@ import com.google.android.gms.ads.InterstitialAd;
 public class AdPreference extends Object {
 
 	//your ad id goes here
-	final String AD_UNIT_ID = "ca-app-pub-5849487494074701/2903707073";
+	final String AD_UNIT_ID = "ca-app-pub-XXXXXXXXXX/XXXXXXXXXXX";
 	InterstitialAd interstitial;
 	SharedPreferences globalPref;
 	Context context;
