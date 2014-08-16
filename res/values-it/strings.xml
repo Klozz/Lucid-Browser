@@ -110,7 +110,7 @@
   <string name="refresh">Ricarica</string>
   <string name="stop">Stop</string>
   <string name="home">Homepage</string>
-  <string name="set_home">imposta come pagina principale</string>
+  <string name="set_home">Imposta come pagina principale</string>
 
   <string name="dimwebpagetitle">Trasparenza Browser</string>
   <string name="dimwebpagesummary">trasparenza dello sfondo nella pagina del Browser</string>
@@ -172,7 +172,7 @@
 
 <string name="lucidactionstitle">Azioni Lucid Launcher</string>
 <string name="lucidactionssummary">seleziona un\'azione per Lucid Launcher</string>
-<string name="lucidactiondrawer">App Drawer</string>
+
 
 
 <string name="bottompaddingporttitle">Rimuovi padding sul fondo (Verticale)</string>
@@ -388,5 +388,73 @@
 <string name="pick_icon">Scegli Icona</string>
 <string name="gallery">Galleria</string>
 <string name="restart_launcher">Riavvia Launcher</string>
+
+<string name="play_store">Play Store</string>
+
+<string name="disable_suggestions_title">Disabilita suggerimenti di ricerca</string>
+<string name="search_hidden_apps_title">Cerca App Nascoste</string>
+<string name="search_hidden_apps_summary">mostra app nascoste durante la ricerca</string>
+<string name="remove_browsing_traces">Rimuovi tracce browser&#8230;</string>
+
+<string name="history">Cronologia</string>
+<string name="disable_ads">Disabilita Ads</string>
+<string name="action_openrecents">Apri App Recenti</string>
+<string name="action_opennotificationpanel">Apri il pannello di notifica</string>
+
+<string name="move_here">MUOVI QUI</string>
+<string name="add_bookmark_folder">Aggiungi nuova Cartella</string>
+<string name="add_bookmark_folder_hint">Scrivi il nome della nuova cartella&#8230;</string>
+<string name="edit_bookmark_folder">Modifica Etichetta Cartella</string>
+<string name="remove_bookmark_folder_confirm">Vuoi eliminare questa cartella? Il contenuto di essa verrà eliminato.</string>
+<string name="bookmark_move">Muovi</string>
+<string name="lucidactionfavorites">Sidebar dei Preferiti</string>
+<string name="lucidactionbrowser">Browser</string>
+<string name="lucidactionlockunlock">Blocca/Sblocca Desktop</string>
+<string name="lucidactiondrawer">App Drawer</string>
+<string name="lucidactionrecents">App Decenti</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </resources>

@@ -205,6 +205,8 @@ public class CustomWebView extends WebView {
 				if (IB != null) {
 					IB.setImageResource(R.drawable.btn_toolbar_stop_loading_normal);
 				}
+				
+				setUrlBarText(url);
 			}
 			
 			
@@ -228,16 +230,11 @@ public class CustomWebView extends WebView {
 								.isFocused())
 							if (view != null)
 								if (view.getUrl() != null
-										&& view.getUrl().compareTo(
-												"about:blank") != 0) {
-									if (view.getUrl().compareTo(
-											MainActivity.assetHomePage) == 0) {
-										((EditText) ((Activity) MainActivity.activity)
-												.findViewById(R.id.browser_searchbar))
-												.setText(MainActivity.activity
-														.getResources()
-														.getString(
-																R.string.urlbardefault));
+										&& !view.getUrl().equals("about:blank")) {
+									
+									setUrlBarText(view.getUrl());
+									
+									if (view.getUrl().equals(MainActivity.assetHomePage)) {
 										CustomWebView.this
 												.loadUrl("javascript:(function() { "
 														+ "document.getElementById('searchbtn').value = "
@@ -265,13 +262,7 @@ public class CustomWebView extends WebView {
 																	// js to
 																	// take
 																	// effect
-									} else
-										((EditText) ((Activity) MainActivity.activity)
-												.findViewById(R.id.browser_searchbar))
-												.setText(view
-														.getUrl()
-														.replace("http://", "")
-														.replace("https://", ""));
+									}
 								}
 					if (PB!=null)
 						PB.setVisibility(ProgressBar.INVISIBLE);
@@ -493,6 +484,23 @@ public class CustomWebView extends WebView {
 
 	public VideoEnabledWebChromeClient getChromeClient() {
 		return chromeClient;
+	}
+	
+	public void setUrlBarText(String url){
+		if (url!=null){
+			if ((MainActivity.activity.findViewById(R.id.browser_searchbar))!=null){
+				if (url.equals(MainActivity.assetHomePage)) {
+					((EditText) ((Activity) MainActivity.activity).findViewById(R.id.browser_searchbar)).setText(MainActivity.activity
+						.getResources()
+						.getString(R.string.urlbardefault));
+				}else{
+					((EditText) ((Activity) MainActivity.activity).findViewById(R.id.browser_searchbar))
+						.setText(url
+						.replace("http://", "")
+						.replace("https://", ""));
+				}
+			}
+		}
 	}
 
 	@SuppressLint("InlinedApi")

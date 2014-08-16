@@ -63,10 +63,9 @@
 
     <Button
         android:id="@+id/btn_move_here"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/book"
-        android:layout_alignWithParentIfMissing="true"
-        android:text="MOVE HERE" />
+        android:layout_alignParentBottom="true" 
+        android:text="@string/move_here" />
 
 </RelativeLayout>

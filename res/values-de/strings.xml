@@ -221,7 +221,7 @@
 
 <string name="lucidactionstitle">Lucid Launcher Aktionen</string>
 <string name="lucidactionssummary">Eine Lucid Launcher Aktion auswählen</string>
-<string name="lucidactiondrawer">App Drawer</string>
+
 
 <string name="shortcutlabelstitle">Verknüpfungsbezeichner</string>
 <string name="shortcutlabelssummary">Bezeichner unter Verknüpfungen anzeigen/verbergen</string>
@@ -425,10 +425,19 @@
 <string name="action_openrecents">Anwendungsverlauf öffnen</string>
 <string name="action_opennotificationpanel">Benachrichtigungsleiste öffnen</string>
 
+<string name="move_here">HIERHER VERSCHIEBEN</string>
 <string name="add_bookmark_folder">Neuen Ordner hinzufügen</string>
 <string name="add_bookmark_folder_hint">Name des Ordners eingeben&#8230;</string>
 <string name="edit_bookmark_folder">Ordner bearbeiten</string>
 <string name="remove_bookmark_folder_confirm">Soll der Ordner wirklich entfernt werden? Der Inhalt des Ordners wird ebenfalls entfernt.</string>
 <string name="bookmark_move">Verschieben</string>
+<string name="lucidactionfavorites">Favoritenleiste</string>
+<string name="lucidactionbrowser">Browser</string>
+<string name="lucidactionlockunlock">Desktop sperren/entsperren</string>
+<string name="lucidactiondrawer">App Drawer</string>
+<string name="lucidactionrecents">Anwendungsverlauf</string>
+
+
+
 
 </resources>

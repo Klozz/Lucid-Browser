@@ -42,7 +42,7 @@
     <string name="home_settings">"Paramètres de Lucid Launcher"</string>
     
     <string name="saveimage">"Enregistrer l\'image"</string>
-    
+
     <string name="mainsettingstitle">"Paramètres principaux"</string>
     <string name="sidebarsettingstitle">"Paramètres barre latérale"</string>
     <string name="drawersettingstitle">Paramètres du tiroir d\'application
@@ -245,7 +245,7 @@
 
 <string name="lucidactionstitle">Actions Lucid Launcher</string>
 <string name="lucidactionssummary">Sélectionner une action Lucid Launcher</string>
-<string name="lucidactiondrawer">Tiroir d\'applications</string>
+
 
 
 <string name="upgrade">Mettez à jour vers Lucid Launcher Pro pour plus de fonctions</string>
@@ -422,6 +422,32 @@
 <string name="pick_icon">Choisir Icone</string>
 <string name="gallery">Gallery</string>
 <string name="restart_launcher">Redémarrer le Launcher</string>
+
+<string name="history">Historique</string>
+<string name="disable_ads">Désactiver Pubs</string>
+<string name="action_openrecents">Ouvrir Applis Récentes</string>
+<string name="action_opennotificationpanel">Ouvrir Panneau de Notification</string>
+
+<string name="move_here">Déplacer ici</string>
+<string name="add_bookmark_folder">Ajouter nouveau dossier</string>
+
+<string name="add_bookmark_folder_hint">Entrer nom du nouveau dossier&#8230;</string>
+<string name="edit_bookmark_folder">Editer dossier Favoris</string>
+<string name="remove_bookmark_folder_confirm">Voulez vous supprimer ce dossier ? Cela supprimera aussi le contenu..</string>
+<string name="bookmark_move">Déplacer</string>
+<string name="lucidactionfavorites">Barre des Favoris</string>
+<string name="lucidactionbrowser">Browser</string>
+<string name="lucidactionlockunlock">Verrouiller/Déverrouiller le bureau</string>
+<string name="lucidactiondrawer">App Drawer</string>
+
+<string name="lucidactionrecents">Applis Récentes</string>
+
+
+
+
+
+
+
 
 
 
