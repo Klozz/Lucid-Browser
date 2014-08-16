@@ -97,7 +97,6 @@ public class BrowserBarAdapter extends ArrayAdapter<String> {
 	            if(results != null && results.count > 0) {
 	                clear();
 	                for (String c : filteredList) {
-	                	System.out.println("SUGGEST" + c);
 	                    add(c);
 	                }
 	                notifyDataSetChanged();

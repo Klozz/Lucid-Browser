@@ -404,7 +404,7 @@ public class BookmarksActivity extends Activity{
 			curURL = currentBooks.get(i).getURL();
 			if (curURL!=null && curURL.getHost().compareTo("")!=0 && curURL.getPath().compareTo(MainActivity.assetHomePage)!=0){
 				imageFile = new File(MainActivity.ctxt.getApplicationInfo().dataDir+"/icons/"+ curURL.getHost());
-				if (!imageFile.exists()){
+				if (!imageFile.exists() || currentBooks.get(i).getPathToFavicon()==null){
 					numURLsToDownload++;
 					urlsToDownload.add(currentBooks.get(i));
 				}
