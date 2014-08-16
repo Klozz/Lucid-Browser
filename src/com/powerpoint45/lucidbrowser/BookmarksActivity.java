@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.Vector;
 
 import android.app.Activity;
@@ -20,6 +21,7 @@ import android.graphics.Point;
 import android.graphics.PorterDuff.Mode;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -388,45 +390,92 @@ public class BookmarksActivity extends Activity{
 		bookmarksFolderListView.setOnItemClickListener(clickFolderListener);
 		bookmarksFolderListView.setOnItemLongClickListener(longClickFolderListener);
 		
-		Vector<URL> urlsToDownload = new Vector<URL>();
-	    
 		
+		
+		//Start Downloading missing Favicons
+		List <Bookmark> currentBooks = BookmarksActivity.bookmarksMgr.root.getAllBookMarks();
 		int numURLsToDownload = 0;
 		File imageFile = null;
 		URL curURL = null;
-		int numBookmarks = MainActivity.mPrefs.getInt("numbookmarkedpages", 0);
 		
-		for (int i = 0; i < numBookmarks ; i++){
-			try {
-				curURL = new URL(MainActivity.mPrefs.getString("bookmark"+i, "www.google.com"));
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		Vector<Bookmark> urlsToDownload = new Vector<Bookmark>();
+		
+		for (int i = 0; i < currentBooks.size() ; i++){
+			curURL = currentBooks.get(i).getURL();
 			if (curURL!=null && curURL.getHost().compareTo("")!=0 && curURL.getPath().compareTo(MainActivity.assetHomePage)!=0){
-				imageFile = new File(getApplicationInfo().dataDir+"/icons/"+ curURL.getHost());
+				imageFile = new File(MainActivity.ctxt.getApplicationInfo().dataDir+"/icons/"+ curURL.getHost());
 				if (!imageFile.exists()){
 					numURLsToDownload++;
-					try {
-						urlsToDownload.add(new URL(curURL.getProtocol() + "://" + curURL.getHost() + "/favicon.ico"));
-					} catch (MalformedURLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					urlsToDownload.add(currentBooks.get(i));
 				}
 			}
 		}
 		
-		
+		Log.d("LB", numURLsToDownload+" favicons should download");
 		if (numURLsToDownload>0){
-			URL arrayURLsToDownload[] = new URL[urlsToDownload.size()];
+			Bookmark arrayURLsToDownload[] = new Bookmark[urlsToDownload.size()];
 			
 			for (int i = 0; i<urlsToDownload.size(); i++){
 				arrayURLsToDownload[i] = urlsToDownload.get(i);
 			}
-			
 			new DownloadFilesTask().execute(arrayURLsToDownload);
 		}
+
+	}
+	
+	private class DownloadFilesTask extends AsyncTask<Bookmark, Integer, Long> {
+	    protected Long doInBackground(Bookmark... urls) {
+	        int count = urls.length;
+	        long totalSize = 0;
+	        for (int i = 0; i < count; i++) {
+	        	
+	        	URL curURL = urls[i].getURL();
+	        	URL urlToAdd = null;
+				try {
+					urlToAdd = new URL(curURL.getProtocol() + "://" + curURL.getHost() + "/favicon.ico");
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if (urlToAdd!=null){
+		        	downloadImage(urlToAdd, urls[i]);
+		        	Log.d("LB", "DOWNLOADING INDEX "+i +"AND URL " +urlToAdd.getPath());
+		        	publishProgress(0);
+				}
+	            if (isCancelled()) break;
+	        }
+	        return totalSize;
+	    }
+
+	    protected void onProgressUpdate(Integer... progress) {
+	    	bookmarksListAdapter.notifyDataSetChanged();
+	    }
+
+	    protected void onPostExecute(Long result) {
+	    	bookmarksListAdapter.notifyDataSetChanged();
+	    }
+	}
+	
+	public void downloadImage(URL url, Bookmark b){
+		try{
+			InputStream in = new BufferedInputStream(url.openStream());
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			byte[] buf = new byte[1024];
+			int n = 0;
+			while (-1!=(n=in.read(buf)))
+			{
+			   out.write(buf, 0, n);
+			}
+			out.close();
+			in.close();
+			byte[] response = out.toByteArray();
+			new File(MainActivity.ctxt.getApplicationInfo().dataDir+"/icons/").mkdirs();
+			FileOutputStream fos = new FileOutputStream((MainActivity.ctxt.getApplicationInfo().dataDir+"/icons/"+ url.getHost()));
+			fos.write(response);
+			fos.close();
+			b.setPathToFavicon(MainActivity.ctxt.getApplicationInfo().dataDir+"/icons/"+ url.getHost());
+			bookmarksMgr.saveBookmarksManager();
+		}catch(Exception e){};
 		
 		
 	}
@@ -503,7 +552,7 @@ public class BookmarksActivity extends Activity{
 		bookmarksListAdapter.notifyDataSetChanged();
 	}
 	
-	public void goToParentFolder(View view){
+	public void goToParentFolder(){
 		//TODO CLEAN UP LATER
 		if (!bookmarksMgr.displayedFolder.isRoot) {
 			bookmarksMgr.displayedFolder = bookmarksMgr.displayedFolder.parentFolder;
@@ -522,46 +571,14 @@ public class BookmarksActivity extends Activity{
 	public void setCurrentPositionHeaderText(String text){
 		((TextView) bookmarkActivityLayout.findViewById(R.id.current_location)).setText(text);
 	}
-
-	private class DownloadFilesTask extends AsyncTask<URL, Integer, Long> {
-	    protected Long doInBackground(URL... urls) {
-	        int count = urls.length;
-	        long totalSize = 0;
-	        for (int i = 0; i < count; i++) {
-	        	System.out.println("DOWNLOADING INDEX "+i +"AND URL " + urls[i].getHost()+urls[i].getPath());
-	        	downloadImage(urls[i]);
-	        	publishProgress(0);
-	            if (isCancelled()) break;
-	        }
-	        return totalSize;
-	    }
-
-	    protected void onProgressUpdate(Integer... progress) {
-	        bookmarksListAdapter.notifyDataSetChanged();
-	    }
-
-	    protected void onPostExecute(Long result) {
-	    	bookmarksListAdapter.notifyDataSetChanged();
-	    }
-	}
 	
-	public void downloadImage(URL url){
-		try{
-			InputStream in = new BufferedInputStream(url.openStream());
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			byte[] buf = new byte[1024];
-			int n = 0;
-			while (-1!=(n=in.read(buf)))
-			{
-			   out.write(buf, 0, n);
-			}
-			out.close();
-			in.close();
-			byte[] response = out.toByteArray();
-			new File(getApplicationInfo().dataDir+"/icons/").mkdirs();
-			FileOutputStream fos = new FileOutputStream(getApplicationInfo().dataDir+"/icons/"+ url.getHost());
-			fos.write(response);
-			fos.close();
-		}catch(Exception e){};
-	}
+	@Override 
+	public void onBackPressed() { 
+		if (bookmarksMgr.displayedFolder.isRoot)
+			finish();
+		else
+			goToParentFolder();
+	} 
+
+	
 }

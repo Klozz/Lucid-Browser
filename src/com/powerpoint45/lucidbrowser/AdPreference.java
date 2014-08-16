@@ -1,74 +1,73 @@
 package com.powerpoint45.lucidbrowser;
 
-import android.app.Activity;
+import java.util.Calendar;
+
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.util.AttributeSet;
-import android.view.View;
-import android.widget.LinearLayout;
+import android.util.Log;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 
-public class AdPreference extends LinearLayout {
- 
-
- 
-    public AdPreference(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-		// TODO Auto-generated constructor stub
-		SharedPreferences globalPref = PreferenceManager
-				.getDefaultSharedPreferences(getContext());
-		if (!globalPref.getBoolean("disableads", false))
-			addView(getAdView());
-	}
-
-	public AdPreference(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		// TODO Auto-generated constructor stub
-		SharedPreferences globalPref = PreferenceManager
-				.getDefaultSharedPreferences(getContext());
-		if (!globalPref.getBoolean("disableads", false))
-			addView(getAdView());
-	}
-
-	public AdPreference(Context context) {
-		super(context);
-		// TODO Auto-generated constructor stub
-		SharedPreferences globalPref = PreferenceManager
-				.getDefaultSharedPreferences(getContext());
-		if (!globalPref.getBoolean("disableads", false))
-			addView(getAdView());
-	}
+public class AdPreference extends Object {
 
 	//your ad id goes here
-	final String AD_UNIT_ID = "ca-app-pub-XXXXXXXXXX/XXXXXXXXXX";
+	final String AD_UNIT_ID = "ca-app-pub-XXXXXXXXXXX/XXXXXXXXXXXXXX";
+	InterstitialAd interstitial;
+	SharedPreferences globalPref;
+	Context context;
+	
+	public AdPreference(SharedPreferences p, Context ctxt){
+		globalPref = p;
+		context = ctxt;
+	}
     
-    public AdView getAdView() {
-        // the context is a PreferenceActivity 
-        Activity activity = (Activity)getContext();
- 
-        // Create the adView 
-        AdView adView = new AdView(activity);
- 
-        // Initiate a generic request to load it with an ad 
-        
-        
-		adView.setAdSize(AdSize.BANNER);
-	    adView.setAdUnitId(AD_UNIT_ID);		
-
+    public void setUpAd() {
+    	Calendar c = Calendar.getInstance(); 
+		int day = c.get(Calendar.DATE);
+		int lastTimeShownAd = globalPref.getInt("adDisplayDate", -1);
 		
-		AdRequest adRequest = new AdRequest.Builder()
-        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-        .addTestDevice("4C7737FB5E1CF1C791654654891A4803")//MOTEROLA
-        .addTestDevice("A90A1B37090BFFE40F3EC77212CC8E45")//KINDLE
-        .addTestDevice("B2E17AC6E84F2EC84F8FF602FAC67470")//SAMSUNG
-        .build(); 
+		Log.d("Ads", "today is "+ day);
+		Log.d("Ads", "and last time I showed an ad was on "+ globalPref.getInt("adDisplayDate", -1));
+		if (lastTimeShownAd!=day)
+			Log.d("Ads", "so I will start loading up the ad");
+		else
+			Log.d("Ads", "so I will not load the ad");
+			
+		if (lastTimeShownAd!=day){
+			interstitial = new InterstitialAd(context);
+			interstitial.setAdUnitId(AD_UNIT_ID);
+			 
+			AdRequest adRequest = new AdRequest.Builder()
+	        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+	        .addTestDevice("4C7737FB5E1CF1C791654654891A4803")//MOTEROLA
+	        .addTestDevice("B2E17AC6E84F2EC84F8FF602FAC67470")//SAMSUNG
+	        .build(); 
+			interstitial.loadAd(adRequest);
+			
+			interstitial.setAdListener(new AdListener() {
 
-	    adView.loadAd(adRequest);
+				@Override
+				public void onAdLoaded() {
+					// TODO Auto-generated method stub
+					super.onAdLoaded();
+					
+					displayInterstitial();
+					Calendar c = Calendar.getInstance(); 
+					int day = c.get(Calendar.DATE);
+					globalPref.edit().putInt("adDisplayDate", day).commit();
+				}
+				
+			});
+		}
  
-        return adView;    
-    } 
+    }
+    
+    public void displayInterstitial() {
+        if (interstitial.isLoaded()) {
+          interstitial.show();
+        }
+      }
 } 

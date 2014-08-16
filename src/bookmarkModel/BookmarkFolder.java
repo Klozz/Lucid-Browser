@@ -1,6 +1,7 @@
 package bookmarkModel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -160,6 +161,27 @@ public class BookmarkFolder implements Serializable{
 		}
 		
 		return null; // Didn't find URL
+	}
+	
+	/**
+	 * Method search all folders and returns an ArrayList of bookmarks
+	 * and searches in this folder's sub-folders if necessary
+	 */
+	public ArrayList<Bookmark> getAllBookMarks() {
+		ArrayList<Bookmark> bookmarksToReturn = new ArrayList<Bookmark>();
+		
+		// Is it in the executing folder?
+		for (Bookmark bm : containedBookmarks) {
+				bookmarksToReturn.add(bm);
+		}
+		
+		for (BookmarkFolder each : containedFolders) {
+			for (Bookmark bm : each.containedBookmarks) {
+				bookmarksToReturn.add(bm);
+			}
+		}
+		
+		return bookmarksToReturn;
 	}
 	
 	// Folder Operations (Add, remove, Search, ...)

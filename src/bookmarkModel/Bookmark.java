@@ -1,6 +1,8 @@
 package bookmarkModel;
 
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 
 public class Bookmark implements Serializable{
@@ -35,6 +37,18 @@ public class Bookmark implements Serializable{
 		this.pathToFavicon = pathToFavicon;
 	}
 
+	
+	public URL getURL() {
+		URL urlToReturn;
+		try {
+			urlToReturn = new URL(url);
+			return urlToReturn;
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public String getUrl() {
 		return url;
 	}

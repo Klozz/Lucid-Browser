@@ -53,7 +53,6 @@ public class BookmarksFolderListAdapter extends BaseAdapter {
 		BookmarkFolder folder = bookmarkFolders.get(arg0);
 		
 		if (ignore!=null && ignore.getInternalName().equals(folder.getInternalName())){
-			System.out.println("I CAM!!!");
 			return ((LinearLayout) MainActivity.inflater.inflate(R.layout.null_item, null));
 		}
 

@@ -285,7 +285,6 @@ public class CustomWebView extends WebView {
 					ImageButton BI = (ImageButton) MainActivity.bar
 							.findViewById(R.id.browser_bookmark);
 					if (BI != null) {
-						
 						String bookmarkName = null;
 						if (CustomWebView.this != null && CustomWebView.this.getUrl() != null){
 							bookmarkName = BookmarksActivity.bookmarksMgr.root.containsBookmarkDeep(CustomWebView.this.getUrl());

@@ -14,7 +14,6 @@ import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
@@ -146,20 +145,20 @@ public class SetupLayouts extends MainActivity {
 						}
 					}
 					
-					int numBooks=MainActivity.mPrefs.getInt("numbookmarkedpages", 0);
-					boolean isBook = false;
-					for (int i=0;i<numBooks;i++){
-						if (webWindows.get(pos)!=null)
-							if (webWindows.get(pos).getUrl()!=null)
-			    				if (MainActivity.mPrefs.getString("bookmark"+i, "").compareTo(webWindows.get(pos).getUrl())==0){
-			    					BookmarkButton.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
-			    					isBook=true;
-			    					break;
-			    				}
-					}
-					if (!isBook){
-						BookmarkButton.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
-					}
+					ImageButton BI = (ImageButton) MainActivity.bar.findViewById(R.id.browser_bookmark);
+		    		String bookmarkName = null;
+		    		
+		    		if (webWindows.get(pos)!=null)
+						if (webWindows.get(pos).getUrl()!=null)
+							bookmarkName = BookmarksActivity.bookmarksMgr.root.containsBookmarkDeep(webWindows.get(pos).getUrl());
+					
+		    		if (BI!=null){
+		    			if (bookmarkName!=null)
+							BI.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
+		    			else
+		    				BI.setImageResource(R.drawable.btn_omnibox_bookmark_normal);
+		    		}
+					
 					
 					if (webWindows.get(pos).getUrl()!=null)
 						((EditText) bar.findViewById(R.id.browser_searchbar)).setText(webWindows.get(pos).getUrl().replace("http://", "").replace("https://", ""));

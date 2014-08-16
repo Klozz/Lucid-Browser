@@ -93,7 +93,6 @@ public class MainActivity extends BrowserHandler {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		activity     = this;
 		ctxt         = getApplicationContext();
 		mPrefs       = getSharedPreferences("pref",0);
@@ -104,25 +103,53 @@ public class MainActivity extends BrowserHandler {
 		bar                       = new RelativeLayout(this);
 		actionBar                 = getActionBar();
 		
+		
 		webLayout                 = (LinearLayout) inflater.inflate(R.layout.page_web, null);
 		browserListViewAdapter    = new BrowserImageAdapter(this);
 		webWindows                = new Vector<CustomWebView>();
+		
 		
 		//Initialize BookmarksManager
 		if (BookmarksActivity.bookmarksMgr ==  null){
 			BookmarksManager loadedBookmarksMgr = BookmarksManager.loadBookmarksManager();
 			if (loadedBookmarksMgr == null){
-				System.out.println("CAN'T LOAD BOOKMARKS MGR. MADE NEW ONE");
+				Log.d("LB","BookmarksActivity.bookmarksMgr is null. Making new one");
 				BookmarksActivity.bookmarksMgr = new BookmarksManager();
-			} else {
-				System.out.println("LOADED BOOKMARKS MGR!");
+			}else {
+				Log.d("LB","BookmarksActivity.bookmarksMgr loaded");
 				BookmarksActivity.bookmarksMgr = loadedBookmarksMgr;
 			}
 		} else {
-			System.out.println("ITS NOT NULL!!");
+			Log.d("LB","BookmarksActivity.bookmarksMgr is not null");
 		}
-
-		// Main Activity
+		
+		//THIS IS TEMPORARY CODE TO TRANSFER FROM THE OLD BOOKMARKS SYSTEM TO THE NEW ONE
+  		int numBookmarksToTransfer = mPrefs.getInt("numbookmarkedpages", 0);
+  		Log.d("LB", numBookmarksToTransfer + " bookmarks need to transfer");
+  		for (int book = 0; book<numBookmarksToTransfer; book++){
+  			String url = mPrefs.getString("bookmark"+book, null);
+  			String title = mPrefs.getString("bookmarktitle"+book, null);;
+  			
+  			if (url!=null){
+		  		Bookmark newBookmark = new Bookmark(url,title);
+		  		try{
+			  		URL curUrl = new URL(url);
+			  		File imageFile = new File(getApplicationInfo().dataDir+"/icons/"+ curUrl.getHost());
+			  		if (imageFile.exists())
+			  			newBookmark.setPathToFavicon(imageFile.getAbsolutePath());
+		  		}catch(Exception e){};
+				BookmarksActivity.bookmarksMgr.root.addBookmark(newBookmark);
+  			}
+  			mPrefs.edit().remove("bookmarktitle"+book).remove("bookmark"+book).commit();
+  			Log.d("LB", "bookmark" + book +" "+url+ " transfered");
+  		}
+  		if (numBookmarksToTransfer!=0){
+	  		mPrefs.edit().remove("numbookmarkedpages").commit();
+	  		BookmarksActivity.bookmarksMgr.saveBookmarksManager();
+  		}
+  		//ALL BOOKMARKS SHOULD NOW BE TRANSFERED TO THE NEW SYSTEM
+		
+		
 		Point screenSize = new Point();
 		screenSize.x=getWindow().getWindowManager().getDefaultDisplay().getWidth();
 		screenSize.y=getWindow().getWindowManager().getDefaultDisplay().getHeight();
@@ -132,6 +159,8 @@ public class MainActivity extends BrowserHandler {
 		else
 			assetHomePage = "file:///android_asset/home.html";
 		
+		
+		
 		Properties.update_preferences();
 		
 		if (Properties.sidebarProp.swapLayout)
@@ -140,7 +169,6 @@ public class MainActivity extends BrowserHandler {
 			mainView              = (DrawerLayout) inflater.inflate(R.layout.main, null);
 		
 		contentView               = ((FrameLayout)mainView.findViewById(R.id.content_frame));
-		
 		browserListView           = (ListView) mainView.findViewById(R.id.right_drawer);
 		
 		
@@ -225,6 +253,13 @@ public class MainActivity extends BrowserHandler {
         	}
         }
 		
+		
+		
+		
+		
+		
+		
+		
 		if (Properties.appProp.systemPersistent){
 			Intent notificationIntent = new Intent(this, MainActivity.class);  
 			PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,   
@@ -241,6 +276,9 @@ public class MainActivity extends BrowserHandler {
 			    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 			mNotificationManager.notify(1, mBuilder.build());
 		}
+		
+		
+		
 		
 		contentView.addView(webLayout);
 		setContentView(mainView);
@@ -308,12 +346,6 @@ public class MainActivity extends BrowserHandler {
 			WV.loadUrl("http://www.google.com/search?q="+q.replace(" ", "+"));
 	}
 	
-	@Override
-	public void onPause(){
-		BookmarksActivity.bookmarksMgr.saveBookmarksManager();
-		super.onPause();
-	}
-	
 	public void browserActionClicked(View v){
 		Handler handler=new Handler();
  		Runnable r=new Runnable(){
@@ -358,7 +390,6 @@ public class MainActivity extends BrowserHandler {
 			break;
 		case R.id.browser_bookmark:
 			ImageButton BI = (ImageButton) MainActivity.bar.findViewById(R.id.browser_bookmark);
-			
 			// Find out if already a bookmark
 			String url = WV.getUrl();
 			if (WV!=null && url!=null){
@@ -381,6 +412,7 @@ public class MainActivity extends BrowserHandler {
 							WV.getFavicon().compress(Bitmap.CompressFormat.PNG, 100, out);
 							out.flush();
 							out.close();
+							Log.d("LB", "FAVICON SAVED AT " +pathToFavicon + "BITMAP IS "+b );
 							newBookmark.setPathToFavicon(pathToFavicon);
 						}else{
 
@@ -393,6 +425,8 @@ public class MainActivity extends BrowserHandler {
 					BI.setImageResource(R.drawable.btn_omnibox_bookmark_selected_normal);
 					System.out.println("BOOKMARK SET!!");
 				}
+				
+				BookmarksActivity.bookmarksMgr.saveBookmarksManager();
 
 			}
             break;
@@ -503,8 +537,6 @@ public class MainActivity extends BrowserHandler {
 				mainView.closeDrawers();
 			}
 		});
-		
-		
 	}
 	
 	private void exitBrowser(){
@@ -537,6 +569,7 @@ public class MainActivity extends BrowserHandler {
 		Dialog d = builder.create();
 		d.show();
 	}
+	
 	
 	public void closeCurrentTab(View v){
 		int pos = (Integer) v.getTag();
@@ -814,20 +847,25 @@ public class MainActivity extends BrowserHandler {
 		}
 	}
  
- @Override
+    @Override
  	public void onSaveInstanceState(Bundle savedInstanceState) {
-	 
-    super.onSaveInstanceState(savedInstanceState);
-    saveState();
- }
+	    super.onSaveInstanceState(savedInstanceState);
+	    saveState();
+    }
  
- @Override
+	 @Override
+	 public void onPause(){
+	 	//BookmarksActivity.bookmarksMgr.saveBookmarksManager();
+	 	super.onPause();
+	 }
+ 
+	@Override
  	public void onStop(){
 	super.onStop();
 	saveState();
 	if (isFinishing())
 		clearAllTabsForExit();
- }
+	}
  
  	void saveState(){
 	 SharedPreferences savedInstancePreferences = getSharedPreferences("state",0);

@@ -93,12 +93,12 @@ public class SettingsV2 extends PreferenceActivity {
 		
 		super.onCreate(savedInstanceState);
 		MainActivity.activity = this;
-		setContentView(R.layout.preferences_layout);
 		addPreferencesFromResource(R.xml.settings_v2);
 		
 		if (globalPref.getBoolean("disableads", false)){
-			findViewById(R.id.adPreference1).setVisibility(View.GONE);
 			getPreferenceScreen().removePreference((Preference) findPreference("pro"));
+		}else{
+			new AdPreference(globalPref, this).setUpAd();;
 		}
 	 
 		((Preference) findPreference("disableads"))
@@ -106,8 +106,9 @@ public class SettingsV2 extends PreferenceActivity {
 			public boolean onPreferenceClick(Preference preference) {
 				
 				if (globalPref.getBoolean("disableads", false)){
-					findViewById(R.id.adPreference1).setVisibility(View.GONE);
-					getPreferenceScreen().removePreference((Preference) findPreference("pro"));
+					try{
+						getPreferenceScreen().removePreference((Preference) findPreference("pro"));
+					}catch(Exception e){}
 				}
 				return false;
 			}
@@ -275,10 +276,5 @@ public class SettingsV2 extends PreferenceActivity {
 		startActivity(new Intent(SettingsV2.this, MainActivity.class));
 	}
 
-	@Override
-	public void onStop() {
-		super.onStop();
-		finish();
-	}
 
 }
