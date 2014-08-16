@@ -552,7 +552,7 @@ public class BookmarksActivity extends Activity{
 		bookmarksListAdapter.notifyDataSetChanged();
 	}
 	
-	public void goToParentFolder(){
+	public void goToParentFolder(View v){
 		//TODO CLEAN UP LATER
 		if (!bookmarksMgr.displayedFolder.isRoot) {
 			bookmarksMgr.displayedFolder = bookmarksMgr.displayedFolder.parentFolder;
@@ -577,7 +577,7 @@ public class BookmarksActivity extends Activity{
 		if (bookmarksMgr.displayedFolder.isRoot)
 			finish();
 		else
-			goToParentFolder();
+			goToParentFolder(null);
 	} 
 
 	
