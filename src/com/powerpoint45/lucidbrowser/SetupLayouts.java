@@ -14,6 +14,7 @@ import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
@@ -401,6 +402,16 @@ public class SetupLayouts extends MainActivity {
 						return null;
 					}
 				}.execute();
+			}
+		});
+		
+		ET.setOnFocusChangeListener(new OnFocusChangeListener() {
+			
+			@Override
+			public void onFocusChange(View urlBar, boolean hasFocus) {
+				// TODO Auto-generated method stub
+				if (((EditText) urlBar).getText().toString().equals(MainActivity.activity.getResources().getString(R.string.urlbardefault)))
+					((EditText) urlBar).setText("");
 			}
 		});
 
