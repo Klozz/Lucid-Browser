@@ -25,4 +25,14 @@
         <item>w</item>
         <item>c</item>
     </string-array>
+    
+    <string-array name="searchengines_values" translatable="false">
+        <item>g</item>
+        <item>y</item>
+        <item>b</item>
+        <item>d</item>
+        <item>a</item>
+        <item>i</item>
+        <item>bl</item>
+    </string-array>
 </resources>

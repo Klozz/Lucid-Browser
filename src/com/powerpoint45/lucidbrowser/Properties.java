@@ -41,11 +41,12 @@ public class Properties extends MainActivity {
 		//static boolean enablejavascript; //uncomment if wanted by users
 		static boolean enablecookies;
 		static int     fontSize;
+		static String engine; //search engine
 	}
 
 	
 	public static void update_preferences(){
-		webpageProp.showBackdrop=MainActivity.mGlobalPrefs.getBoolean("showbrowserbackdrop",true);
+		webpageProp.showBackdrop=MainActivity.mGlobalPrefs.getBoolean("showbrowserbackdrop",false);
 		webpageProp.useDesktopView=MainActivity.mGlobalPrefs.getBoolean("usedesktopview",false);
 		webpageProp.disablesuggestions=MainActivity.mGlobalPrefs.getBoolean("disablesuggestions", false);
 		webpageProp.clearonexit=MainActivity.mGlobalPrefs.getBoolean("clearonexit",false);
@@ -56,15 +57,37 @@ public class Properties extends MainActivity {
 		webpageProp.fontSize     =    MainActivity.mGlobalPrefs.getInt    ("webfontsize"    , 2);
 		webpageProp.closetabsonexit = MainActivity.mGlobalPrefs.getBoolean("closetabsonexit", false);
 		webpageProp.exitconfirmation=MainActivity.mGlobalPrefs.getBoolean("exitconfirmation", false);
+		webpageProp.engine          =MainActivity.mGlobalPrefs.getString("searchengine", "g");
+		
+		if (webpageProp.engine.equals("g"))
+			webpageProp.engine = "http://www.google.com/search?q=";
+		else if (webpageProp.engine.equals("y"))
+			webpageProp.engine = "http://search.yahoo.com/search?q=";
+		else if (webpageProp.engine.equals("b"))
+			webpageProp.engine = "http://bing.com/search?q=";
+		else if (webpageProp.engine.equals("d"))
+			webpageProp.engine = "http://duckduckgo.com/?q=";
+		else if (webpageProp.engine.equals("a"))
+			webpageProp.engine = "http://www.ask.com/web?q=";
+		else if (webpageProp.engine.equals("i"))
+			webpageProp.engine = "http://ixquick.com/do/search?q=";
+		else if (webpageProp.engine.equals("bl"))
+			webpageProp.engine = "http://blekko.com/#?q=";
+		
+		
+		
+		
+		
+		//http://www.baidu.com/s?wd=
 		
 		ActionbarSize= Tools.getActionBarSize();
 
 		appProp.fullscreen=MainActivity.mGlobalPrefs.getBoolean       ("fullscreen"           ,false);
 		appProp.transparentNav=MainActivity.mGlobalPrefs.getBoolean   ("transparentnav"       ,false);
-		appProp.TransparentStatus=MainActivity.mGlobalPrefs.getBoolean("transparentstatus"    ,true);
+		appProp.TransparentStatus=MainActivity.mGlobalPrefs.getBoolean("transparentstatus"    ,false);
 		appProp.systemPersistent=MainActivity.mGlobalPrefs.getBoolean ("systempersistent"     ,false);
 		appProp.holoDark=MainActivity.mGlobalPrefs.getBoolean         ("holodark"             ,false);
-		appProp.primaryIntColor=MainActivity.mGlobalPrefs.getInt      ("textcolor",Color.BLACK);
+		appProp.primaryIntColor=MainActivity.mGlobalPrefs.getInt      ("textcolor",Color.WHITE);
 		appProp.actionBarColor=MainActivity.mGlobalPrefs.getInt       ("actionbarcolor", MainActivity.activity.getResources().getColor(R.color.urlback));
 		appProp.urlBarColor=MainActivity.mGlobalPrefs.getInt          ("urlbarcolor", MainActivity.activity.getResources().getColor(R.color.urlfront));
 		

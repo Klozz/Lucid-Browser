@@ -304,18 +304,7 @@ public class MainActivity extends BrowserHandler {
 	}
 	
 	
-	public static boolean isDownloadManagerAvailable(Context context) {
-	    try {
-	        Intent intent = new Intent(Intent.ACTION_MAIN);
-	        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-	        intent.setClassName("com.android.providers.downloads.ui", "com.android.providers.downloads.ui.DownloadList");
-	        List<ResolveInfo> list = context.getPackageManager().queryIntentActivities(intent,
-	                PackageManager.MATCH_DEFAULT_ONLY);
-	        return list.size() > 0;
-	    } catch (Exception e) {
-	        return false;
-	    }
-	}
+	
 	
 	public static void browserSearch(){
 		if (webWindows.size()==0){
@@ -343,7 +332,7 @@ public class MainActivity extends BrowserHandler {
 		else if (q.startsWith("about:")||q.startsWith("file:"))
 			WV.loadUrl(q);
 		else
-			WV.loadUrl("http://www.google.com/search?q="+q.replace(" ", "+"));
+			WV.loadUrl(Properties.webpageProp.engine+q.replace(" ", "%20").replace("+", "%2B"));
 	}
 	
 	public void browserActionClicked(View v){
@@ -437,7 +426,6 @@ public class MainActivity extends BrowserHandler {
 			// Focus on Find Bar
 			TextView findText = (TextView) bar.findViewById(R.id.find_searchbar);
 			findText.requestFocus();
-			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 			imm.showSoftInput(findText, InputMethodManager.SHOW_IMPLICIT);
 			break;
 		case R.id.browser_open_bookmarks:
@@ -584,8 +572,9 @@ public class MainActivity extends BrowserHandler {
 				if ((pos-1)>=0){
 					((ViewGroup) webLayout.findViewById(R.id.webviewholder)).removeAllViews();
 					((ViewGroup) webLayout.findViewById(R.id.webviewholder)).addView(webWindows.get(pos-1));
-					if (((TextView) bar.findViewById(R.id.browser_searchbar))!=null && webWindows.get(pos-1).getUrl()!=null)
-						((TextView) bar.findViewById(R.id.browser_searchbar)).setText(webWindows.get(pos-1).getUrl().replace("http://", "").replace("https://", ""));
+					if (((TextView) bar.findViewById(R.id.browser_searchbar))!=null && webWindows.get(pos-1).getUrl()!=null){
+						webWindows.get(pos-1).setUrlBarText(webWindows.get(pos-1).getUrl());
+					}
 					if (webWindows.get(pos-1).getProgress()<100){
 						PB.setVisibility(View.VISIBLE);
 						refreshButton.setImageResource(R.drawable.btn_toolbar_stop_loading_normal);

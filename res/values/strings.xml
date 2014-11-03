@@ -363,5 +363,14 @@
 <string name="bookmark_move">Move</string>
 <string name="move_here">MOVE HERE</string>
 
+<string name="search_engine">Search Engine</string>
+<string name="engine_google">Google</string>
+<string name="engine_yahoo">Yahoo</string>
+<string name="engine_bing">Bing</string>
+<string name="engine_duckduckgo">DuckDuckGo</string>
+<string name="engine_ask">Ask</string>
+<string name="engine_ixquick">ixquick</string>
+<string name="engine_blekko">Blekko</string>
+
 
 </resources>

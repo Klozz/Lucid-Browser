@@ -110,6 +110,7 @@ public class SetupLayouts extends MainActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,long arg3) {
 				
+				MainActivity.imm.hideSoftInputFromInputMethod(((EditText) bar.findViewById(R.id.browser_searchbar)).getWindowToken(), 0);
 				if (bar.findViewById(R.id.finder)!=null)
 					SetupLayouts.dismissFindBar();
 				

@@ -19,7 +19,7 @@
                 android:summary="@string/transparentnavsummary"
                 android:title="@string/transparentnavtitle" />
             <CheckBoxPreference
-                android:defaultValue="true"
+                android:defaultValue="false"
                 android:key="transparentstatus"
                 android:summary="@string/transparentstatussummary"
                 android:title="@string/transparentstatustitle" />
@@ -36,7 +36,7 @@
                 android:summary="@string/actionbarcolorsummary"
                 android:title="@string/actionbarcolortitle" />
             <preferences.ColorPickerPreference
-                android:defaultValue="@android:color/black"
+                android:defaultValue="@android:color/white"
                 android:key="textcolor"
                 android:summary="@string/textcolorsummary"
                 android:title="@string/textcolortitle" />
@@ -118,7 +118,7 @@
         </PreferenceCategory>
         <PreferenceCategory android:title="@string/cat_title_appearance" >
             <CheckBoxPreference
-                android:defaultValue="true"
+                android:defaultValue="false"
                 android:key="showbrowserbackdrop"
                 android:summary="@string/showbackgroundonurlbarsummary"
                 android:title="@string/showbackgroundonurlbartitle" />
@@ -144,6 +144,12 @@
                 android:title="@string/font_size_title" />
         </PreferenceCategory>
         <PreferenceCategory android:title="@string/cat_title_tools" >
+            <ListPreference
+                android:defaultValue="g"
+                android:entries="@array/searchengines"
+                android:entryValues="@array/searchengines_values"
+                android:key="searchengine"
+                android:title="@string/search_engine" />
             <CheckBoxPreference
                 android:defaultValue="false"
                 android:key="disablesuggestions"

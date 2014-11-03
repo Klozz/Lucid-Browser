@@ -2,19 +2,23 @@ package com.powerpoint45.lucidbrowser;
 
 import java.util.Calendar;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
+import com.amazon.device.ads.Ad;
+import com.amazon.device.ads.AdError;
+import com.amazon.device.ads.AdListener;
+import com.amazon.device.ads.AdProperties;
+import com.amazon.device.ads.AdRegistration;
+import com.amazon.device.ads.InterstitialAd;
 
 public class AdPreference extends Object {
-
+	
 	//your ad id goes here
-	final String AD_UNIT_ID = "ca-app-pub-XXXXXXXXXXXXXXXXXX/XXXXXXXXXX";
+	//ca-app-pub-XXXXXXXXXXXXXXXXXX/XXXXXXXXXX
+	final String AD_UNIT_ID = "ca-app-pub-5849487494074701/2903707073";
 	InterstitialAd interstitial;
 	SharedPreferences globalPref;
 	Context context;
@@ -37,37 +41,54 @@ public class AdPreference extends Object {
 			Log.d("Ads", "so I will not load the ad");
 			
 		if (lastTimeShownAd!=day){
-			interstitial = new InterstitialAd(context);
-			interstitial.setAdUnitId(AD_UNIT_ID);
-			 
-			AdRequest adRequest = new AdRequest.Builder()
-	        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-	        .addTestDevice("4C7737FB5E1CF1C791654654891A4803")//MOTEROLA
-	        .addTestDevice("B2E17AC6E84F2EC84F8FF602FAC67470")//SAMSUNG
-	        .build(); 
-			interstitial.loadAd(adRequest);
-			
-			interstitial.setAdListener(new AdListener() {
-
+			try{
+			AdRegistration.setAppKey("yourkey");
+//			AdRegistration.enableTesting(true);
+//			AdRegistration.enableLogging(true);
+			}catch(Exception e){}
+			interstitial = new InterstitialAd((Activity) context);
+			interstitial.setListener(new AdListener() {
+				
 				@Override
-				public void onAdLoaded() {
+				public void onAdLoaded(Ad arg0, AdProperties arg1) {
 					// TODO Auto-generated method stub
-					super.onAdLoaded();
-					
 					displayInterstitial();
 					Calendar c = Calendar.getInstance(); 
 					int day = c.get(Calendar.DATE);
 					globalPref.edit().putInt("adDisplayDate", day).commit();
 				}
 				
+				@Override
+				public void onAdFailedToLoad(Ad arg0, AdError arg1) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void onAdExpanded(Ad arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void onAdDismissed(Ad arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void onAdCollapsed(Ad arg0) {
+					// TODO Auto-generated method stub
+					
+				}
 			});
+			interstitial.loadAd();
 		}
+		
  
     }
     
     public void displayInterstitial() {
-        if (interstitial.isLoaded()) {
-          interstitial.show();
-        }
-      }
+    	interstitial.showAd();
+    }
 } 

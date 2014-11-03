@@ -20,13 +20,16 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
+import android.webkit.MimeTypeMap;
 import android.webkit.SslErrorHandler;
+import android.webkit.URLUtil;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
@@ -35,6 +38,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 public class CustomWebView extends WebView {
 
@@ -410,37 +414,38 @@ public class CustomWebView extends WebView {
 		this.setWebChromeClient(chromeClient);
 
 		this.setDownloadListener(new DownloadListener() {
-			public void onDownloadStart(String url, String userAgent,
-					String contentDisposition, String mimetype,
-					long contentLength) {
+			
+			public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+		        Uri downloadUri = Uri.parse(url);
+		 
+		        // get file name. if filename exists in contentDisposition, use it. otherwise, use the last part of the url. 
+		        String fileName = downloadUri.getLastPathSegment();
+		        int pos = 0;
+		 
+		        System.out.println("MT"+mimetype);
+		        if ((pos = contentDisposition.toLowerCase().lastIndexOf("filename=")) >= 0) {
+		            fileName = contentDisposition.substring(pos + 9);
+		            pos = fileName.lastIndexOf(";");
+		 
+		            if (pos > 0) {
+		                fileName = fileName.substring(0, pos - 1);
+		            } 
+		        } 
 
-				if (MainActivity.isDownloadManagerAvailable(MainActivity.ctxt)) {
-					DownloadManager.Request request = new DownloadManager.Request(
-							Uri.parse(url));
+		        fileName=fileName.replaceAll("\"", "");
 
-					// TODO Check if necessary
-					if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB)
-						request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-					else
-						request.setShowRunningNotification(true);
-
-					if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.HONEYCOMB_MR2)
-						request.setNotificationVisibility(Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-					else
-						request.setNotificationVisibility(Request.VISIBILITY_VISIBLE);
-
-					request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-					request.allowScanningByMediaScanner();
-					request.setDestinationInExternalPublicDir(
-							Environment.DIRECTORY_DOWNLOADS,
-							url.substring(url.lastIndexOf('/') + 1,
-									url.length()));
-					DownloadManager manager = (DownloadManager) MainActivity.ctxt
-							.getSystemService(Context.DOWNLOAD_SERVICE);
-					manager.enqueue(request);
-				}
-			}
-		});
+//		       
+//		        request.setDescription(url);
+//		        request.setMimeType(mimetype);  
+//		        request.setDestinationInExternalPublicDir( Environment.DIRECTORY_DOWNLOADS, fileName);
+//		 
+//		        Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_DOWNLOADS).mkdirs();
+//		 
+//		        // request in download manager 
+//		        downloadManager.enqueue(request);
+				onDownloadStartNoStream(MainActivity.activity, url, userAgent, contentDisposition, mimetype, fileName, false);
+		    }
+		}); 
 
 	}
 
@@ -488,16 +493,19 @@ public class CustomWebView extends WebView {
 	
 	public void setUrlBarText(String url){
 		if (url!=null){
-			if ((MainActivity.activity.findViewById(R.id.browser_searchbar))!=null){
-				if (url.equals(MainActivity.assetHomePage)) {
-					((EditText) ((Activity) MainActivity.activity).findViewById(R.id.browser_searchbar)).setText(MainActivity.activity
-						.getResources()
-						.getString(R.string.urlbardefault));
-				}else{
-					((EditText) ((Activity) MainActivity.activity).findViewById(R.id.browser_searchbar))
-						.setText(url
-						.replace("http://", "")
-						.replace("https://", ""));
+			CustomWebView WV = (CustomWebView) MainActivity.webLayout.findViewById(R.id.browser_page);
+			if (WV!=null && this!=null && WV.equals(this)){
+				if ((MainActivity.activity.findViewById(R.id.browser_searchbar))!=null && !((EditText) ((Activity) MainActivity.activity).findViewById(R.id.browser_searchbar)).isFocused()){
+					if (url.equals(MainActivity.assetHomePage)) {
+						((EditText) ((Activity) MainActivity.activity).findViewById(R.id.browser_searchbar)).setText(MainActivity.activity
+							.getResources()
+							.getString(R.string.urlbardefault));
+					}else{
+						((EditText) ((Activity) MainActivity.activity).findViewById(R.id.browser_searchbar))
+							.setText(url
+							.replace("http://", "")
+							.replace("https://", ""));
+					}
 				}
 			}
 		}
@@ -526,6 +534,108 @@ public class CustomWebView extends WebView {
 			}
 		}
 		super.onScrollChanged(l, t, oldl, oldt);
+		
 	}
+	
+	
+	
+	/**
+     * Notify the host application a download should be done, even if there
+     * is a streaming viewer available for thise type.
+     * @param activity Activity requesting the download.
+     * @param url The full url to the content that should be downloaded
+     * @param userAgent User agent of the downloading application.
+     * @param contentDisposition Content-disposition http header, if present.
+     * @param mimetype The mimetype of the content reported by the server
+     * @param referer The referer associated with the downloaded url
+     * @param privateBrowsing If the request is coming from a private browsing tab.
+     */
+    static void onDownloadStartNoStream(Activity activity,
+            String url, String userAgent, String contentDisposition,
+            String mimetype, String fileName, boolean privateBrowsing) {
+
+        // java.net.URI is a lot stricter than KURL so we have to encode some
+        // extra characters. Fix for b 2538060 and b 1634719
+        WebAddress webAddress;
+        try {
+            webAddress = new WebAddress(url);
+            webAddress.setPath(encodePath(webAddress.getPath()));
+        } catch (Exception e) {
+            // This only happens for very bad urls, we want to chatch the
+            // exception here
+            Log.e("LB", "Exception trying to parse url:" + url);
+            return;
+        }
+        String addressString = webAddress.toString();
+        Uri uri = Uri.parse(addressString);
+        final DownloadManager.Request request;
+        try {
+            request = new DownloadManager.Request(uri);
+        } catch (IllegalArgumentException e) {
+            return;
+        }
+        request.setTitle(fileName);
+        
+        request.setMimeType(mimetype);
+        // set downloaded file destination to /sdcard/Download.
+        // or, should it be set to one of several Environment.DIRECTORY* dirs depending on mimetype?
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
+        // let this downloaded file be scanned by MediaScanner - so that it can 
+        // show up in Gallery app, for example.
+        request.allowScanningByMediaScanner();
+        request.setDescription(webAddress.getHost());
+        // XXX: Have to use the old url since the cookies were stored using the
+        // old percent-encoded url.
+        String cookies = CookieManager.getInstance().getCookie(url);
+        request.addRequestHeader("cookie", cookies);
+        request.addRequestHeader("User-Agent", userAgent);
+        //request.addRequestHeader("Referer", referer);
+        request.setNotificationVisibility(
+                DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        if (mimetype == null) {
+            if (TextUtils.isEmpty(addressString)) {
+                return;
+            }
+            // We must have long pressed on a link or image to download it. We
+            // are not sure of the mimetype in this case, so do a head request
+            mimetype = "";
+        } else {
+            final DownloadManager manager
+                    = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
+            new Thread("Browser download") {
+                public void run() {
+                    manager.enqueue(request);
+                }
+            }.start();
+        }
+
+    }
+    
+ // This is to work around the fact that java.net.URI throws Exceptions
+    // instead of just encoding URL's properly
+    // Helper method for onDownloadStartNoStream
+    private static String encodePath(String path) {
+        char[] chars = path.toCharArray();
+        boolean needed = false;
+        for (char c : chars) {
+            if (c == '[' || c == ']' || c == '|') {
+                needed = true;
+                break;
+            }
+        }
+        if (needed == false) {
+            return path;
+        }
+        StringBuilder sb = new StringBuilder("");
+        for (char c : chars) {
+            if (c == '[' || c == ']' || c == '|') {
+                sb.append('%');
+                sb.append(Integer.toHexString(c));
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
 
 }

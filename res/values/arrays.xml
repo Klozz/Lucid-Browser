@@ -26,5 +26,15 @@
         <item>@string/sidebar_custom</item>
     </string-array>
     
+    <string-array name="searchengines">
+        <item>@string/engine_google</item>
+        <item>@string/engine_yahoo</item>
+        <item>@string/engine_bing</item>
+        <item>@string/engine_duckduckgo</item>
+        <item>@string/engine_ask</item>
+        <item>@string/engine_ixquick</item>
+        <item>@string/engine_blekko</item>
+    </string-array>
+    
     
 </resources>
