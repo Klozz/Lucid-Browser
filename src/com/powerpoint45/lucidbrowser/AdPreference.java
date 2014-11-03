@@ -16,9 +16,8 @@ import com.amazon.device.ads.InterstitialAd;
 
 public class AdPreference extends Object {
 	
-	//your ad id goes here
-	//ca-app-pub-XXXXXXXXXXXXXXXXXX/XXXXXXXXXX
-	final String AD_UNIT_ID = "ca-app-pub-5849487494074701/2903707073";
+	//your amazon app ad id goes here
+	final String AD_UNIT_ID = "yourid";
 	InterstitialAd interstitial;
 	SharedPreferences globalPref;
 	Context context;
@@ -42,7 +41,7 @@ public class AdPreference extends Object {
 			
 		if (lastTimeShownAd!=day){
 			try{
-			AdRegistration.setAppKey("yourkey");
+			AdRegistration.setAppKey(AD_UNIT_ID);
 //			AdRegistration.enableTesting(true);
 //			AdRegistration.enableLogging(true);
 			}catch(Exception e){}
