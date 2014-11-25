@@ -71,7 +71,7 @@ public class BookmarksActivity extends Activity{
 		
 		// Set Theme
 		if (Properties.appProp.holoDark){
-			setTheme(android.R.style.Theme_Holo);
+			setTheme(R.style.CustomDarkTheme);
 			((TextView)(bookmarkActivityLayout.findViewById(R.id.bookmark_title))).setTextColor(Color.WHITE);
 			((TextView)(bookmarkActivityLayout.findViewById(R.id.current_location))).setBackgroundColor(Color.DKGRAY);
 			((TextView)(bookmarkActivityLayout.findViewById(R.id.current_location))).setTextColor(Color.GRAY);

@@ -2,7 +2,6 @@ package com.powerpoint45.lucidbrowser;
 
 import android.graphics.Color;
 import android.util.TypedValue;
-import android.view.ViewGroup.LayoutParams;
 
 
 public class Properties extends MainActivity {
@@ -84,7 +83,7 @@ public class Properties extends MainActivity {
 
 		appProp.fullscreen=MainActivity.mGlobalPrefs.getBoolean       ("fullscreen"           ,false);
 		appProp.transparentNav=MainActivity.mGlobalPrefs.getBoolean   ("transparentnav"       ,false);
-		appProp.TransparentStatus=MainActivity.mGlobalPrefs.getBoolean("transparentstatus"    ,false);
+		appProp.TransparentStatus=MainActivity.mGlobalPrefs.getBoolean("transparentstatus"    ,true);
 		appProp.systemPersistent=MainActivity.mGlobalPrefs.getBoolean ("systempersistent"     ,false);
 		appProp.holoDark=MainActivity.mGlobalPrefs.getBoolean         ("holodark"             ,false);
 		appProp.primaryIntColor=MainActivity.mGlobalPrefs.getInt      ("textcolor",Color.WHITE);

@@ -23,6 +23,7 @@
         android:scrollHorizontally="true"
         android:singleLine="true" 
         android:ellipsize="marquee"
+        android:textColor="@android:color/white"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ImageView

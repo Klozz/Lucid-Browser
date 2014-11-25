@@ -43,10 +43,11 @@ public class SetupLayouts extends MainActivity {
 		bar.setClickable(true);
 		bar.setFocusable(true);
 		bar.setFocusableInTouchMode(true);
-		bar.setBackgroundColor(Properties.appProp.actionBarColor);
+		Tools.setActionBarColor(Properties.appProp.actionBarColor);
+		bar.setBackgroundColor(Color.TRANSPARENT);
 		setUpActionBar();
 		actionBar.setCustomView(bar);
-		actionBar.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+		//actionBar.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 		LinearLayout LL = (LinearLayout) inflater.inflate(
 				R.layout.web_sidebar_footer, null);

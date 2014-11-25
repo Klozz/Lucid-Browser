@@ -6,14 +6,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.os.Environment;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.v7.app.ActionBarActivity;
 
 
-public class BrowserHandler extends Activity{
+public class BrowserHandler extends ActionBarActivity{
 
 public static void dlImage(URL url){
 	final URL rl = url;

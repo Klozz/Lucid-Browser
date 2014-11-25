@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.util.Log;
 import android.util.TypedValue;
@@ -27,6 +28,11 @@ public abstract class Tools {
 	    } catch (Exception e) {
 	        return false;
 	    }
+	}
+	
+	public static void setActionBarColor(int c){
+		ColorDrawable colorDrawable = new ColorDrawable(c);
+  		MainActivity.actionBar.setBackgroundDrawable(colorDrawable);
 	}
 
 
@@ -89,14 +95,14 @@ public abstract class Tools {
 	}
   
   public static int getActionBarSize(){
-	  int actionBarHeight = LayoutParams.MATCH_PARENT;//fallback size
-		TypedValue tv = new TypedValue();
-		if (MainActivity.activity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
-		{
-		    actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,MainActivity.activity.getResources().getDisplayMetrics());
-		}
+//	  int actionBarHeight = LayoutParams.MATCH_PARENT;//fallback size
+//		TypedValue tv = new TypedValue();
+//		if (MainActivity.activity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
+//		{
+//		    actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,MainActivity.activity.getResources().getDisplayMetrics());
+//		}
 		
-		return actionBarHeight;
+		return (int) MainActivity.activity.getResources().getDimension(R.dimen.actionBarSize);
   }
 
   

@@ -7,7 +7,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.Vector;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -19,8 +18,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,6 +29,7 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -101,7 +99,7 @@ public class MainActivity extends BrowserHandler {
 		imm          = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
 		
 		bar                       = new RelativeLayout(this);
-		actionBar                 = getActionBar();
+		actionBar                 = getSupportActionBar();
 		
 		
 		webLayout                 = (LinearLayout) inflater.inflate(R.layout.page_web, null);
@@ -733,6 +731,7 @@ public class MainActivity extends BrowserHandler {
 		}	
 	}
 	
+	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		if (event.getKeyCode() == KeyEvent.KEYCODE_MENU) {
 			if (!mainView.isDrawerOpen(browserListView))

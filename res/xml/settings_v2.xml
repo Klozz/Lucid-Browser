@@ -19,7 +19,7 @@
                 android:summary="@string/transparentnavsummary"
                 android:title="@string/transparentnavtitle" />
             <CheckBoxPreference
-                android:defaultValue="false"
+                android:defaultValue="true"
                 android:key="transparentstatus"
                 android:summary="@string/transparentstatussummary"
                 android:title="@string/transparentstatustitle" />

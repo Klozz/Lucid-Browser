@@ -86,7 +86,7 @@ public class SettingsV2 extends PreferenceActivity {
 		boolean useDark = globalPref.getBoolean("holodark", false);
 		
 		if (useDark){
-			setTheme(android.R.style.Theme_Holo);		
+			setTheme(R.style.CustomDarkTheme);		
 		} else {
 			// uses light theme
 		}
