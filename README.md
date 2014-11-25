@@ -8,3 +8,6 @@ Contact me if you want to help this project via Google+ @"Imma Wake"
 ####Links:
 * [Join the Lucid Browser Beta Group](https://plus.google.com/communities/115941379151486219066)
 * [Lucid Launcher on Google Play](https://play.google.com/store/apps/details?id=com.powerpoint45.lucidbrowserfree)
+
+####Extra Info
+You will need the Android L support library set up and then linked to this project.
